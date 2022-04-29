@@ -1,6 +1,16 @@
 server:
   port: 9090
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    healthcheck:
+      enabled: true
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+
 spring:
   application:
     name: api-gateway

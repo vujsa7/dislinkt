@@ -26,6 +26,15 @@ spring:
               - OPTIONS
             allow-credentials: true
         add-to-simple-url-handler-mapping: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: profile-service
+          uri: http://profile-service
+          predicates:
+            - Path=/profile-service/**
   security:
     oauth2:
       resourceserver:

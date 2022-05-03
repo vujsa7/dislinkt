@@ -12,7 +12,7 @@ export class PublicComponent implements OnInit {
   constructor(private http: HttpClient, private keycloak: KeycloakService) { }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:9090/").subscribe();
+    this.http.get("http://localhost:9090/hello").subscribe();
   }
 
   redirectToRegisterPage(): void {

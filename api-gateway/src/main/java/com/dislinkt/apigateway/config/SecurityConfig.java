@@ -13,7 +13,7 @@ public class SecurityConfig {
         return http.csrf()
                 .disable()
                 .authorizeExchange()
-                .pathMatchers("/profile-service/hi").permitAll()
+                .pathMatchers("/profile-service/profiles/**").permitAll()
                 .anyExchange().authenticated()
                 .and()
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt)

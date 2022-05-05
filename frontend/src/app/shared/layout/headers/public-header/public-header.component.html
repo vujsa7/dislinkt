@@ -1,0 +1,19 @@
+<nav class="navbar navbar-light">
+    <div class="d-flex align-items-center">
+        <svg class="dislinkt-logo"></svg>
+        <h5 class="fw-bold brand">Dislinkt</h5>
+    </div>
+    <div class="nav-items d-flex flex-row align-items-center">
+        <span class="nav-item" (click)="redirectToLoginPage()">Sign in</span>
+        <app-primary-button (click)="redirectToRegisterPage()" [text]="'Sign up'"></app-primary-button>
+    </div>
+    <svg class="navbar-menu" (click)="toggleDropdownMenu()"></svg>
+</nav>
+<div class="overlay d-flex justify-content-end w-100" [ngClass]="{'hidden-overlay' : !dropdownMenuVisible}">
+    <div class="d-flex justify-content-end w-0" [ngClass]="{'menu-container' : dropdownMenuVisible}">
+        <div [hidden]="!dropdownMenuVisible" class="nav-items-menu align-items-end">
+            <span class="nav-item-menu mt-2" (click)="redirectToLoginPage()">Sign in</span>
+            <span class="nav-item-menu" (click)="redirectToRegisterPage()">Sign up</span>
+        </div>
+    </div>
+</div>

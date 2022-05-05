@@ -1,0 +1,26 @@
+@import "src/styles/main.scss";
+
+.btn-primary{
+    height: 38px;
+    border: none;
+    padding: 3px 30px;
+    box-shadow: none;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-image: linear-gradient(to left, color(lightblue), color(blue));
+    background-size: 140%;
+    background-position: right;
+    transition: 0.3s all ease-in-out;
+
+    &:active{
+        box-shadow: none !important;
+        color: color(darkgrey);
+    }
+
+    &:hover{
+        background-position: left;
+    }
+
+}

@@ -1,0 +1,73 @@
+@use "sass:math";
+
+$back-arrow: '<svg width="29" height="8" viewBox="0 0 29 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28 4.5C28.2761 4.5 28.5 4.27614 28.5 4C28.5 3.72386 28.2761 3.5 28 3.5L28 4.5ZM0.646444 3.64644C0.451183 3.84171 0.451183 4.15829 0.646444 4.35355L3.82842 7.53553C4.02369 7.73079 4.34027 7.73079 4.53553 7.53553C4.73079 7.34027 4.73079 7.02369 4.53553 6.82843L1.70711 4L4.53553 1.17157C4.7308 0.976309 4.7308 0.659726 4.53553 0.464464C4.34027 0.269202 4.02369 0.269202 3.82842 0.464464L0.646444 3.64644ZM28 3.5L0.999998 3.5L0.999998 4.5L28 4.5L28 3.5Z" fill="#084B83"/></svg>';
+$fishbook-logo: '<?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 238 238" style="enable-background:new 0 0 238 238;" xml:space="preserve"><style type="text/css">.st0{fill:url(#SVGID_1_);}</style><title>Asset 3</title><g id="Layer_2_1_"><g id="Layer_1-2"><linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="16.4477" y1="-90.964" x2="211.4377" y2="333.516" gradientTransform="matrix(1 0 0 -1 0 240.89)"><stop  offset="0" style="stop-color:#084B83"/><stop  offset="1" style="stop-color:#4BB3FD"/></linearGradient><path class="st0" d="M229.3,139.3l-5.6,5.3l-68.8,65c-10.1,9.5-26,9.1-35.5-1c0,0,0,0,0,0l-52.9-56c-0.9-1-2.5-1.1-3.5-0.1 c0,0,0,0,0,0l-20.9,19.8c-5.3,5-13.7,4.8-18.8-0.5L4.5,152.1c-5-5.3-4.8-13.7,0.5-18.8l14.7-13.8c1-1,1.1-2.6,0.1-3.6c0,0,0,0,0,0 L5.5,100.6c-5-5.3-4.8-13.8,0.5-18.8L21.6,67l4.1-3.9c5.3-5,13.7-4.8,18.8,0.5c0,0,0,0,0,0l18.4,19.5c0.9,0.9,2.4,1,3.3,0.1 c0,0,0,0,0,0l52.5-49.6l5.7-5.3c10.1-9.5,26-9.1,35.5,1c0,0,0,0,0,0l70.4,74.5C239.8,113.9,239.4,129.8,229.3,139.3 C229.3,139.3,229.3,139.3,229.3,139.3z"/></g></g></svg>';
+$fishbook-white-logo: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 236.28 195.11"><defs><style>.cls-1{fill:#fcfcfc;}</style></defs><title>Asset 1</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M228.4,117.89l-5.65,5.34-68.82,65a25.13,25.13,0,0,1-35.54-1l-52.88-56a2.5,2.5,0,0,0-3.54-.1L41.07,150.9a13.3,13.3,0,0,1-18.79-.53L3.63,130.63a13.3,13.3,0,0,1,.53-18.79L18.86,98a2.54,2.54,0,0,0,.1-3.6L4.59,79.14a13.3,13.3,0,0,1,.54-18.8L20.75,45.58l4.12-3.88a13.29,13.29,0,0,1,18.79.53L62.05,61.7a2.35,2.35,0,0,0,3.33.09l52.48-49.58,5.66-5.34a25.13,25.13,0,0,1,35.54,1l70.35,74.47A25.13,25.13,0,0,1,228.4,117.89Z"/></g></g></svg>';
+$navbar-menu: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 18H20C20.55 18 21 17.55 21 17C21 16.45 20.55 16 20 16H4C3.45 16 3 16.45 3 17C3 17.55 3.45 18 4 18ZM4 13H20C20.55 13 21 12.55 21 12C21 11.45 20.55 11 20 11H4C3.45 11 3 11.45 3 12C3 12.55 3.45 13 4 13ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7Z" fill="#084B83"/></svg>';
+$down-arrow: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.88 9.29L12 13.17L8.11998 9.29C7.72998 8.9 7.09998 8.9 6.70998 9.29C6.31998 9.68 6.31998 10.31 6.70998 10.7L11.3 15.29C11.69 15.68 12.32 15.68 12.71 15.29L17.3 10.7C17.69 10.31 17.69 9.68 17.3 9.29C16.91 8.91 16.27 8.9 15.88 9.29Z" fill="#4BB3FD"/></svg>';
+$star: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L16.15 19.78C16.91 20.24 17.84 19.56 17.64 18.7L16.54 13.98L20.21 10.8C20.88 10.22 20.52 9.12001 19.64 9.05001L14.81 8.64001L12.92 4.18001C12.58 3.37001 11.42 3.37001 11.08 4.18001L9.19001 8.63001L4.36001 9.04001C3.48001 9.11001 3.12001 10.21 3.79001 10.79L7.46001 13.97L6.36001 18.69C6.16001 19.55 7.09001 20.23 7.85001 19.77L12 17.27Z" fill="#4BB3FD"/></svg>';
+
+@function svg-url($svg) {
+    @if not str-index($svg, xmlns) {
+      $svg: str-replace($svg, "<svg", '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    //  Chunk up string in order to avoid
+    //  "stack level too deep" error
+    $encoded: "";
+    $slice: 2000;
+    $index: 0;
+    $loops: ceil(math.div(str-length($svg), $slice));
+    @for $i from 1 through $loops {
+      $chunk: str-slice($svg, $index, $index + $slice - 1);
+      //   Encode
+      $chunk: str-replace($chunk, '"', "'");
+      $chunk: str-replace($chunk, "%", "%25");
+      $chunk: str-replace($chunk, "&", "%26");
+      $chunk: str-replace($chunk, "#", "%23");
+      $chunk: str-replace($chunk, "{", "%7B");
+      $chunk: str-replace($chunk, "}", "%7D");
+      $chunk: str-replace($chunk, "<", "%3C");
+      $chunk: str-replace($chunk, ">", "%3E");
+  
+      //
+      //    The maybe list
+      //
+      //    Keep size and compile time down
+      //    ... only add on documented fail
+      //
+      //  $chunk: str-replace($chunk, '|', '%7C');
+      //  $chunk: str-replace($chunk, '[', '%5B');
+      //  $chunk: str-replace($chunk, ']', '%5D');
+      //  $chunk: str-replace($chunk, '^', '%5E');
+      //  $chunk: str-replace($chunk, '`', '%60');
+      //  $chunk: str-replace($chunk, ';', '%3B');
+      //  $chunk: str-replace($chunk, '?', '%3F');
+      //  $chunk: str-replace($chunk, ':', '%3A');
+      //  $chunk: str-replace($chunk, '@', '%40');
+      //  $chunk: str-replace($chunk, '=', '%3D');
+  
+      $encoded: #{$encoded}#{$chunk};
+      $index: $index + $slice;
+    }
+    @return url("data:image/svg+xml,#{$encoded}");
+  }
+  
+  //  Background svg mixin
+  @mixin background-svg($svg) {
+    background-image: svg-url($svg);
+  }
+  
+  //  Helper function to replace characters in a string
+  @function str-replace($string, $search, $replace: "") {
+    $index: str-index($string, $search);
+    @return if(
+      $index,
+      str-slice($string, 1, $index - 1) + $replace +
+        str-replace(
+          str-slice($string, $index + str-length($search)),
+          $search,
+          $replace
+        ),
+      $string
+    );
+  }

@@ -1,0 +1,23 @@
+@import "src/styles/main.scss";
+
+.btn-secondary{
+    height: 38px;
+    border: none;
+    padding: 3px 30px;
+    box-shadow: none;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    color: color(darkgrey);
+    background-color: color(lightgrey);
+    transition: 0.4s all ease-in-out;
+
+    &:active{
+        box-shadow: none !important;
+        color: color(darkgrey);
+    }
+
+    &:hover{
+        background-color: rgb(229, 229, 229);
+    }
+}

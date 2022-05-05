@@ -1,1 +1,259 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'src/styles/main.scss';
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+  
+html {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+}
+
+body {
+    font-family: 'Lexend', sans-serif !important;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5{
+    color: color(blue) !important;
+    font-weight: bold !important;
+    margin: 0 !important;
+}
+
+h1 {
+    font-size: $h1-size !important;
+
+    @include media("<desktop-medium"){
+        font-size: $h2-size !important;
+    }
+
+    @include media("<tablet-large"){
+        font-size: $h3-size !important;
+    }
+
+    @include media("<phone-large"){
+        font-size: $h4-size !important;
+    }
+}
+
+h2 {
+    font-size: $h2-size !important;
+
+    @include media("<desktop-medium"){
+        font-size: $h3-size !important;
+    }
+
+    @include media("<tablet-large"){
+        font-size: $h4-size !important;
+    }
+
+    @include media("<phone-large"){
+        font-size: $h5-size !important;
+    }
+}
+
+h3 {
+    font-size: $h3-size !important;
+
+    @include media("<desktop-medium"){
+        font-size: $h4-size !important;
+    }
+
+    @include media("<tablet-large"){
+        font-size: $h5-size !important;
+    }
+}
+
+h4 {
+    font-size: $h4-size !important;
+
+    @include media("<tablet-large"){
+        font-size: $h5-size !important;
+    }
+}
+
+h5 {
+    font-size: $h5-size !important;
+}
+
+span{
+    font-size: $body-size;
+
+    @include media("<desktop-medium"){
+        font-size: $body-size !important;
+    }
+}
+
+.input-container {
+    text-align: center;
+    border: solid 1px color(darkgrey);
+    border-radius: 7px;
+    position: relative;
+    background-color: white;
+    padding: 25px 14px 8px 14px;
+
+    input {
+        color: color(blue);
+        border: none;
+        outline: 0;
+        font-size: 14px;
+        width: 100%;
+        background-color: transparent;
+    }
+
+    textarea{
+        color: color(blue);
+        font-size: 14px;
+        resize: none;
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        background-color: transparent;
+
+        &:focus{
+            box-shadow: none;
+            border: none;
+            overflow: auto;
+            outline: none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+        }
+    }
+
+    select{
+        color: color(blue);
+        font-size: 14px;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        background-color: transparent;
+        
+        &:focus{
+            box-shadow: none;
+            border: none;
+            outline: none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+        }
+    }
+
+    .error-message{
+        position: absolute;
+        top: 58px;
+        left: 0px;
+        color: color(red);
+        font-size: 12px;
+    }
+}
+
+.input-container-error{
+    background-color: rgb(255, 208, 208);
+    border-color: color(red);
+}
+
+.input-label {
+    color: color(darkgrey);
+    font-size: 14px;
+    position: absolute;
+    top: 6px;
+    left: 14px;
+}
+
+a{
+    text-decoration: none !important;
+    color: color(lightblue) !important;
+
+    &:hover{
+        cursor: pointer;
+        color: color(lightblue) !important;
+    }
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 10px;
+
+    input { 
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+  }
+  
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: color(darkgrey);
+    -webkit-transition: .4s;
+    transition: .4s;
+
+    &::before {
+        position: absolute;
+        content: "";
+        height: 6px;
+        width: 6px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+}
+  
+input:checked + .slider {
+    background-color: color(lightblue);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px color(lightblue);
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    transform: translateX(10px);
+}
+  
+.slider.round {
+    border-radius: 34px;
+
+    &::before {
+        border-radius: 50%;
+    }
+}
+
+.ds-container{
+    padding: 30px;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.06);
+}
+
+.c-toast-container{
+    padding: 0 !important;
+}
+  
+    .c-toast{
+        padding: 10px 20px;
+        border-radius: 0 !important;
+        border: 0;
+        margin: 15px $grid-margin-width 15px 0 !important;
+    }
+  
+    .c-toast--success{
+        background-color: color(green) !important;
+    }
+  
+    .c-toast--error{
+      background-color: color(red) !important;
+    }

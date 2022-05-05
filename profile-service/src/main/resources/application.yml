@@ -21,3 +21,10 @@ spring:
       port: 27017
       host: localhost
       auto-index-creation: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:8080/realms/dislinkt"
+  main:
+    allow-bean-definition-overriding: true

@@ -5,7 +5,7 @@ import { SecondaryButtonComponent } from './components/secondary-button/secondar
 import { SearchComponent } from './components/search/search.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { RouterModule } from '@angular/router';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 

@@ -5,6 +5,9 @@ import com.dislinkt.profileservice.exception.UsernameAlreadyExistsException;
 import com.dislinkt.profileservice.model.Profile;
 import com.dislinkt.profileservice.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +23,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Optional<Profile> findById(String id) {
-        return profileRepository.findById(id);
+    public Optional<Profile> findByUsername(String username) {
+        return profileRepository.findProfileByUsername(username);
     }
 
     @Override
@@ -30,6 +33,14 @@ public class ProfileServiceImpl implements ProfileService {
             return profileRepository.findProfiles(query);
         }
         return profileRepository.findPublicProfiles(query);
+    }
+
+    @Override
+    public Page<Profile> findProfiles(String query, Integer size, boolean authenticated) {
+        if(authenticated){
+            return profileRepository.findProfiles(query, PageRequest.of(0, size));
+        }
+        return profileRepository.findPublicProfiles(query, PageRequest.of(0, size));
     }
 
     @Override

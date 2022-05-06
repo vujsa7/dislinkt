@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 import { KeycloakAngularModule, KeycloakBearerInterceptor, KeycloakService } from 'keycloak-angular';
 import { initializer } from 'src/utils/app.init';
 
@@ -21,7 +22,8 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     KeycloakAngularModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   providers: [
     {

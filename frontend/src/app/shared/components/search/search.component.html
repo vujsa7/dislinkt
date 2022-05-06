@@ -1,0 +1,17 @@
+<div class="holder">
+    <div class="d-flex flex-row">
+        <div class="icon-holder">
+            <img src="../../../../assets/icons8-search-48.png">
+        </div>
+        <input type="text" class="search-box" placeholder="Search" (keyup)="onKeyup($event)">
+    </div>   
+    <div class="d-flex flex-column listbox" *ngIf="(searchResults.length > 0) && listboxVisible">
+        <div class="listbox-item" *ngFor="let searchResult of searchResults">
+            <div [routerLink]="[searchResult.username]" (click)="hideListbox()">
+                <span class="fw-bold">{{searchResult.username}}</span>   
+                <span> &middot; {{searchResult.firstName}} {{searchResult.lastName}}</span>
+            </div>
+        </div>
+        <span class="btn" id="result-btn" [routerLink]="['/search-results']" [queryParams]="{ query: searchQuery }" (click)="hideListbox()">See all results</span>
+    </div>
+</div>

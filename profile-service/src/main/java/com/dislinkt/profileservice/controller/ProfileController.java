@@ -24,9 +24,9 @@ public class ProfileController {
         this.profileService = profileService;
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity findProfile(@PathVariable String id){
-        Optional<Profile> profile = profileService.findById(id);
+    @GetMapping(value = "/{username}")
+    public ResponseEntity findProfile(@PathVariable String username){
+        Optional<Profile> profile = profileService.findByUsername(username);
         if(profile.isPresent()){
             return new ResponseEntity<>(profile, HttpStatus.OK);
         }
@@ -35,8 +35,13 @@ public class ProfileController {
     }
 
     @GetMapping
-    public ResponseEntity getPublicProfiles(@RequestParam String query, Principal principal){
-        List<Profile> profiles = profileService.findProfiles(query, principal != null);
+    public ResponseEntity findProfiles(@RequestParam String query, @RequestParam(required = false) Integer size, Principal principal){
+        List<Profile> profiles;
+        if(size != null){
+             profiles = profileService.findProfiles(query, size, principal != null).getContent();
+        } else{
+            profiles = profileService.findProfiles(query, principal != null);
+        }
 
         List<SearchedProfileDto> dtos = profiles.stream()
                 .map(p -> new SearchedProfileDto(p.getId(), p.getUsername(), p.getFirstName(), p.getLastName()))

@@ -16,8 +16,8 @@ public interface ProfileService {
     List<Profile> findProfiles(String query, boolean authenticated);
     Page<Profile> findProfiles(String query, Integer size, boolean authenticated);
     void save(Profile profile);
-
     void saveInfo(Profile profile);
+    void update(Profile profile, boolean isNewUsername);
     //test
     List<Profile> getAllProfiles();
 }

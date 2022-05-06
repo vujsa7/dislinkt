@@ -69,28 +69,6 @@ public class ProfileController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//brisi
-//    @PutMapping(value = "/{id}")
-//    public ResponseEntity changeSkillsAndInterests(@PathVariable String id, @RequestBody Profile newProfileInfo){
-//        Optional<Profile> profile = profileService.findById(id);
-//        if(profile.isPresent()){
-//
-//            if(!newProfileInfo.getSkills().equals(profile.get().getSkills())){
-//                profile.get().setSkills(newProfileInfo.getSkills());
-//            }
-//
-//            if(!newProfileInfo.getInterests().equals(profile.get().getInterests())){
-//                profile.get().setInterests(newProfileInfo.getInterests());
-//            }
-//
-//            profileService.saveInfo(profile.get());
-//
-//            return new ResponseEntity<>(profile, HttpStatus.OK);
-//        }
-//
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
-
     @PatchMapping(value = "/{id}/skills")
     public ResponseEntity changeSkills(@PathVariable String id, @RequestBody List<String> skills){
         Optional<Profile> profile = profileService.findById(id);
@@ -120,6 +98,30 @@ public class ProfileController {
             profileService.saveInfo(profile.get());
 
             return new ResponseEntity<>(profile, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity updateProfileInfo(@PathVariable String id, @RequestBody ProfileBasicInfoDto profileDto){
+        Optional<Profile> profile = profileService.findById(id);
+        Boolean isNewUsername = !profile.get().getUsername().equals(profileDto.getUsername());
+        if(profile.isPresent()){
+            Profile updatedProfile = profile.get();
+            updatedProfile.setFirstName(profileDto.getFirstName());
+            updatedProfile.setLastName(profileDto.getLastName());
+            updatedProfile.setEmail(profileDto.getEmail());
+            updatedProfile.setPhoneNumber(profileDto.getPhoneNumber());
+            updatedProfile.setGender(profileDto.getGender());
+            updatedProfile.setDateOfBirth(profileDto.getDateOfBirth());
+            updatedProfile.setUsername(profileDto.getUsername());
+            updatedProfile.setBiography(profileDto.getBiography());
+            updatedProfile.setProfileType(profileDto.getProfileType());
+
+            profileService.update(updatedProfile, isNewUsername);
+
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -63,6 +63,21 @@ public class ProfileServiceImpl implements ProfileService {
         profileRepository.save(profile);
     }
 
+    @Override
+    public void update(Profile profile, boolean isNewUsername) {
+        if(isNewUsername) {
+            profileRepository.findProfileByUsername(profile.getUsername())
+                    .ifPresentOrElse(p -> {
+                        throw new UsernameAlreadyExistsException();
+                    }, () -> {
+                        profileRepository.save(profile);
+                    });
+        } else {
+            profileRepository.save(profile);
+        }
+
+    }
+
     //test
     public List<Profile> getAllProfiles(){
         return profileRepository.findAll();

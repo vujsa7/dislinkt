@@ -63,7 +63,4 @@ public class Profile {
         this.profileType = profileType;
     }
 
-    public boolean isPrivate(){
-        return this.profileType.equals(ProfileType.PRIVATE);
-    }
 }

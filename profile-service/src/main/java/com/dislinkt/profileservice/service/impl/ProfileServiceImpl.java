@@ -23,6 +23,11 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
+    public Optional<Profile> findById(String id) {
+        return profileRepository.findById(id);
+    }
+
+    @Override
     public Optional<Profile> findByUsername(String username) {
         return profileRepository.findProfileByUsername(username);
     }

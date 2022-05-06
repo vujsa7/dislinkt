@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 
 @Component({
@@ -8,8 +9,19 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class PublicHeaderComponent{
   dropdownMenuVisible: boolean = false;
+  isVisible: boolean = true;
 
-  constructor(private keycloak: KeycloakService) { }
+  constructor(private keycloak: KeycloakService, private router: Router) { 
+    router.events.subscribe(
+      data => {
+        if(this.router.url.includes("onboarding")){
+          this.isVisible = false;
+        }else {
+          this.isVisible = true;
+        }
+      }
+    );
+  }
 
   redirectToRegisterPage(): void {
     this.keycloak.register();

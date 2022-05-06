@@ -6,7 +6,9 @@ import { SearchComponent } from './components/search/search.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
-
+import { OnboardingComponent } from './onboarding/onboarding.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -15,11 +17,15 @@ import { ProfileComponent } from './profile/profile.component';
     SecondaryButtonComponent,
     SearchComponent,
     SearchResultsComponent,
-    ProfileComponent
+    ProfileComponent,
+    OnboardingComponent
   ],
   imports: [
     CommonModule, 
-    RouterModule
+    RouterModule, 
+    ReactiveFormsModule,
+    FormsModule,
+    NgbDatepickerModule
   ],
   exports: [
     PrimaryButtonComponent,

@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { KeycloakAngularModule, KeycloakBearerInterceptor, KeycloakService } from 'keycloak-angular';
@@ -10,6 +11,7 @@ import { AppComponent } from './app.component';
 import { PublicHeaderComponent } from './shared/layout/headers/public-header/public-header.component';
 import { UserHeaderComponent } from './shared/layout/headers/user-header/user-header.component';
 import { SharedModule } from './shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,10 @@ import { SharedModule } from './shared/shared.module';
     KeycloakAngularModule,
     HttpClientModule,
     SharedModule,
-    RouterModule
+    RouterModule, 
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule
   ],
   providers: [
     {

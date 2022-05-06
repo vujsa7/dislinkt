@@ -22,7 +22,20 @@ export class ProfileService {
   }
 
   getProfile(username: any): Observable<any> {
-    return this.http.get(this.baseUrl + "/" + username);
+    let params = new HttpParams().set('username', username);
+    return this.http.get(this.baseUrl, {params});
+  }
+
+  getProfileById(id: string): Observable<any> {
+    return this.http.get(this.baseUrl + '/' + id);
+  }
+
+  getAccountFromKeycloak(): Observable<any> {
+    return this.http.get('http://localhost:8080/realms/dislinkt/account');
+  }
+
+  postProfile(profile: any): Observable<any> {
+    return this.http.post(this.baseUrl, profile);
   }
 
 }

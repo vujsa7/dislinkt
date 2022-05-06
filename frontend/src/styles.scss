@@ -257,3 +257,5 @@ input:checked + .slider:before {
     .c-toast--error{
       background-color: color(red) !important;
     }
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

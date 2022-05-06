@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 
 @Component({
@@ -6,12 +7,21 @@ import { KeycloakService } from 'keycloak-angular';
   templateUrl: './user-header.component.html',
   styleUrls: ['./user-header.component.scss']
 })
-export class UserHeaderComponent implements OnInit {
+export class UserHeaderComponent{
   dropdownMenuVisible: boolean = false;
+  isVisible: boolean = true;
 
-  constructor(private keycloak: KeycloakService) { }
-
-  ngOnInit(): void {}
+  constructor(private keycloak: KeycloakService, private router: Router) { 
+    router.events.subscribe(
+      data => {
+        if(this.router.url.includes("onboarding")){
+          this.isVisible = false;
+        }else {
+          this.isVisible = true;
+        }
+      }
+    );
+  }
 
   logout(): void {
     this.keycloak.logout();

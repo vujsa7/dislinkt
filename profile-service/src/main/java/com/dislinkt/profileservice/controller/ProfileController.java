@@ -24,8 +24,18 @@ public class ProfileController {
         this.profileService = profileService;
     }
 
-    @GetMapping(value = "/{username}")
-    public ResponseEntity findProfile(@PathVariable String username){
+    @GetMapping(value = "/{id}")
+    public ResponseEntity getProfile(@PathVariable String id){
+        Optional<Profile> profile = profileService.findById(id);
+        if(profile.isPresent()){
+            return new ResponseEntity<>(profile, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping(params = "username")
+    public ResponseEntity findProfile(@RequestParam String username){
         Optional<Profile> profile = profileService.findByUsername(username);
         if(profile.isPresent()){
             return new ResponseEntity<>(profile, HttpStatus.OK);

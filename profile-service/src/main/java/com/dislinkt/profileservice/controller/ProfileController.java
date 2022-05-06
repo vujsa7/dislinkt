@@ -58,4 +58,67 @@ public class ProfileController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+//brisi
+//    @PutMapping(value = "/{id}")
+//    public ResponseEntity changeSkillsAndInterests(@PathVariable String id, @RequestBody Profile newProfileInfo){
+//        Optional<Profile> profile = profileService.findById(id);
+//        if(profile.isPresent()){
+//
+//            if(!newProfileInfo.getSkills().equals(profile.get().getSkills())){
+//                profile.get().setSkills(newProfileInfo.getSkills());
+//            }
+//
+//            if(!newProfileInfo.getInterests().equals(profile.get().getInterests())){
+//                profile.get().setInterests(newProfileInfo.getInterests());
+//            }
+//
+//            profileService.saveInfo(profile.get());
+//
+//            return new ResponseEntity<>(profile, HttpStatus.OK);
+//        }
+//
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
+
+    @PatchMapping(value = "/{id}/skills")
+    public ResponseEntity changeSkills(@PathVariable String id, @RequestBody List<String> skills){
+        Optional<Profile> profile = profileService.findById(id);
+        if(profile.isPresent()){
+
+            if(!skills.equals(profile.get().getSkills())){
+                profile.get().setSkills(skills);
+            }
+
+            profileService.saveInfo(profile.get());
+
+            return new ResponseEntity<>(profile, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PatchMapping(value = "/{id}/interests")
+    public ResponseEntity changeInterests(@PathVariable String id, @RequestBody List<String> interests){
+        Optional<Profile> profile = profileService.findById(id);
+        if(profile.isPresent()){
+
+            if(!interests.equals(profile.get().getInterests())){
+                profile.get().setInterests(interests);
+            }
+
+            profileService.saveInfo(profile.get());
+
+            return new ResponseEntity<>(profile, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    //test
+    @GetMapping(value = "/all")
+    public List<Profile> getAllProfiles(){
+
+        return profileService.getAllProfiles();
+    }
 }

@@ -52,4 +52,14 @@ public class ProfileServiceImpl implements ProfileService {
                     profileRepository.save(profile);
                 });
     }
+
+    @Override
+    public void saveInfo(Profile profile) {
+        profileRepository.save(profile);
+    }
+
+    //test
+    public List<Profile> getAllProfiles(){
+        return profileRepository.findAll();
+    }
 }

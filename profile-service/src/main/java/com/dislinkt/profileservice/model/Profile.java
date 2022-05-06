@@ -45,6 +45,24 @@ public class Profile {
         this.profileType = profileType;
     }
 
+    public Profile(String username, String firstName, String lastName, String email, String phoneNumber, Gender gender,
+                   Date dateOfBirth, String biography, List<Position> experience, List<Education> education,
+                   List<String> skills, List<String> interests, ProfileType profileType) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.biography = biography;
+        this.experience = experience;
+        this.education = education;
+        this.skills = skills;
+        this.interests = interests;
+        this.profileType = profileType;
+    }
+
     public boolean isPrivate(){
         return this.profileType.equals(ProfileType.PRIVATE);
     }

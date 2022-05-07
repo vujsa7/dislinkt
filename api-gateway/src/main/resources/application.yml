@@ -35,6 +35,10 @@ spring:
           uri: http://profile-service
           predicates:
             - Path=/profile-service/**
+        - id: post-service
+          uri: http://post-service
+          predicates:
+            - Path=/post-service/**
   security:
     oauth2:
       resourceserver:

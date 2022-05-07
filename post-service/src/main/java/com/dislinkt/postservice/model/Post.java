@@ -19,16 +19,17 @@ public class Post {
     private String id;
     private String userId;
     private String content;
-    private Binary image;
+    private String base64Image;
     private Integer likes;
     private Integer dislikes;
     private List<Comment> comments;
     private Date postedAt;
     private PostType postType;
 
-    public Post(String userId, String content, Date postedAt, PostType postType) {
+    public Post(String userId, String content, String base64Image, Date postedAt, PostType postType) {
         this.userId = userId;
         this.content = content;
+        this.base64Image = base64Image;
         this.likes = 0;
         this.dislikes = 0;
         this.postedAt = postedAt;

@@ -14,6 +14,7 @@ public class SecurityConfig {
                 .disable()
                 .authorizeExchange()
                 .pathMatchers("/profile-service/profiles/**").permitAll()
+                .pathMatchers("/post-service/posts/**").permitAll()
                 .anyExchange().authenticated()
                 .and()
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt)

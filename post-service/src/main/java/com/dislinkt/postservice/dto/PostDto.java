@@ -7,5 +7,6 @@ import lombok.Data;
 public class PostDto {
     private String userId;
     private String content;
+    private String base64Image;
     private PostType postType;
 }

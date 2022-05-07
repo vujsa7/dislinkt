@@ -6,6 +6,8 @@ import com.dislinkt.postservice.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
@@ -18,5 +20,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public void save(Post post) {
         postRepository.save(post);
+    }
+
+    @Override
+    public List<Post> findUserPosts(String userId) {
+        return postRepository.findPostsByUserId(userId);
     }
 }

@@ -91,5 +91,6 @@ public class PostServiceImpl implements PostService {
     public void comment(String postID, Comment comment) {
         Post post = postRepository.findPostById(postID);
         post.addComment(comment);
+        postRepository.save(post);
     }
 }

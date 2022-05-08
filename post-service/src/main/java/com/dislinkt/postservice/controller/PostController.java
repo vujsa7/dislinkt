@@ -33,7 +33,11 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity createPost(@RequestBody PostDto postDto){
+    public ResponseEntity createPost(Principal principal, @RequestBody PostDto postDto){
+
+        if(!principal.getName().equals(postDto.getUserId()))
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         Post post = new Post(postDto.getUserId(), postDto.getContent(), postDto.getBase64Image(), new Date(), postDto.getPostType());
         postService.save(post);
 
@@ -80,8 +84,10 @@ public class PostController {
 
 
     @PostMapping(value = "{postID}/like")
-    public ResponseEntity likePost(@PathVariable() String postID, @RequestBody String userId){
+    public ResponseEntity likePost(Principal principal, @PathVariable() String postID, @RequestBody String userId){
 
+        if(!principal.getName().equals(userId))
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         if(postService.likePost(postID, userId) == -1)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -90,7 +96,10 @@ public class PostController {
     }
 
     @PostMapping(value = "{postID}/dislike")
-    public ResponseEntity dislikePost(@PathVariable() String postID, @RequestBody String userId){
+    public ResponseEntity dislikePost(Principal principal, @PathVariable() String postID, @RequestBody String userId){
+
+        if(!principal.getName().equals(userId))
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         if(postService.dislikePost(postID, userId) == -1)
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -99,7 +108,11 @@ public class PostController {
     }
 
     @PostMapping(value = "{postID}/comment")
-    public ResponseEntity comment(@PathVariable() String postID, @RequestBody Comment comment){
+    public ResponseEntity comment(Principal principal, @PathVariable() String postID, @RequestBody Comment comment){
+
+//        if(!principal.getName().equals(comment.getUserId()))
+//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         postService.comment(postID, comment);
 
         return new ResponseEntity<>(HttpStatus.OK);

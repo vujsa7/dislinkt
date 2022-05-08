@@ -2,6 +2,8 @@ package com.dislinkt.profileservice.controller;
 
 import com.dislinkt.profileservice.dto.ProfileBasicInfoDto;
 import com.dislinkt.profileservice.dto.SearchedProfileDto;
+import com.dislinkt.profileservice.model.Education;
+import com.dislinkt.profileservice.model.Position;
 import com.dislinkt.profileservice.model.Profile;
 import com.dislinkt.profileservice.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +103,38 @@ public class ProfileController {
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PatchMapping(value = "/{id}/education")
+    public ResponseEntity updateEducation(@PathVariable String id, @RequestBody List<Education> education, Principal principal){
+        Optional<Profile> profile = profileService.findById(id);
+        if(!profile.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else if(!profile.get().getId().equals(principal.getName())){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } else {
+            if(!education.equals(profile.get().getEducation())){
+                profile.get().setEducation(education);
+                profileService.saveInfo(profile.get());
+            }
+            return new ResponseEntity<>(profile, HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @PatchMapping(value = "/{id}/experience")
+    public ResponseEntity updateExperience(@PathVariable String id, @RequestBody List<Position> experience, Principal principal){
+        Optional<Profile> profile = profileService.findById(id);
+        if(!profile.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else if(!profile.get().getId().equals(principal.getName())){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } else {
+            if(!experience.equals(profile.get().getExperience())){
+                profile.get().setExperience(experience);
+                profileService.saveInfo(profile.get());
+            }
+            return new ResponseEntity<>(profile, HttpStatus.OK);
+        }
     }
 
     @PatchMapping(value = "/{id}")

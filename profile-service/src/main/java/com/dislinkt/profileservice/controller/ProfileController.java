@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -72,7 +73,11 @@ public class ProfileController {
     }
 
     @PatchMapping(value = "/{id}/skills")
-    public ResponseEntity changeSkills(@PathVariable String id, @RequestBody List<String> skills){
+    public ResponseEntity changeSkills(@PathVariable String id, @RequestBody List<String> skills, Principal principal){
+        if(!Objects.equals(principal.getName(), id)){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
         Optional<Profile> profile = profileService.findById(id);
         if(profile.isPresent()){
 
@@ -89,7 +94,11 @@ public class ProfileController {
     }
 
     @PatchMapping(value = "/{id}/interests")
-    public ResponseEntity changeInterests(@PathVariable String id, @RequestBody List<String> interests){
+    public ResponseEntity changeInterests(@PathVariable String id, @RequestBody List<String> interests, Principal principal){
+        if(!Objects.equals(principal.getName(), id)){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
         Optional<Profile> profile = profileService.findById(id);
         if(profile.isPresent()){
 
@@ -107,41 +116,49 @@ public class ProfileController {
 
     @PatchMapping(value = "/{id}/education")
     public ResponseEntity updateEducation(@PathVariable String id, @RequestBody List<Education> education, Principal principal){
-        Optional<Profile> profile = profileService.findById(id);
-        if(!profile.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else if(!profile.get().getId().equals(principal.getName())){
+        if(!Objects.equals(principal.getName(), id)){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        } else {
-            if(!education.equals(profile.get().getEducation())){
-                profile.get().setEducation(education);
-                profileService.saveInfo(profile.get());
-            }
-            return new ResponseEntity<>(profile, HttpStatus.NO_CONTENT);
         }
+
+        Optional<Profile> profile = profileService.findById(id);
+        if(profile.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if(!education.equals(profile.get().getEducation())){
+            profile.get().setEducation(education);
+            profileService.saveInfo(profile.get());
+        }
+        return new ResponseEntity<>(profile, HttpStatus.NO_CONTENT);
     }
 
     @PatchMapping(value = "/{id}/experience")
     public ResponseEntity updateExperience(@PathVariable String id, @RequestBody List<Position> experience, Principal principal){
-        Optional<Profile> profile = profileService.findById(id);
-        if(!profile.isPresent()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else if(!profile.get().getId().equals(principal.getName())){
+        if(!Objects.equals(principal.getName(), id)){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        } else {
-            if(!experience.equals(profile.get().getExperience())){
-                profile.get().setExperience(experience);
-                profileService.saveInfo(profile.get());
-            }
-            return new ResponseEntity<>(profile, HttpStatus.OK);
         }
+
+        Optional<Profile> profile = profileService.findById(id);
+        if(profile.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if(!experience.equals(profile.get().getExperience())){
+            profile.get().setExperience(experience);
+            profileService.saveInfo(profile.get());
+        }
+        return new ResponseEntity<>(profile, HttpStatus.OK);
     }
 
     @PatchMapping(value = "/{id}")
-    public ResponseEntity updateProfileInfo(@PathVariable String id, @RequestBody ProfileBasicInfoDto profileDto){
+    public ResponseEntity updateProfileInfo(@PathVariable String id, @RequestBody ProfileBasicInfoDto profileDto, Principal principal){
+        if(!Objects.equals(principal.getName(), id)){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
         Optional<Profile> profile = profileService.findById(id);
-        Boolean isNewUsername = !profile.get().getUsername().equals(profileDto.getUsername());
         if(profile.isPresent()){
+            boolean isNewUsername = !profile.get().getUsername().equals(profileDto.getUsername());
             Profile updatedProfile = profile.get();
             updatedProfile.setFirstName(profileDto.getFirstName());
             updatedProfile.setLastName(profileDto.getLastName());
@@ -161,10 +178,4 @@ public class ProfileController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    //test
-    @GetMapping(value = "/all")
-    public List<Profile> getAllProfiles(){
-
-        return profileService.getAllProfiles();
-    }
 }

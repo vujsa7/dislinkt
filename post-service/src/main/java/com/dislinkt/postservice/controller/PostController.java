@@ -17,7 +17,6 @@ import reactor.core.publisher.Mono;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @RestController
@@ -110,8 +109,8 @@ public class PostController {
     @PostMapping(value = "{postID}/comment")
     public ResponseEntity comment(Principal principal, @PathVariable() String postID, @RequestBody Comment comment){
 
-//        if(!principal.getName().equals(comment.getUserId()))
-//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        if(!principal.getName().equals(comment.getUserId()))
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         postService.comment(postID, comment);
 

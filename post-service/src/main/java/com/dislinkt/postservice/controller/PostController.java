@@ -3,6 +3,7 @@ package com.dislinkt.postservice.controller;
 import com.dislinkt.postservice.dto.ConnectionsDto;
 import com.dislinkt.postservice.dto.PostDto;
 import com.dislinkt.postservice.dto.SearchedPostDto;
+import com.dislinkt.postservice.model.Comment;
 import com.dislinkt.postservice.model.Post;
 import com.dislinkt.postservice.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,7 @@ public class PostController {
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
+
     @GetMapping(value = "/feed")
     public Mono<List<SearchedPostDto>> getFeed(Principal principal, JwtAuthenticationToken jwt){
         // CALL CONNECTION SERVICE AND FETCH ALL PROFILE ID
@@ -74,6 +76,33 @@ public class PostController {
         return postsDto;
 
 
+    }
+
+
+    @PostMapping(value = "{postID}/like")
+    public ResponseEntity likePost(@PathVariable() String postID, @RequestBody String userId){
+
+
+        if(postService.likePost(postID, userId) == -1)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "{postID}/dislike")
+    public ResponseEntity dislikePost(@PathVariable() String postID, @RequestBody String userId){
+
+        if(postService.dislikePost(postID, userId) == -1)
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "{postID}/comment")
+    public ResponseEntity comment(@PathVariable() String postID, @RequestBody Comment comment){
+        postService.comment(postID, comment);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

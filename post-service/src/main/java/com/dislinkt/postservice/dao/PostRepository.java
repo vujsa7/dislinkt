@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface PostRepository extends MongoRepository<Post, String> {
     List<Post> findPostsByUserId(String userId);
+
     @Query("{'userId': {$in: ?0}}")
     List<Post> findAllPostsByUserIds(Iterable<String> ids);
+    Post findPostById(String id);
+
 }

@@ -25,72 +25,76 @@ public class ProfileServiceApplication {
 	@Bean
 	CommandLineRunner runner (ProfileRepository repository){
 		return args -> {
-//			Profile p1 = new Profile(
-//					"dare",
-//					"Darko",
-//					"Panic",
-//					"dare@gmail.com",
-//					"+38190933415",
-//					Gender.MALE,
-//					new GregorianCalendar(2000, Calendar.JANUARY, 1).getTime(),
-//					"Doesn't my bio sound like a ballad?",
-//					null,
-//					null,
-//					null,
-//					null,
-//					ProfileType.PUBLIC
-//			);
-//			Profile p2 = new Profile(
-//					"aki",
-//					"Aleksa",
-//					"Vujisic",
-//					"aki@gmail.com",
-//					"+38160433315",
-//					Gender.MALE,
-//					new GregorianCalendar(1999, Calendar.SEPTEMBER, 17).getTime(),
-//					"Mastering fullstack development is my mission.",
-//					null,
-//					null,
-//					null,
-//					null,
-//					ProfileType.PUBLIC
-//			);
-//			Profile p3= new Profile(
-//					"mel",
-//					"Melanija",
-//					"Racic",
-//					"mel@gmail.com",
-//					"+381604458914",
-//					Gender.FEMALE,
-//					new GregorianCalendar(1999, Calendar.MAY, 16).getTime(),
-//					"Backend is my passion.",
-//					null,
-//					null,
-//					null,
-//					null,
-//					ProfileType.PUBLIC
-//			);
-//			Profile p4= new Profile(
-//					"srki",
-//					"Srdjan",
-//					"Dragovic",
-//					"srki@gmail.com",
-//					"+381604458914",
-//					Gender.MALE,
-//					new GregorianCalendar(1999, Calendar.OCTOBER, 13).getTime(),
-//					"I love anime!",
-//					null,
-//					null,
-//					null,
-//					null,
-//					ProfileType.PRIVATE
-//			);
-//
-//			repository.deleteAll();
-//			repository.insert(p1);
-//			repository.insert(p2);
-//			repository.insert(p3);
-//			repository.insert(p4);
+			Profile p1 = new Profile(
+					"0",
+					"dare",
+					"Darko",
+					"Panic",
+					"dare@gmail.com",
+					"+38190933415",
+					Gender.MALE,
+					new GregorianCalendar(2000, Calendar.JANUARY, 1).getTime(),
+					"Doesn't my bio sound like a ballad?",
+					null,
+					null,
+					null,
+					null,
+					ProfileType.PUBLIC
+			);
+			Profile p2 = new Profile(
+					"1",
+					"aki",
+					"Aleksa",
+					"Vujisic",
+					"aki@gmail.com",
+					"+38160433315",
+					Gender.MALE,
+					new GregorianCalendar(1999, Calendar.SEPTEMBER, 17).getTime(),
+					"Mastering fullstack development is my mission.",
+					null,
+					null,
+					null,
+					null,
+					ProfileType.PUBLIC
+			);
+			Profile p3= new Profile(
+					"2",
+					"mel",
+					"Melanija",
+					"Racic",
+					"mel@gmail.com",
+					"+381604458914",
+					Gender.FEMALE,
+					new GregorianCalendar(1999, Calendar.MAY, 16).getTime(),
+					"Backend is my passion.",
+					null,
+					null,
+					null,
+					null,
+					ProfileType.PUBLIC
+			);
+			Profile p4= new Profile(
+					"3",
+					"srki",
+					"Srdjan",
+					"Dragovic",
+					"srki@gmail.com",
+					"+381604458914",
+					Gender.MALE,
+					new GregorianCalendar(1999, Calendar.OCTOBER, 13).getTime(),
+					"I love anime!",
+					null,
+					null,
+					null,
+					null,
+					ProfileType.PRIVATE
+			);
+
+			repository.deleteAll();
+			repository.insert(p1);
+			repository.insert(p2);
+			repository.insert(p3);
+			repository.insert(p4);
 		};
 	}
 

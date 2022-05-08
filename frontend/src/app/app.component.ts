@@ -11,15 +11,15 @@ import { ProfileService } from './shared/services/profile.service';
 export class AppComponent implements OnInit {
   authenticated: boolean = false;
 
-  constructor(private keycloak: KeycloakService, private profileService: ProfileService, private router: Router){}
+  constructor(private keycloak: KeycloakService, private profileService: ProfileService, private router: Router) {}
 
-  async ngOnInit(){
+  async ngOnInit() {
     this.authenticated = await this.keycloak.isLoggedIn();
-    if(this.authenticated){
+    if (this.authenticated) {
       this.profileService.getAccountFromKeycloak().subscribe(data => {
         this.profileService.getProfileById(data.id).subscribe(data => {
-        }, error =>{
-          if(error.status == 404){
+        }, error => {
+          if (error.status == 404) {
             this.router.navigate(['/onboarding']);
           }
         })

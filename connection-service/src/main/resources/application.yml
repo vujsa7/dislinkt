@@ -1,0 +1,26 @@
+server:
+  port: 9093
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: connection-service
+  neo4j:
+    uri: bolt://localhost:7687
+    authentication:
+      username: neo4j
+      password: rootpass
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:8080/realms/dislinkt"
+  main:
+    allow-bean-definition-overriding: true

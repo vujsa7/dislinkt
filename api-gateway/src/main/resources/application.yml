@@ -39,6 +39,10 @@ spring:
           uri: http://post-service
           predicates:
             - Path=/post-service/**
+        - id: connection-service
+          uri: http://connection-service
+          predicates:
+            - Path=/connection-service/**
   security:
     oauth2:
       resourceserver:

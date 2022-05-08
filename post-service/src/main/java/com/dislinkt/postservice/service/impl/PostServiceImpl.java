@@ -5,7 +5,10 @@ import com.dislinkt.postservice.model.Post;
 import com.dislinkt.postservice.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -25,5 +28,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> findUserPosts(String userId) {
         return postRepository.findPostsByUserId(userId);
+    }
+
+    @Override
+    public List<Post> getFeed(List<String> connectionsIds) {
+        return postRepository.findAllPostsByUserIds(connectionsIds);
     }
 }

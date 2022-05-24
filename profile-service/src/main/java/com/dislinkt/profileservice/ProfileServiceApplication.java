@@ -26,7 +26,7 @@ public class ProfileServiceApplication {
 	CommandLineRunner runner (ProfileRepository repository){
 		return args -> {
 			Profile p1 = new Profile(
-					"0",
+					"bf7ed70a-fb49-485a-a58e-215432fbbfb0",
 					"dare",
 					"Darko",
 					"Panic",
@@ -42,7 +42,7 @@ public class ProfileServiceApplication {
 					ProfileType.PUBLIC
 			);
 			Profile p2 = new Profile(
-					"1",
+					"02f9db52-8fdd-4ba7-b1f1-5df1ea59d71b",
 					"aki",
 					"Aleksa",
 					"Vujisic",
@@ -58,7 +58,7 @@ public class ProfileServiceApplication {
 					ProfileType.PUBLIC
 			);
 			Profile p3= new Profile(
-					"2",
+					"a01ffad8-c0bb-43d5-a865-bf3d2d2a0a86",
 					"mel",
 					"Melanija",
 					"Racic",
@@ -74,7 +74,7 @@ public class ProfileServiceApplication {
 					ProfileType.PUBLIC
 			);
 			Profile p4= new Profile(
-					"3",
+					"fd03f4d1-c619-4240-8587-f61296248557",
 					"srki",
 					"Srdjan",
 					"Dragovic",

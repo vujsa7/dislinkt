@@ -70,6 +70,11 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
 	</build>
 
 </project>

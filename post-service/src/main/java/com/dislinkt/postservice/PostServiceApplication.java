@@ -25,27 +25,4 @@ public class PostServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PostServiceApplication.class, args);
 	}
-
-	@Bean
-	CommandLineRunner runner (PostRepository repository){
-		return args -> {
-//			Post post = new Post(
-//					"0",
-//					"Ovo je moj prvi post",
-//					"627649c38a6dca73821e84bb",
-//					new Date(),
-//					PostType.TEXT
-//			);
-
-			Post post = new Post(
-					"0",
-					"0",
-					"Moj prvi post!!!",
-					PostType.TEXT);
-
-
-			repository.deleteAll();
-			repository.insert(post);
-		};
-	}
 }

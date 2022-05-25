@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
     this.registrationForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       passwords: new FormGroup({
-        password: new FormControl('', [Validators.required]),
+        password: new FormControl('', [Validators.required, Validators.pattern(new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[#?!@$%^&*-]).{8,}'))]),
         confirmPassword: new FormControl('', [Validators.required]),
       }, [this.passwordMatchValidator])
     });
@@ -38,9 +38,11 @@ export class RegisterComponent implements OnInit {
     if(this.getPasswordsControl().confirmPassword.touched){
       if (this.getPasswordsControl().confirmPassword.hasError('required')) {
         return 'You must confirm your password';
+      } else if (this.getPasswordsControl().password.hasError('pattern')) {
+        return 'Password must be more than 8 characters long, and consist of at least 1 uppercase letter and at least 1 special character'; 
       } else if (this.registrationForm.get('passwords')?.hasError('noMatch')) {
         return 'Passwords do not match';
-      } 
+      }
     }
     return "";
   }

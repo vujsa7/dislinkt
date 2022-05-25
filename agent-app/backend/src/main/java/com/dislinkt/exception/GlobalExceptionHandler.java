@@ -9,7 +9,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(VerificationTokenInvalidException.class)
+    @ExceptionHandler(value = { VerificationTokenInvalidException.class, InvalidPasswordException.class, InvalidEmailException.class })
     public ResponseEntity<Object> handleVerificationTokenException(VerificationTokenInvalidException ex) {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

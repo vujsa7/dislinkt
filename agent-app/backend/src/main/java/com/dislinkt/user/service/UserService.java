@@ -51,6 +51,16 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    @Transactional(readOnly = true, rollbackFor = Throwable.class)
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+    }
+
+    @Transactional(rollbackFor = Throwable.class)
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
     @Transactional(rollbackFor = Throwable.class)
     public void createUser(User user) {
         userRepository.findByEmail(user.getEmail()).ifPresent(u -> {

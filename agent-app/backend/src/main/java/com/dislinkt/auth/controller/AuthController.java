@@ -2,9 +2,7 @@ package com.dislinkt.auth.controller;
 
 import com.dislinkt.auth.dto.SignInRequest;
 import com.dislinkt.auth.dto.SignInResponse;
-import com.dislinkt.email.model.Email;
-import com.dislinkt.email.service.EmailService;
-import com.dislinkt.user.SignUpRequest;
+import com.dislinkt.auth.dto.SignUpRequest;
 import com.dislinkt.user.model.User;
 import com.dislinkt.user.service.RoleService;
 import com.dislinkt.user.service.UserService;

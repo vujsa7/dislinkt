@@ -5,7 +5,6 @@ import com.dislinkt.user.model.User;
 import com.dislinkt.verification.token.dao.VerificationTokenRepository;
 import com.dislinkt.verification.token.model.VerificationToken;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,4 +1,4 @@
-package com.dislinkt.user;
+package com.dislinkt.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

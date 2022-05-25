@@ -1,1 +1,25 @@
-<p>register works!</p>
+<div class="login-wrapper d-flex align-items-center justify-content-center">
+    <div class="login-form-wrapper d-flex flex-column">
+        <form class="d-flex flex-column align-items-center" [formGroup]="registrationForm">
+            <div class="d-flex flex-column w-100 mb-3" [ngClass]="{'text-danger' : (registrationForm.controls.email.touched && registrationForm.controls.email.errors)}">
+                <label for="email" class="me-2">Email address</label>
+                <input id="email" type="text" name="email" formControlName="email">
+                <span class="error-message" *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.errors?.['required']">Email address cannot be empty.</span>
+                <span class="error-message" *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.errors?.['email']">You must enter valid email address.</span>
+            </div>
+            <div class="form-fields d-flex flex-column w-100" formGroupName="passwords">
+                <div class="d-flex flex-column w-100 mb-3" [ngClass]="{'text-danger' : (getPasswordsControl().password.touched && getPasswordsControl().password.errors?.['required'])}">
+                    <label for="password" class="input-label">Password</label>
+                    <input id="password" type="password" formControlName="password" name="password" (focus)="registrationForm.controls.password.markAsUntouched()" required>
+                    <span class="error-message" *ngIf="getPasswordsControl().password.touched && getPasswordsControl().password.errors?.['required']">Password cannot be empty.</span>
+                </div>
+                <div class="d-flex flex-column w-100 mb-3" [ngClass]="{'text-danger' : getPasswordsControl().confirmPassword.touched && (getPasswordsControl().confirmPassword.errors?.['required'] || registrationForm.controls.passwords.errors?.noMatch)}">
+                    <label for="confirm-password" class="input-label">Confirm password</label>
+                    <input id="confirm-password" type="password" formControlName="confirmPassword" name="confirm-password" (focus)="registrationForm.controls.confirmPassword.markAsUntouched()" required>
+                    <span class="error-message" *ngIf="getPasswordsControl().confirmPassword.touched && (getPasswordsControl().confirmPassword.errors?.['required'] || registrationForm.controls.passwords.errors?.noMatch)">{{confirmPasswordErrorMessage()}}</span>
+                </div>
+            </div>
+            <button [disabled]="!registrationForm.valid" (click)="onSubmit()">Register</button>
+        </form>
+    </div>
+</div>

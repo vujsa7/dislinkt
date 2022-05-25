@@ -19,6 +19,10 @@ export class AuthService {
         return this.http.post<any>(this.baseUrl + 'auth/sign-in', loginRequest);
     }
 
+    register(registrationRequest: Object): Observable<any> {
+        return this.http.post<any>(this.baseUrl + 'auth/sign-up', registrationRequest);
+    }
+
     setToken(data: string): void {
         localStorage.setItem('jwtToken', data);
         this.userEmail.next(this.getTokenUsername());

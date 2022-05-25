@@ -54,10 +54,10 @@ export class RegisterComponent implements OnInit {
     this.authService.register(request).subscribe(
       data => {
         alert("Please activate your account through the email we sent you at " + request.email);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
       }, 
       error => {
-        alert(error);
+        alert(error.message);
     });
   }
 

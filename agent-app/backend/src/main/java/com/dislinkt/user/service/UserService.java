@@ -2,6 +2,7 @@ package com.dislinkt.user.service;
 
 import com.dislinkt.email.model.Email;
 import com.dislinkt.email.service.EmailService;
+import com.dislinkt.exception.UserNotFoundException;
 import com.dislinkt.exception.UsernameAlreadyExistsException;
 import com.dislinkt.user.dao.UserRepository;
 import com.dislinkt.user.model.User;
@@ -28,6 +29,9 @@ public class UserService implements UserDetailsService {
     @Value("${env.activation.link}")
     private String baseActivationUrl;
 
+    @Value("${env.reset.password.link}")
+    private String baseResetUrl;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByEmail(s);
@@ -53,6 +57,23 @@ public class UserService implements UserDetailsService {
         VerificationToken verificationToken = verificationTokenService.validateToken(token);
         User user = verificationToken.getUser();
         user.setIsEnabled(true);
+        verificationTokenService.invalidateToken(verificationToken);
+
+        userRepository.save(user);
+    }
+
+    @Transactional(rollbackFor = Throwable.class)
+    public void sendLinkForPasswordReset(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+        String token = verificationTokenService.generateToken(user, false);
+        emailService.sendEmail(new Email(user.getEmail(), "Password reset", "To reset your password click on this link: " + baseResetUrl + token));
+    }
+
+    @Transactional(rollbackFor = Throwable.class)
+    public void resetPassword(String token, String password) {
+        VerificationToken verificationToken = verificationTokenService.validateToken(token);
+        User user = verificationToken.getUser();
+        user.setPassword(password);
         verificationTokenService.invalidateToken(verificationToken);
 
         userRepository.save(user);

@@ -1,8 +1,6 @@
 package com.dislinkt.auth.controller;
 
-import com.dislinkt.auth.dto.SignInRequest;
-import com.dislinkt.auth.dto.SignInResponse;
-import com.dislinkt.auth.dto.SignUpRequest;
+import com.dislinkt.auth.dto.*;
 import com.dislinkt.user.model.User;
 import com.dislinkt.user.service.RoleService;
 import com.dislinkt.user.service.UserService;
@@ -54,4 +52,17 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping(value = "/forgot-password")
+    public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+        userService.sendLinkForPasswordReset(request.getEmail());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/reset-password")
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        userService.resetPassword(request.getToken(), passwordEncoder.encode(request.getPassword()));
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

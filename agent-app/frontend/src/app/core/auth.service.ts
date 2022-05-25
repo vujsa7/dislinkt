@@ -23,6 +23,14 @@ export class AuthService {
         return this.http.post<any>(this.baseUrl + 'auth/sign-up', registrationRequest);
     }
 
+    forgotPassword(forgotPasswordRequest: Object): Observable<any> {
+        return this.http.post<any>(this.baseUrl + 'auth/forgot-password', forgotPasswordRequest);
+    }
+
+    resetPassword(resetPasswordRequest: Object): Observable<any> {
+        return this.http.post<any>(this.baseUrl + 'auth/reset-password', resetPasswordRequest);
+    }
+
     setToken(data: string): void {
         localStorage.setItem('jwtToken', data);
         this.userEmail.next(this.getTokenUsername());

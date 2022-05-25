@@ -1,0 +1,145 @@
+@import 'src/styles/main.scss';
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+  
+html {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+}
+
+body {
+    font-family: 'Lexend', sans-serif !important;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5{
+    color: color(blue) !important;
+    font-weight: bold !important;
+    margin: 0 !important;
+}
+
+h1 {
+    font-size: $h1-size !important;
+
+    @include media("<desktop-medium"){
+        font-size: $h2-size !important;
+    }
+
+    @include media("<tablet-large"){
+        font-size: $h3-size !important;
+    }
+
+    @include media("<phone-large"){
+        font-size: $h4-size !important;
+    }
+}
+
+h2 {
+    font-size: $h2-size !important;
+
+    @include media("<desktop-medium"){
+        font-size: $h3-size !important;
+    }
+
+    @include media("<tablet-large"){
+        font-size: $h4-size !important;
+    }
+
+    @include media("<phone-large"){
+        font-size: $h5-size !important;
+    }
+}
+
+h3 {
+    font-size: $h3-size !important;
+
+    @include media("<desktop-medium"){
+        font-size: $h4-size !important;
+    }
+
+    @include media("<tablet-large"){
+        font-size: $h5-size !important;
+    }
+}
+
+h4 {
+    font-size: $h4-size !important;
+
+    @include media("<tablet-large"){
+        font-size: $h5-size !important;
+    }
+}
+
+h5 {
+    font-size: $h5-size !important;
+}
+
+span{
+    font-size: $body-size;
+
+    @include media("<desktop-medium"){
+        font-size: $body-size !important;
+    }
+}
+
+a{
+    text-decoration: none !important;
+    color: color(lightblue) !important;
+
+    &:hover{
+        cursor: pointer;
+        color: color(lightblue) !important;
+    }
+}
+
+.grey-text{
+    color: color(darkgrey) !important;
+}
+
+.blue-text{
+    color: color(blue) !important;
+}
+
+.lightblue-text{
+    color: color(lightblue) !important;
+}
+
+.red-text{
+    color: color(red) !important;
+}
+
+.green-text{
+    color: color(green) !important;
+}
+
+.white-text{
+    color: white;
+}
+
+.small{
+    font-size: 14px !important;
+}
+
+.ssmall{
+    font-size: 12px !important;
+}
+
+.page-wrapper{
+    width: 100%;
+    padding: 100px $grid-margin-width 30px $grid-margin-width;
+}
+
+.text-align-right{
+    text-align: right;
+}
+
+.text-align-center{
+    text-align: center;
+}

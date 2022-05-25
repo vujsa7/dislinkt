@@ -1,5 +1,6 @@
 package com.dislinkt.user.model;
 
+import com.dislinkt.auth.model.AuthLoginCode;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,6 +39,9 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     private Boolean isDeleted;
+
+    @OneToOne(mappedBy = "user")
+    private AuthLoginCode authLoginCode;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

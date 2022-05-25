@@ -12,7 +12,10 @@
                 <input id="password" type="password" name="password" formControlName="password" (keyup.enter)="onSubmit()">
                 <span class="error-message" *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.['required']">Password cannot be empty.</span>
             </div>
-            <button [disabled]="!loginForm.valid" (click)="onSubmit()">Login</button>
+            <div class="d-flex">
+                <button mat-raised-button color="primary" class="me-3" [disabled]="!loginForm.valid" (click)="onSubmit()">Login</button>
+                <button mat-raised-button [disabled]="!loginForm.controls.username.valid" (click)="passwordlessLogin()">Passwordless Login</button>
+            </div>
             <span class="grey-text">Forgot password?</span>
             <span class="grey-text">Don't have an account? <a routerLink="/register">Register today.</a></span>
         </form>

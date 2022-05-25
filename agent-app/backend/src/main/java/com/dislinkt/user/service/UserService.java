@@ -42,6 +42,15 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public User loadUser(String s) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByEmail(s);
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", s));
+        } else {
+            return user.get();
+        }
+    }
+
     @Transactional(rollbackFor = Throwable.class)
     public void createUser(User user) {
         userRepository.findByEmail(user.getEmail()).ifPresent(u -> {

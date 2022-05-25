@@ -8,7 +8,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Email {
-
     private String recipient;
     private String subject;
     private String content;

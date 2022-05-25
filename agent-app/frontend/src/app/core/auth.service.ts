@@ -8,6 +8,7 @@ import jwt_decode from 'jwt-decode';
     providedIn: 'root'
 })
 export class AuthService {
+    
     private userEmail = new BehaviorSubject('');
     userEmailObservable = this.userEmail.asObservable();
 
@@ -29,6 +30,14 @@ export class AuthService {
 
     resetPassword(resetPasswordRequest: Object): Observable<any> {
         return this.http.post<any>(this.baseUrl + 'auth/reset-password', resetPasswordRequest);
+    }
+    
+    loginOtp(email: string): Observable<any> {
+        return this.http.post<any>(this.baseUrl + 'auth/sign-in-otp', email, {responseType: 'text' as 'json'});
+    }
+
+    verifyOtp(signingRequest: { otp: string; username: string; }) : Observable<any> {
+        return this.http.post<any>(this.baseUrl + 'auth/sign-in-otp-verify', signingRequest);
     }
 
     setToken(data: string): void {

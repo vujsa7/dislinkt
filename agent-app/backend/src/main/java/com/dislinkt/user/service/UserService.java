@@ -44,7 +44,7 @@ public class UserService implements UserDetailsService {
             throw new UsernameAlreadyExistsException();
         });
         userRepository.save(user);
-        String token = verificationTokenService.generateToken(user);
+        String token = verificationTokenService.generateToken(user, true);
         emailService.sendEmail(new Email(user.getEmail(), "Account confirmation", "To activate your account click on this link: " + baseActivationUrl + token));
     }
 

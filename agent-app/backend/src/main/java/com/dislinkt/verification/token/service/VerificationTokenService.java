@@ -19,13 +19,15 @@ import java.util.UUID;
 public class VerificationTokenService {
 
     private final VerificationTokenRepository repository;
+    private static final int EXPIRES_IN_ONE_HOUR = 60;
+    private static final int EXPIRES_IN_ONE_YEAR = 525960;
 
     @Transactional(rollbackFor = Throwable.class)
-    public String generateToken(User user) {
+    public String generateToken(User user, boolean validForOneYear) {
         VerificationToken token = VerificationToken.builder()
                 .token(UUID.randomUUID())
                 .user(user)
-                .expirationDate(getExpirationDate())
+                .expirationDate(validForOneYear ? getExpirationDate(EXPIRES_IN_ONE_YEAR) : getExpirationDate(EXPIRES_IN_ONE_HOUR))
                 .used(false)
                 .build();
         repository.save(token);
@@ -36,7 +38,7 @@ public class VerificationTokenService {
     @Transactional(readOnly = true, rollbackFor = Throwable.class)
     public VerificationToken validateToken(String token) {
         Optional<VerificationToken> verificationToken = repository.findByToken(UUID.fromString(token));
-        if (verificationToken.isEmpty() || verificationToken.get().getExpirationDate().getTime() - new Date().getTime() <= 0) {
+        if (verificationToken.isEmpty() || verificationToken.get().getExpirationDate().getTime() - new Date().getTime() <= 0 || verificationToken.get().isUsed()) {
             throw new VerificationTokenInvalidException();
         }
 
@@ -49,10 +51,10 @@ public class VerificationTokenService {
         repository.save(verificationToken);
     }
 
-    private Date getExpirationDate() {
+    private Date getExpirationDate(int validFor) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        calendar.add(Calendar.MINUTE, 60);
+        calendar.add(Calendar.MINUTE, validFor);
         return calendar.getTime();
     }
 }

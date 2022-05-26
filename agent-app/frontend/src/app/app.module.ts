@@ -12,6 +12,11 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { OtpDialogComponent } from './pages/login/components/otp-dialog/otp-dialog.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { UserComponent } from './pages/user/user.component';
+import { HomeComponent } from './pages/home/home.component';
+import { CoreModule } from './core/core.module';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,11 @@ import { OtpDialogComponent } from './pages/login/components/otp-dialog/otp-dial
     RegisterComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    OtpDialogComponent
+    OtpDialogComponent,
+    AdminComponent,
+    UserComponent,
+    HomeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +37,8 @@ import { OtpDialogComponent } from './pages/login/components/otp-dialog/otp-dial
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

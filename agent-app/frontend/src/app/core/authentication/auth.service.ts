@@ -5,7 +5,7 @@ import { environment } from "src/environments/environment";
 import jwt_decode from 'jwt-decode';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'any'
 })
 export class AuthService {
     
@@ -48,6 +48,20 @@ export class AuthService {
     flushToken(): void{
         localStorage.removeItem('jwtToken');
         this.userEmail.next("");
+    }
+
+    hasValidToken(): boolean{
+        let token = this.getToken();
+        if(token == null){
+            return false;
+        } else {
+            let decodedToken = this.getDecodedAccessToken(token);
+            if(decodedToken.exp < Date.now() / 1000){
+                this.flushToken();
+                return false;
+            }
+        }
+        return true;
     }
 
     getHeader(): HttpHeaders {

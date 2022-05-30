@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/core/auth.service';
 })
 export class ProfileService {
   
-
+ 
   baseUrl: string = 'https://localhost:9090/profile-service/profiles';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -50,6 +50,14 @@ export class ProfileService {
 
   updateInterests(interests: any): Observable<any> {
     return this.http.patch(this.baseUrl + '/interests', interests, { headers: this.authService.getHeader() });
+  }
+
+  updateExperiences(experiences: any) {
+    return this.http.patch(this.baseUrl + '/experiences', experiences, { headers: this.authService.getHeader() });
+  }
+
+  updateEducation(education: any) {
+    return this.http.patch(this.baseUrl + '/education', education, { headers: this.authService.getHeader() });
   }
 
 }

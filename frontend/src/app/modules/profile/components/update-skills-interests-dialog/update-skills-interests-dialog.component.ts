@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
 import * as _ from 'lodash';
-import { forkJoin } from 'rxjs';
+import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
 import { ProfileService } from '../../services/profile.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { ProfileService } from '../../services/profile.service';
 })
 export class UpdateSkillsInterestsDialogComponent implements OnInit {
 
-  @Output() okay = new EventEmitter<any>();
+  dialogType: string = "";
   skillsForm!: FormGroup;
   skills!: Array<string>;
   interestsForm!: FormGroup;
@@ -22,15 +22,20 @@ export class UpdateSkillsInterestsDialogComponent implements OnInit {
   newInterest: string = "";
   isAddingSkill: boolean = false;
   isAddingInterest: boolean = false;
+  initialSkills: any;
+  initialInterests: any;
   @ViewChild('newSkillField') newSkillField!: MatInput;
   @ViewChild('newInterestField') newInterestField!: MatInput;
-  initialSkills: any;
-  initalInterests: any;
+  @Output() okay = new EventEmitter<any>();
 
   constructor(private dialogRef: MatDialogRef<UpdateSkillsInterestsDialogComponent>,
-      @Inject(MAT_DIALOG_DATA) data: any, private profileService: ProfileService) { 
+    @Inject(MAT_DIALOG_DATA) data: any, private profileService: ProfileService, private dialog: MatDialog) {
     this.skills = data.skills;
     this.interests = data.interests;
+    if (data.skills)
+      this.dialogType = "skills";
+    else
+      this.dialogType = "interests";
   }
 
   ngOnInit(): void {
@@ -42,27 +47,27 @@ export class UpdateSkillsInterestsDialogComponent implements OnInit {
     this.skillsForm = new FormGroup({
       skills: new FormArray([])
     })
-    if(this.skills){
-      for(let skill of this.skills){
+    if (this.skills) {
+      for (let skill of this.skills) {
         this.getSkillsFormArray().push(new FormControl(skill, [Validators.required]));
       }
       this.initialSkills = this.skillsForm.value;
     }
   }
 
-  initializeInterestsForm(){
+  initializeInterestsForm() {
     this.interestsForm = new FormGroup({
       interests: new FormArray([])
     })
-    if(this.interests){
-      for(let interest of this.interests){
+    if (this.interests) {
+      for (let interest of this.interests) {
         this.getInterestsFormArray().push(new FormControl(interest, [Validators.required]));
       }
-      this.initalInterests = this.interestsForm.value;
+      this.initialInterests = this.interestsForm.value;
     }
   }
 
-  getSkillsFormArray() : FormArray { 
+  getSkillsFormArray(): FormArray {
     return this.skillsForm.get("skills") as FormArray;
   }
 
@@ -70,32 +75,32 @@ export class UpdateSkillsInterestsDialogComponent implements OnInit {
     return this.interestsForm.get("interests") as FormArray;
   }
 
-  toggleAddingSkill(){
+  toggleAddingSkill() {
     this.isAddingSkill = !this.isAddingSkill;
     setTimeout(() => {
-      if(this.isAddingSkill)
+      if (this.isAddingSkill)
         this.newSkillField.focus();
     }, 0)
   }
 
-  toggleAddingInterest(){
+  toggleAddingInterest() {
     this.isAddingInterest = !this.isAddingInterest;
     setTimeout(() => {
-      if(this.isAddingInterest)
+      if (this.isAddingInterest)
         this.newInterestField.focus();
     }, 0)
   }
 
-  onSkillFieldLostFocus(){
-    if(this.newSkill != "") {
+  onSkillFieldLostFocus() {
+    if (this.newSkill != "") {
       this.addSkill(this.newSkill);
       this.newSkill = "";
     }
     this.isAddingSkill = false;
   }
 
-  onInterestFieldLostFocus(){
-    if(this.newInterest != "") {
+  onInterestFieldLostFocus() {
+    if (this.newInterest != "") {
       this.addInterest(this.newInterest);
       this.newInterest = "";
     }
@@ -103,19 +108,19 @@ export class UpdateSkillsInterestsDialogComponent implements OnInit {
   }
 
   addSkill(newSkill: string) {
-    this.getSkillsFormArray().push(new FormControl(newSkill, [Validators.required])); 
+    this.getSkillsFormArray().push(new FormControl(newSkill, [Validators.required]));
   }
 
   removeSkill(i: number) {
-    this.getSkillsFormArray().removeAt(i);  
+    this.getSkillsFormArray().removeAt(i);
   }
 
   addInterest(newInterest: string) {
-    this.getInterestsFormArray().push(new FormControl(newInterest, [Validators.required])); 
+    this.getInterestsFormArray().push(new FormControl(newInterest, [Validators.required]));
   }
 
   removeInterest(i: number) {
-    this.getInterestsFormArray().removeAt(i);  
+    this.getInterestsFormArray().removeAt(i);
   }
 
   close() {
@@ -123,18 +128,50 @@ export class UpdateSkillsInterestsDialogComponent implements OnInit {
     this.okay.emit();
   }
 
-  canUpdateUser() : boolean{
-    if(_.isEqual(this.skillsForm.value, this.initialSkills) && _.isEqual(this.interestsForm.value, this.initalInterests))
+  canUpdateUser(): boolean {
+    if (this.dialogType == "skills" && _.isEqual(this.skillsForm.value, this.initialSkills))
+      return false;
+    else if(this.dialogType == "interests" && _.isEqual(this.interestsForm.value, this.initialInterests))
       return false;
     return true;
   }
 
   update() {
-    if(!_.isEqual(this.skillsForm.value, this.initialSkills)){
-      this.profileService.updateSkills(this.skillsForm.controls.skills.value).subscribe();
+    if (this.dialogType == "skills" && !_.isEqual(this.skillsForm.value, this.initialSkills)) {
+      this.profileService.updateSkills(this.skillsForm.controls.skills.value).subscribe(
+        _ => {
+          this.okay.emit({"skills": this.skillsForm.controls.skills.value});
+          this.dialogRef.close();
+        },
+        _ => {
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.data = {
+            title: "Error occured",
+            message: "Unable to save skills, please try again some time later.",
+            buttonText: "Okay",
+          };
+          this.dialogRef.close();
+          this.dialog.open(InfoDialogComponent, dialogConfig);
+        }
+      );
+    } else if (this.dialogType == "interests" && !_.isEqual(this.interestsForm.value, this.initialInterests)) {
+      this.profileService.updateInterests(this.interestsForm.controls.interests.value).subscribe(
+        _ => {
+          this.okay.emit({"interests": this.interestsForm.controls.interests.value});
+          this.dialogRef.close();
+        },
+        _ => {
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.data = {
+            title: "Error occured",
+            message: "Unable to save interests, please try again some time later.",
+            buttonText: "Okay",
+          };
+          this.dialogRef.close();
+          this.dialog.open(InfoDialogComponent, dialogConfig);
+        }
+      );
     }
     
-    
-    this.dialogRef.close();
   }
 }

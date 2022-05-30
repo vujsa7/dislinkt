@@ -1,0 +1,65 @@
+<div class="dialog-container d-flex flex-column align-items-start">
+    <h5>Education</h5>
+    <form class="w-100" [formGroup]="educationForm">
+        <div *ngIf="getEducationFormArray().controls.length!=0" formArrayName="education"
+            class="d-flex flex-column" aria-label="Education">
+            <div *ngFor="let education of getEducationFormArray().controls; let i = index"
+                class="chip-wrapper d-flex w-100">
+                <div class="d-flex flex-column w-100 card-grey">
+                    <span class="mb-1">{{education.value.school}}</span>
+                    <span class="blue-text mb-1">{{education.value.degree}}</span>
+                    <span class="">{{education.value.startDate | date: 'longDate'}} - {{education.value.endDate | date: 'longDate'}}</span>
+                </div>
+                <div (click)="removeEducation(i)" class="round-box">
+                    <svg class="delete-icon"></svg>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!isAddingEducation" class="d-flex w-100 mb-3">
+            <app-secondary-button class="w-100" text="Add education" (click)="toggleAddingEducation()"></app-secondary-button>
+            <div *ngIf="getEducationFormArray().controls.length!=0" style="visibility: hidden" class="round-box">
+                <svg class="delete-icon"></svg>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex w-100 adding-new">
+        <div class="d-flex flex-column w-100 mb-3" *ngIf="isAddingEducation">
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label for="school">School</mat-label>
+                <input matInput type="text" name="school" [(ngModel)]="newEducation.school">
+            </mat-form-field>
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label for="degree">Degree</mat-label>
+                <input matInput type="text" name="degree" [(ngModel)]="newEducation.degree">
+            </mat-form-field>
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label for="fieldOfStudy">Field of study</mat-label>
+                <input matInput type="text" name="fieldOfStudy" [(ngModel)]="newEducation.fieldOfStudy">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Start date</mat-label>
+                <input [max]="maxDate" [(ngModel)]="newEducation.startDate" matInput [matDatepicker]="pickerStart" [disabled]="true">
+                <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                <mat-datepicker disabled="false" #pickerStart></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>End date</mat-label>
+                <input [min]="newEducation.startDate" [(ngModel)]="newEducation.endDate" matInput [matDatepicker]="pickerEnd" [disabled]="true">
+                <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                <mat-datepicker disabled="false" #pickerEnd></mat-datepicker>
+            </mat-form-field>
+            
+            <app-primary-button class="w-100" [text]="'Add'" (click)="addEducation()" [isBtnDisabled]="!canAddEducation()"></app-primary-button>
+        </div>
+        <div (click)="toggleAddingEducation()" *ngIf="isAddingEducation" class="round-box round-box-x">
+            <svg class="x-icon"></svg>
+        </div>
+        <div *ngIf="isAddingEducation" style="visibility: hidden" class="round-box">
+            <svg class="delete-icon"></svg>
+        </div>
+    </div>
+    <div class="d-flex w-100">
+        <app-secondary-button class="close-btn button" [text]="'Close'" (click)="close()"></app-secondary-button>
+        <app-primary-button class="okay-btn button" [text]="'Save'" [isBtnDisabled]="!canSaveEducation()" (click)="update()"></app-primary-button>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+@import "src/styles/main.scss";
+
+.dialog-container{
+    background-color: white;
+    border-radius: 7px;
+    width: 40vw;
+    max-height: 80vh;
+    overflow-y: scroll;
+    @include scrollbar;
+    padding: 20px 20px 5px 20px;
+}
+
+h5{
+    margin-bottom: 15px !important;
+}
+
+.chip-wrapper{
+    margin-bottom: 10px !important;
+}
+
+
+    .card-grey{
+        background-color: color(lightgrey);
+        padding: 20px;
+        color: color(darkgrey);
+        border-radius: 7px;
+    }
+
+        .round-box{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            min-height: 38px;
+            background-color: color(lightgrey);
+            border-radius: 7px;
+            margin-left: 10px !important;
+            transition: 200ms all ease-in-out;
+
+            &:hover{
+                background-color: rgb(224, 224, 224);
+                cursor: pointer;
+            }
+        }
+
+            .delete-icon{
+                @include icon;
+                @include background-svg($delete);
+            }
+
+            .x-icon{
+                @include icon;
+                @include background-svg($close);
+            }
+
+.adding-new{
+    position: relative;
+}
+
+    .round-box-x{
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .button{
+        width: 100%;
+    }
+
+    .close-btn{
+        margin-right: 5px;
+    }
+
+    .okay-btn{
+        margin-left: 5px;
+    }

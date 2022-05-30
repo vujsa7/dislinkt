@@ -123,7 +123,7 @@ public class ProfileController {
         return new ResponseEntity<>(profile, HttpStatus.NO_CONTENT);
     }
 
-    @PatchMapping(value = "/experience")
+    @PatchMapping(value = "/experiences")
     public ResponseEntity updateExperience(@RequestBody List<Position> experience, Principal principal){
 
         Optional<Profile> profile = profileService.findById(principal.getName());

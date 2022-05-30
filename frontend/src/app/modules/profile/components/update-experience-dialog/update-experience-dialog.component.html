@@ -1,0 +1,101 @@
+<div class="dialog-container d-flex flex-column align-items-start">
+    <h5>Experiences</h5>
+    <form class="w-100" [formGroup]="experiencesForm">
+        <div *ngIf="getExperiencesFormArray().controls.length!=0" formArrayName="experiences"
+            class="d-flex flex-column" aria-label="Experiences">
+            <div *ngFor="let experience of getExperiencesFormArray().controls; let i = index"
+                class="chip-wrapper d-flex w-100">
+                <div class="d-flex flex-column w-100 card-grey">
+                    <span class="mb-1">{{experience.value.title}}</span>
+                    <span class="mb-1">{{experience.value.startDate | date: 'longDate'}} - <span *ngIf="experience.value.endDate">{{experience.value.endDate | date: 'longDate'}}</span><span *ngIf="!experience.value.endDate">Present</span></span>
+                    <span class="blue-text">{{experience.value.companyName}}</span>
+                </div>
+                <div (click)="removeExperience(i)" class="round-box">
+                    <svg class="delete-icon"></svg>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!isAddingExperience" class="d-flex w-100 mb-3">
+            <app-secondary-button class="w-100" text="Add experience" (click)="toggleAddingExperience()"></app-secondary-button>
+            <div *ngIf="getExperiencesFormArray().controls.length!=0" style="visibility: hidden" class="round-box">
+                <svg class="delete-icon"></svg>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex w-100 adding-new">
+        <div class="d-flex flex-column w-100 mb-3" *ngIf="isAddingExperience">
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label for="experience">Title</mat-label>
+                <input matInput type="text" name="experience" [(ngModel)]="newExperience.title">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Employment type</mat-label>
+                <mat-select  [(ngModel)]="newExperience.employmentType">
+                    <mat-option value="0">
+                        Full time
+                    </mat-option>
+                    <mat-option value="1">
+                        Part time
+                    </mat-option>
+                    <mat-option value="2">
+                        Self employed
+                    </mat-option>
+                    <mat-option value="3">
+                        Freelance
+                    </mat-option>
+                    <mat-option value="4">
+                        Contract
+                    </mat-option>
+                    <mat-option value="5">
+                        Internship
+                    </mat-option>
+                    <mat-option value="6">
+                        Apprenticeship
+                    </mat-option>
+                    <mat-option value="7">
+                        Seasonal
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label for="companyName">Company name</mat-label>
+                <input matInput type="text" name="companyName" [(ngModel)]="newExperience.companyName">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Start date</mat-label>
+                <input [max]="maxDate" [(ngModel)]="newExperience.startDate" matInput [matDatepicker]="pickerStart" [disabled]="true">
+                <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                <mat-datepicker disabled="false" #pickerStart></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Is this your current position?</mat-label>
+                <mat-select [(ngModel)]="newExperience.currentPosition">
+                    <mat-option value="true">
+                        I'm currently working here
+                    </mat-option>
+                    <mat-option value="false">
+                        I'm no longer working here
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="hasEndDate()" appearance="fill">
+                <mat-label>End date</mat-label>
+                <input [min]="newExperience.startDate" [max]="maxDate" [(ngModel)]="newExperience.endDate" matInput [matDatepicker]="pickerEnd" [disabled]="true">
+                <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                <mat-datepicker disabled="false" #pickerEnd></mat-datepicker>
+            </mat-form-field>
+            
+            <app-primary-button class="w-100" [text]="'Add'" (click)="addExperience()" [isBtnDisabled]="!canAddExperience()"></app-primary-button>
+        </div>
+        <div (click)="toggleAddingExperience()" *ngIf="isAddingExperience" class="round-box round-box-x">
+            <svg class="x-icon"></svg>
+        </div>
+        <div *ngIf="isAddingExperience" style="visibility: hidden" class="round-box">
+            <svg class="delete-icon"></svg>
+        </div>
+    </div>
+    <div class="d-flex w-100">
+        <app-secondary-button class="close-btn button" [text]="'Close'" (click)="close()"></app-secondary-button>
+        <app-primary-button class="okay-btn button" [text]="'Save'" [isBtnDisabled]="!canSaveExperiences()" (click)="update()"></app-primary-button>
+    </div>
+</div>

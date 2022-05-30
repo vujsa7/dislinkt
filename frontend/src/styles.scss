@@ -160,6 +160,12 @@ a{
     .c-toast--error{
       background-color: color(red) !important;
     }
+
+.card{
+    padding: 20px;
+    @include shadow;
+    border: none !important;
+}
     
 
 /* Importing Bootstrap SCSS file. */

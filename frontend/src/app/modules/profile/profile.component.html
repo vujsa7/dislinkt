@@ -15,9 +15,9 @@
     <div class="wrapper d-flex">
         <div class="d-flex dislinkt-container personal-info d-flex flex-column">
             <h5 class="lightpurple-text">Personal Info</h5>
-            <span class="lightpurple-text label-margin">Birthday</span>
+            <span class="lightpurple-text container-label">Birthday</span>
             <span class="grey-text mb-2">{{profile.dateOfBirth | date: 'longDate'}}</span>
-            <span class="lightpurple-text label-margin">Bio</span>
+            <span class="lightpurple-text container-label">Bio</span>
             <span class="grey-text">{{profile.biography}}</span>
         </div>
         <div class="posts">
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="d-flex flex-column dislinkt-container w-100 container-wrapper">
-                <svg (click)="openUpdateSkillsDialog()" class="edit-grey-icon"></svg>
+                <svg (click)="openUpdateInterestsDialog()" class="edit-grey-icon"></svg>
                 <div class="d-flex flex-column">
                     <h5 class="lightpurple-text">Interests</h5>
                     <span class="grey-text container-label" *ngFor="let interest of profile.interests">{{interest}}</span>
@@ -41,15 +41,40 @@
             <div class="d-flex flex-column dislinkt-container w-100 container-wrapper">
                 <svg (click)="openUpdateExperienceDialog()" class="edit-grey-icon"></svg>
                 <div class="d-flex flex-column">
-                    <h5 class="lightpurple-text">Experience</h5>
-                    <span class="grey-text container-label" *ngFor="let experience of profile.experience">{{experience}}</span>
+                    <h5 class="lightpurple-text">Experiences</h5>
+                    <div class="d-flex w-100 container-ex-ed" *ngFor="let experience of profile.experience">
+                        <div class="d-flex flex-column align-items-center justify-content-center mt-2 me-3">
+                            <div class="dot"></div>
+                            <div class="h-100 line"></div>
+                        </div>
+                        <div class="d-flex flex-column w-100">
+                            <div class="d-flex flex-column grey-text" >
+                                <span class="container-label">{{experience.title}}</span>
+                                <span class="container-label">{{experience.startDate | date: 'longDate'}} - <span *ngIf="experience.endDate">{{experience.endDate | date: 'longDate'}}</span><span *ngIf="!experience.endDate">Present</span></span>
+                                <span class="blue-text container-label">{{experience.companyName}}</span>
+                                <span class="container-label">{{experience.employmentType | employmentType}}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="d-flex flex-column dislinkt-container w-100 container-wrapper">
-                <svg (click)="openUpdateExperienceDialog()" class="edit-grey-icon"></svg>
+                <svg (click)="openUpdateEducationDialog()" class="edit-grey-icon"></svg>
                 <div class="d-flex flex-column">
                     <h5 class="lightpurple-text">Education</h5>
-                    <span class="grey-text container-label" *ngFor="let education of profile.education">{{education}}</span>
+                    <div class="d-flex w-100 container-ex-ed" *ngFor="let education of profile.education">
+                        <div class="d-flex flex-column align-items-center justify-content-center mt-2 me-3">
+                            <div class="dot"></div>
+                            <div class="h-100 line"></div>
+                        </div>
+                        <div class="d-flex flex-column w-100">
+                            <div class="d-flex flex-column grey-text" >
+                                <span class="container-label">{{education.school}}</span>
+                                <span class="blue-text container-label">{{education.degree}}</span>
+                                <span class="container-label">{{education.startDate | date: 'longDate'}} - <span *ngIf="education.endDate">{{education.endDate | date: 'longDate'}}</span><span *ngIf="!education.endDate">Present</span></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

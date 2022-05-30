@@ -11,6 +11,7 @@ import { ProfileModule } from '../modules/profile/profile.module';
 import { MaterialModule } from './material/material.module';
 import { SearchProfilesBoxComponent } from './components/search-profiles-box/search-profiles-box.component';
 import { InfoDialogComponent } from './components/info-dialog/info-dialog.component';
+import { EmploymentTypePipe } from './pipes/employment-type.pipe';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { InfoDialogComponent } from './components/info-dialog/info-dialog.compon
     SearchComponent,
     SearchProfilesBoxComponent,
     HeaderComponent,
-    InfoDialogComponent
+    InfoDialogComponent,
+    EmploymentTypePipe
   ],
   imports: [
     CommonModule, 
@@ -39,7 +41,8 @@ import { InfoDialogComponent } from './components/info-dialog/info-dialog.compon
     FormsModule,
     NgbModule,
     InfoDialogComponent,
-    MaterialModule
+    MaterialModule,
+    EmploymentTypePipe
   ]
 })
 export class SharedModule { }

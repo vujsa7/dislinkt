@@ -1,54 +1,58 @@
-<div class="dialog-container d-flex flex-column align-items-start">
-    <h5>Skills</h5>
-    <form class="w-100" [formGroup]="skillsForm">
-        <mat-chip-list *ngIf="getSkillsFormArray().controls.length!=0" formArrayName="skills" class="d-flex flex-column" aria-label="Skills selection">
-            <div *ngFor="let skill of getSkillsFormArray().controls; let i = index" class="chip-wrapper d-flex w-100">
-                <mat-chip>{{skill.value}}</mat-chip>
-                <div (click)="removeSkill(i)" class="round-box">
+<div class="dialog-container">
+    <div class="d-flex flex-column align-items-start" *ngIf="dialogType=='skills'">
+        <h5>Skills</h5>
+        <form class="w-100" [formGroup]="skillsForm">
+            <mat-chip-list *ngIf="getSkillsFormArray().controls.length!=0" formArrayName="skills" class="d-flex flex-column" aria-label="Skills">
+                <div *ngFor="let skill of getSkillsFormArray().controls; let i = index" class="chip-wrapper d-flex w-100">
+                    <mat-chip>{{skill.value}}</mat-chip>
+                    <div (click)="removeSkill(i)" class="round-box">
+                        <svg class="delete-icon"></svg>
+                    </div>
+                </div>
+            </mat-chip-list>
+            <div *ngIf="!isAddingSkill" class="d-flex w-100 mb-3">
+                <app-secondary-button class="w-100" text="Add skill" (click)="toggleAddingSkill()"></app-secondary-button>
+                <div *ngIf="getSkillsFormArray().controls.length!=0" style="visibility: hidden" class="round-box">
                     <svg class="delete-icon"></svg>
                 </div>
             </div>
-        </mat-chip-list>
-        <div *ngIf="!isAddingSkill" class="d-flex w-100 mb-3">
-            <app-secondary-button class="w-100" text="Add skill" (click)="toggleAddingSkill()"></app-secondary-button>
+        </form>
+        <div class="w-100 mb-3" [style]="{'display': isAddingSkill ? 'flex' : 'none'}">
+            <mat-form-field class="example-full-width w-100" appearance="fill">
+                <mat-label for="skill">New skill</mat-label>
+                <input matInput #newSkillField="matInput" type="text" name="skill" (blur)="onSkillFieldLostFocus()" [(ngModel)]="newSkill">
+            </mat-form-field>
             <div *ngIf="getSkillsFormArray().controls.length!=0" style="visibility: hidden" class="round-box">
                 <svg class="delete-icon"></svg>
             </div>
         </div>
-    </form>
-    <div class="w-100 mb-3" [style]="{'display': isAddingSkill ? 'flex' : 'none'}">
-        <mat-form-field class="example-full-width w-100" appearance="fill">
-            <mat-label for="getSkillsFormArray().controls.length!=0">New skill</mat-label>
-            <input matInput #newSkillField="matInput" type="text" name="skill" (blur)="onSkillFieldLostFocus()" [(ngModel)]="newSkill">
-        </mat-form-field>
-        <div *ngIf="getSkillsFormArray().controls.length!=0" style="visibility: hidden" class="round-box">
-            <svg class="delete-icon"></svg>
-        </div>
     </div>
-    <h5>Interests</h5>
-    <form class="w-100" [formGroup]="interestsForm">
-        <mat-chip-list *ngIf="getInterestsFormArray().controls.length!=0" formArrayName="interests" class="d-flex flex-column" aria-label="Interests selection">
-            <div *ngFor="let interest of getInterestsFormArray().controls; let i = index" class="chip-wrapper d-flex w-100">
-                <mat-chip>{{interest.value}}</mat-chip>
-                <div (click)="removeInterest(i)" class="round-box">
+    <div class="d-flex flex-column align-items-start" *ngIf="dialogType=='interests'">
+        <h5>Interests</h5>
+        <form class="w-100" [formGroup]="interestsForm">
+            <mat-chip-list *ngIf="getInterestsFormArray().controls.length!=0" formArrayName="interests" class="d-flex flex-column" aria-label="Interests">
+                <div *ngFor="let interest of getInterestsFormArray().controls; let i = index" class="chip-wrapper d-flex w-100">
+                    <mat-chip>{{interest.value}}</mat-chip>
+                    <div (click)="removeInterest(i)" class="round-box">
+                        <svg class="delete-icon"></svg>
+                    </div>
+                </div>
+            </mat-chip-list>
+            <div *ngIf="!isAddingInterest" class="d-flex w-100 mb-3">
+                <app-secondary-button class="w-100" text="Add interest" (click)="toggleAddingInterest()"></app-secondary-button>
+                <div *ngIf="getInterestsFormArray().controls.length!=0" style="visibility: hidden" class="round-box">
                     <svg class="delete-icon"></svg>
                 </div>
             </div>
-        </mat-chip-list>
-        <div *ngIf="!isAddingInterest" class="d-flex w-100 mb-3">
-            <app-secondary-button class="w-100" text="Add interest" (click)="toggleAddingInterest()"></app-secondary-button>
+        </form>
+        <div class="w-100 mb-3" [style]="{'display': isAddingInterest ? 'flex' : 'none'}">
+            <mat-form-field class="example-full-width w-100" appearance="fill">
+                <mat-label for="interest">New interest</mat-label>
+                <input matInput #newInterestField="matInput" type="text" name="interest" (blur)="onInterestFieldLostFocus()" [(ngModel)]="newInterest">
+            </mat-form-field>
             <div *ngIf="getInterestsFormArray().controls.length!=0" style="visibility: hidden" class="round-box">
                 <svg class="delete-icon"></svg>
             </div>
-        </div>
-    </form>
-    <div class="w-100 mb-3" [style]="{'display': isAddingInterest ? 'flex' : 'none'}">
-        <mat-form-field class="example-full-width w-100" appearance="fill">
-            <mat-label for="interest">New interest</mat-label>
-            <input matInput #newInterestField="matInput" type="text" name="interest" (blur)="onInterestFieldLostFocus()" [(ngModel)]="newInterest">
-        </mat-form-field>
-        <div *ngIf="getInterestsFormArray().controls.length!=0" style="visibility: hidden" class="round-box">
-            <svg class="delete-icon"></svg>
         </div>
     </div>
     <div class="d-flex w-100">

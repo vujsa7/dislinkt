@@ -96,3 +96,25 @@
                 @include icon;
                 @include background-svg($edit-grey);
             }
+
+        .container-ex-ed{
+            margin-bottom: 10px;
+
+            &:last-child{
+                margin-bottom: 0;
+            }
+        }
+
+        .dot{
+            background-color: color(lightgrey);
+            height: 5px;
+            width: 5px;
+            min-height: 5px;
+            min-width: 5px;
+            border-radius: 50%;
+        }
+
+        .line{
+            border: 0;
+            border-left: 1px solid color(lightgrey);
+        }

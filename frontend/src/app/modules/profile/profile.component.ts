@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
-import { UpdateExperienceEducationDialogComponent } from './components/update-experience-education-dialog/update-experience-education-dialog.component';
+import { UpdateEducationDialogComponent } from './components/update-education-dialog/update-education-dialog.component';
+import { UpdateExperienceDialogComponent } from './components/update-experience-dialog/update-experience-dialog.component';
 import { UpdateProfileDialogComponent } from './components/update-profile-dialog/update-profile-dialog.component';
 import { UpdateSkillsInterestsDialogComponent } from './components/update-skills-interests-dialog/update-skills-interests-dialog.component';
 import { ProfileService } from './services/profile.service';
@@ -68,19 +69,63 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-
   openUpdateSkillsDialog(): void{
-    const dialogConfig = new MatDialogConfig();
+    let dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      skills: this.profile.skills,
+      skills: this.profile.skills
+    };
+    let dialogRef = this.dialog.open(UpdateSkillsInterestsDialogComponent, dialogConfig);
+    dialogRef.componentInstance.okay.subscribe(
+      res => {
+        if(res.skills){
+          this.profile.skills = res.skills;
+          dialogRef.componentInstance.okay.unsubscribe();
+        }
+      }
+    )
+  }
+
+  openUpdateInterestsDialog(): void{
+    let dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
       interests: this.profile.interests
     };
-    this.dialog.open(UpdateSkillsInterestsDialogComponent, dialogConfig);
+    let dialogRef = this.dialog.open(UpdateSkillsInterestsDialogComponent, dialogConfig);
+    dialogRef.componentInstance.okay.subscribe(
+      res => {
+        if(res.interests){
+          this.profile.interests = res.interests;
+          dialogRef.componentInstance.okay.unsubscribe();
+        }
+      }
+    )
   }
 
   openUpdateExperienceDialog(): void{
-    const dialogConfig = new MatDialogConfig();
-    
-    this.dialog.open(UpdateExperienceEducationDialogComponent, dialogConfig);
+    let dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      experiences: this.profile.experience
+    };
+    let dialogRef = this.dialog.open(UpdateExperienceDialogComponent, dialogConfig);
+    dialogRef.componentInstance.okay.subscribe(
+      res => {
+        this.profile.experience = res;
+        dialogRef.componentInstance.okay.unsubscribe();
+      }
+    )
+  }
+
+  openUpdateEducationDialog(): void{
+    let dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      education: this.profile.education
+    };
+    let dialogRef = this.dialog.open(UpdateEducationDialogComponent, dialogConfig);
+    dialogRef.componentInstance.okay.subscribe(
+      res => {
+        this.profile.education = res;
+        dialogRef.componentInstance.okay.unsubscribe();
+      }
+    )
   }
 }

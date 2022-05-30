@@ -1,0 +1,23 @@
+@import "src/styles/main.scss";
+
+.dialog-container{
+    background-color: white;
+    border-radius: 7px;
+    width: 40vw;
+    padding: 20px;
+}
+
+    h5{
+        margin-bottom: 15px !important;
+    }
+
+    .message{
+        color: color(darkgrey);
+        display: inline-block;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .button{
+        width: 100%;
+    }

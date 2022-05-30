@@ -1,0 +1,19 @@
+@import 'src/styles/main.scss';
+
+.mat-chip-list-wrapper{
+  flex-direction: column !important;
+  margin: 0 !important;
+}
+
+  .mat-chip.mat-standard-chip{
+    background-color: color(lightgrey);
+    @include noselect;
+    cursor: pointer;
+    margin: 0 !important;
+    min-height: 38px;
+  }
+
+  .mat-standard-chip {
+    width: 100%;
+    border-radius: 7px !important;
+  }

@@ -1,0 +1,58 @@
+<div class="d-flex flex-column align-items-center content">
+    <h4 class="d-flex w-50 mb-3">Fill out the rest of your information</h4>
+    <form class="d-flex flex-column w-50" [formGroup]="registrationForm" id="form">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label for="phone">Phone number</mat-label>
+            <input matInput id="phone" type="text" name="phone" formControlName="phoneNumber">
+            <mat-error
+                *ngIf="registrationForm.controls.phoneNumber.touched && registrationForm.controls.phoneNumber.errors?.['required']">
+                Phone number can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input formControlName="dateOfBirth" matInput [matDatepicker]="picker" [disabled]="true">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker disabled="false" #picker></mat-datepicker>
+            <mat-error
+                *ngIf="registrationForm.controls.dateOfBirth.touched && registrationForm.controls.dateOfBirth.errors?.['required']">
+                Date of birth can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender">
+                <mat-option value="MALE">
+                    Male
+                </mat-option>
+                <mat-option value="FEMALE">
+                    Female
+                </mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="registrationForm.controls.gender.touched && registrationForm.controls.gender.errors?.['required']">
+                Gender can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Biography</mat-label>
+            <textarea maxLength="376" formControlName="biography" matInput></textarea>
+            <mat-error
+                *ngIf="registrationForm.controls.biography.touched && registrationForm.controls.biography.errors?.['required']">
+                Biography can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Profile Type</mat-label>
+            <mat-select formControlName="profileType">
+                <mat-option value="PRIVATE">
+                    Private
+                </mat-option>
+                <mat-option value="PUBLIC">
+                    Public
+                </mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="registrationForm.controls.profileType.touched && registrationForm.controls.profileType.errors?.['required']">
+                Please choose profile type</mat-error>
+        </mat-form-field>
+    </form>
+    <app-primary-button text="Finish registration" class="w-50" [isBtnDisabled]="!registrationForm.valid"
+        (click)="onSubmit()"></app-primary-button>
+</div>

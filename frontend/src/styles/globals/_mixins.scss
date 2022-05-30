@@ -14,7 +14,7 @@
     overflow-x: hidden;
     
     &::-webkit-scrollbar {
-        width: 12px;
+        width: 8px;
         height: 12px;
     }
 
@@ -34,45 +34,8 @@
 
 }
 
-@mixin card{
-    
-    border: none;
-    border-radius: 7px;
+@mixin shadow{
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.06);
-    cursor: pointer;
-
-    &:hover {
-        transition: all 0.3s ease-out;
-        box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
-        top: -3px;
-    }
-
-    &:before {
-        position: absolute;
-        z-index: -1;
-        top: -16px;
-        right: -16px;
-        height: 32px;
-        width: 32px;
-        transform: scale(2);
-        transform-origin: 50% 50%;
-        transition: all 0.3s ease-out;
-    }
-
-    &:hover:before {
-        transform: scale(2.15);
-        transition: all 0.3s ease-out;
-    }
-}
-
-@mixin drop-down-list{
-    padding: 4px 10px;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    @include background-svg($select-arrow);
-    background-repeat: no-repeat;
-    background-position: right 5px top 50%;
 }
 
 @mixin noselect{

@@ -72,13 +72,10 @@ public class ProfileController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "/{id}/skills")
-    public ResponseEntity changeSkills(@PathVariable String id, @RequestBody List<String> skills, Principal principal){
-        if(!Objects.equals(principal.getName(), id)){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+    @PatchMapping(value = "/skills")
+    public ResponseEntity changeSkills(@RequestBody List<String> skills, Principal principal){
 
-        Optional<Profile> profile = profileService.findById(id);
+        Optional<Profile> profile = profileService.findById(principal.getName());
         if(profile.isPresent()){
 
             if(!skills.equals(profile.get().getSkills())){
@@ -93,13 +90,10 @@ public class ProfileController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PatchMapping(value = "/{id}/interests")
-    public ResponseEntity changeInterests(@PathVariable String id, @RequestBody List<String> interests, Principal principal){
-        if(!Objects.equals(principal.getName(), id)){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+    @PatchMapping(value = "/interests")
+    public ResponseEntity changeInterests(@RequestBody List<String> interests, Principal principal){
 
-        Optional<Profile> profile = profileService.findById(id);
+        Optional<Profile> profile = profileService.findById(principal.getName());
         if(profile.isPresent()){
 
             if(!interests.equals(profile.get().getInterests())){
@@ -114,13 +108,10 @@ public class ProfileController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PatchMapping(value = "/{id}/education")
-    public ResponseEntity updateEducation(@PathVariable String id, @RequestBody List<Education> education, Principal principal){
-        if(!Objects.equals(principal.getName(), id)){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+    @PatchMapping(value = "/education")
+    public ResponseEntity updateEducation(@RequestBody List<Education> education, Principal principal){
 
-        Optional<Profile> profile = profileService.findById(id);
+        Optional<Profile> profile = profileService.findById(principal.getName());
         if(profile.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -132,13 +123,10 @@ public class ProfileController {
         return new ResponseEntity<>(profile, HttpStatus.NO_CONTENT);
     }
 
-    @PatchMapping(value = "/{id}/experience")
-    public ResponseEntity updateExperience(@PathVariable String id, @RequestBody List<Position> experience, Principal principal){
-        if(!Objects.equals(principal.getName(), id)){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+    @PatchMapping(value = "/experience")
+    public ResponseEntity updateExperience(@RequestBody List<Position> experience, Principal principal){
 
-        Optional<Profile> profile = profileService.findById(id);
+        Optional<Profile> profile = profileService.findById(principal.getName());
         if(profile.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

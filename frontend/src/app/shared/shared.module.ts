@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { PrimaryButtonComponent } from './components/primary-button/primary-button.component';
 import { SecondaryButtonComponent } from './components/secondary-button/secondary-button.component';
 import { SearchComponent } from './components/search/search.component';
-import { SearchResultsComponent } from './search-results/search-results.component';
 import { RouterModule } from '@angular/router';
-import { ProfileComponent } from './profile/profile.component';
-import { OnboardingComponent } from './onboarding/onboarding.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './layout/header/header.component';
+import { ProfileModule } from '../modules/profile/profile.module';
+import { MaterialModule } from './material/material.module';
+import { SearchProfilesBoxComponent } from './components/search-profiles-box/search-profiles-box.component';
+import { InfoDialogComponent } from './components/info-dialog/info-dialog.component';
 
 
 @NgModule({
@@ -16,22 +18,28 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
     PrimaryButtonComponent,
     SecondaryButtonComponent,
     SearchComponent,
-    SearchResultsComponent,
-    ProfileComponent,
-    OnboardingComponent
+    SearchProfilesBoxComponent,
+    HeaderComponent,
+    InfoDialogComponent
   ],
   imports: [
     CommonModule, 
     RouterModule, 
     ReactiveFormsModule,
     FormsModule,
-    NgbDatepickerModule
+    NgbModule,
+    MaterialModule
   ],
   exports: [
     PrimaryButtonComponent,
     SecondaryButtonComponent, 
     SearchComponent,
-    SearchResultsComponent
+    HeaderComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule,
+    InfoDialogComponent,
+    MaterialModule
   ]
 })
 export class SharedModule { }

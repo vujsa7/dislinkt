@@ -1,8 +1,0 @@
-<div class="d-flex flex-column content">
-    <div class="d-flex flex-row" *ngFor="let res of searchResults">
-        <div class="d-flex flex-column ds-container" id="result-card" [routerLink]="['/', res.username]">
-            <span class="fw-bold">{{ res.username }}</span>
-            <span>{{ res.firstName }} {{ res.lastName }}</span>
-        </div>
-    </div>
-</div>

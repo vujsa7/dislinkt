@@ -1,34 +1,28 @@
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { KeycloakAngularModule, KeycloakBearerInterceptor, KeycloakService } from 'keycloak-angular';
+import { CoreModule, KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializer } from 'src/utils/app.init';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PublicHeaderComponent } from './shared/layout/headers/public-header/public-header.component';
-import { UserHeaderComponent } from './shared/layout/headers/user-header/user-header.component';
 import { SharedModule } from './shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PublicHeaderComponent,
-    UserHeaderComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CoreModule,
     KeycloakAngularModule,
     HttpClientModule,
     SharedModule,
-    RouterModule, 
-    ReactiveFormsModule,
-    FormsModule,
-    NgbModule
+    RouterModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

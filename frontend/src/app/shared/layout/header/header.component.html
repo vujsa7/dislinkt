@@ -1,0 +1,25 @@
+<nav class="navbar navbar-light" *ngIf="isVisible">
+    <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center" routerLink="['/feed']" style="cursor: pointer">
+            <svg class="dislinkt-logo"></svg>
+            <h5 class="fw-bold brand">Dislinkt</h5>
+        </div>
+        <pr-search-profiles-box style="align-self: baseline;"></pr-search-profiles-box>
+    </div>
+    <div class="nav-items d-flex flex-row align-items-center">
+        <span *ngIf="!authenticated" class="nav-item" (click)="redirectToLoginPage()">Sign in</span>
+        <app-primary-button *ngIf="!authenticated" (click)="redirectToRegisterPage()" [text]="'Sign up'">
+        </app-primary-button>
+        <span *ngIf="authenticated" class="nav-item" (click)="logout()">Logout</span>
+    </div>
+    <svg class="navbar-menu" (click)="toggleDropdownMenu()"></svg>
+</nav>
+<div class="overlay d-flex justify-content-end w-100" [ngClass]="{'hidden-overlay' : !dropdownMenuVisible}">
+    <div class="d-flex justify-content-end w-0" [ngClass]="{'menu-container' : dropdownMenuVisible}">
+        <div [hidden]="!dropdownMenuVisible" class="nav-items-menu align-items-end">
+            <span *ngIf="!authenticated" class="nav-item-menu mt-2" (click)="redirectToLoginPage()">Sign in</span>
+            <span *ngIf="!authenticated" class="nav-item-menu" (click)="redirectToRegisterPage()">Sign up</span>
+            <span *ngIf="authenticated" class="nav-item-menu mt-2" (click)="logout()">Logout</span>
+        </div>
+    </div>
+</div>

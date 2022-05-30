@@ -1,0 +1,30 @@
+@import 'src/styles/main.scss';
+
+
+.profile-card{
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    background-color: white;
+    transition: 200ms all ease-in-out;
+
+    &:hover{
+        background-color: rgb(246, 246, 246);
+        cursor: pointer;
+    }
+}
+
+    .profile-img{
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+        margin-right: 20px;
+        object-fit: cover;
+    }
+
+    #profile-info{
+        width: 100%;
+        cursor: pointer;
+    }
+
+    

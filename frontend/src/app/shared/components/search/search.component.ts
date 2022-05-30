@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProfileService } from '../../services/profile.service';
+import { ProfileService } from 'src/app/modules/profile/services/profile.service';
 
 @Component({
   selector: 'app-search',

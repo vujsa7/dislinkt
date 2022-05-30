@@ -15,7 +15,7 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
             onLoad: 'check-sso',
             checkLoginIframe: true
           },
-          bearerExcludedUrls: ['/assets'],
+          bearerExcludedUrls: ['/assets', '/feed'],
         });
         resolve(resolve);
       } catch (error) {

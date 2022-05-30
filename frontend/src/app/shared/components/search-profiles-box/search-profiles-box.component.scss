@@ -1,0 +1,68 @@
+@import "src/styles/main.scss";
+
+.holder{
+    position: fixed;
+    z-index: 100;
+}
+
+    .icon-holder{
+        position: relative;
+        align-items: center;
+        margin-left: 20px;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background-color: color(lightgrey);
+        padding: 10px;
+        height: 38px;
+        display: flex;
+        justify-content: center;
+    }
+
+        img{
+            width: 18px;
+            height: 18px;
+        }
+
+    .search-box{
+        position: relative;
+        width: 280px;
+        background-color: color(lightgrey);
+        border: 0px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        height: 38px;
+        padding: 10px;
+        outline: none;
+    }
+
+    .listbox{
+        position: relative;
+        background-color: white;
+        @include shadow;
+        width: 400px;
+        margin-left: 20px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+        .profile-img{
+            border-radius: 50%;
+            height: 24px;
+            width: 24px;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .listbox-item{
+            padding-left: 20px;
+            height: 50px;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid color(lightgrey);
+        }
+
+        #result-btn{
+            border-top: 1px solid color(lightgrey);
+            color: color(purple);
+            font-weight: bold;
+        }

@@ -9,18 +9,16 @@
     font-size: 16px;
     font-weight: bold;
     color: white;
-    background-image: linear-gradient(to left, color(lightblue), color(blue));
-    background-size: 140%;
-    background-position: right;
+    background-color: color(lightpurple);
     transition: 0.3s all ease-in-out;
 
     &:active{
         box-shadow: none !important;
-        color: color(darkgrey);
+        color: color(lightgrey);
     }
 
     &:hover{
-        background-position: left;
+        background-color: color(purple);
     }
 
 }

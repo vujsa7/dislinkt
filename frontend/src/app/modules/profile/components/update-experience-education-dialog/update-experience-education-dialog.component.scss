@@ -1,0 +1,38 @@
+@import "src/styles/main.scss";
+
+.dialog-container{
+    background-color: white;
+    border-radius: 7px;
+    width: 40vw;
+    max-height: 80vh;
+    overflow-y: scroll;
+    @include scrollbar;
+    padding: 20px 20px 5px 20px;
+}
+
+    h5{
+        margin-bottom: 15px !important;
+    }
+
+    mat-form-field{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .message{
+        color: color(darkgrey);
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .button{
+        width: 100%;
+    }
+
+    .close-btn{
+        margin-right: 5px;
+    }
+
+    .okay-btn{
+        margin-left: 5px;
+    }

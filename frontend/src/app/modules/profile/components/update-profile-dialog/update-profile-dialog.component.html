@@ -1,0 +1,89 @@
+<div class="dialog-container d-flex flex-column align-items-start">
+    <h5>Personal info</h5>
+    <form class="w-100" [formGroup]="personalInfoForm">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label for="username">Username</mat-label>
+            <input matInput type="text" name="username" formControlName="username">
+            <mat-error
+                *ngIf="personalInfoForm.controls.username.touched && personalInfoForm.controls.username.errors?.['required']">
+                Username can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label for="firstName">First name</mat-label>
+            <input matInput type="text" name="firstName" formControlName="firstName">
+            <mat-error
+                *ngIf="personalInfoForm.controls.firstName.touched && personalInfoForm.controls.firstName.errors?.['required']">
+                First name can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label for="lastName">Last name</mat-label>
+            <input matInput type="text" name="lastName" formControlName="lastName">
+            <mat-error
+                *ngIf="personalInfoForm.controls.lastName.touched && personalInfoForm.controls.lastName.errors?.['required']">
+                Last name can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label for="email">Email</mat-label>
+            <input matInput type="text" name="email" formControlName="email">
+            <mat-error
+                *ngIf="personalInfoForm.controls.email.touched && personalInfoForm.controls.email.errors?.['required']">
+                Email address can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label for="phone">Phone number</mat-label>
+            <input matInput type="text" name="phoneNumber" formControlName="phoneNumber">
+            <mat-error
+                *ngIf="personalInfoForm.controls.phoneNumber.touched && personalInfoForm.controls.phoneNumber.errors?.['required']">
+                Phone number can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender">
+                <mat-option value="MALE">
+                    Male
+                </mat-option>
+                <mat-option value="FEMALE">
+                    Female
+                </mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="personalInfoForm.controls.gender.touched && personalInfoForm.controls.gender.errors?.['required']">
+                Gender can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input formControlName="dateOfBirth" matInput [matDatepicker]="picker" [disabled]="true">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker disabled="false" #picker></mat-datepicker>
+            <mat-error
+                *ngIf="personalInfoForm.controls.dateOfBirth.touched && personalInfoForm.controls.dateOfBirth.errors?.['required']">
+                Date of birth can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Biography</mat-label>
+            <textarea maxLength="376" formControlName="biography" matInput></textarea>
+            <mat-error
+                *ngIf="personalInfoForm.controls.biography.touched && personalInfoForm.controls.biography.errors?.['required']">
+                Biography can't be empty</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Profile Type</mat-label>
+            <mat-select formControlName="profileType">
+                <mat-option value="PRIVATE">
+                    Private
+                </mat-option>
+                <mat-option value="PUBLIC">
+                    Public
+                </mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="personalInfoForm.controls.profileType.touched && personalInfoForm.controls.profileType.errors?.['required']">
+                Please choose profile type</mat-error>
+        </mat-form-field>
+    </form>
+    
+    <div class="d-flex w-100">
+        <app-secondary-button class="close-btn button" [text]="'Close'" (click)="close()"></app-secondary-button>
+        <app-primary-button class="okay-btn button" [text]="'Update'" (click)="update()"></app-primary-button>
+    </div>
+</div>

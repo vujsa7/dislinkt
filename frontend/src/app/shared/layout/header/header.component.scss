@@ -1,0 +1,94 @@
+@import "src/styles/main.scss";
+
+.navbar{
+    position: fixed;
+    z-index: 999;
+    width: 100%;;
+    top: 0;
+    background-color: white;
+    padding: 15px $grid-margin-width;
+    height: 70px;
+    border-bottom: 1px solid color(lightgrey);
+}
+
+    .dislinkt-logo{
+        @include background-svg($dislinkt-logo);
+        width: 41px;
+        height: 34px;
+        background-repeat: no-repeat;
+    }
+
+    h5{
+        margin: 0px;
+    }
+
+    .brand{
+        color: color(purple);
+    }
+
+    .nav-items{
+        @include media("<tablet-large"){
+            display: none !important;
+        }
+    }
+
+        .nav-item{
+            margin-right: 40px;
+            color: color(lightpurple);
+            cursor: pointer;
+        }
+
+        .nav-item-selected{
+            font-weight: bold;
+            color: color(purple);
+        }
+
+    .navbar-menu{
+        @include background-svg($navbar-menu);
+        @include icon;
+
+        @include media(">=tablet-large"){
+            display: none !important;
+        }
+    }
+
+.overlay{
+    position: absolute;
+    z-index: 101;
+    height: calc(100% - 70px);
+    background-color: rgba(34, 34, 34, 0.5);
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.2s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+    .hidden-overlay{
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .menu-container{
+        background-color: white;
+        animation: expand-width 0.3s ease-in-out forwards;
+    }
+
+    @keyframes expand-width {
+        0% {
+            width: 0%;
+        }
+        100% {
+            width: 50%;
+        }
+    }
+
+        .nav-items-menu{
+            display: flex;
+            flex-direction: column;
+        }
+
+            .nav-item-menu{
+                margin-bottom: 10px;
+                margin-right: $grid-margin-width;
+                color: color(lightblue);
+                cursor: pointer;
+            }

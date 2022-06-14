@@ -59,6 +59,11 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.owasp</groupId>
+			<artifactId>dependency-check-maven</artifactId>
+			<version>7.1.0</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -85,6 +90,18 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>7.1.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

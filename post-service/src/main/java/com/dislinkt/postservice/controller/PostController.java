@@ -6,9 +6,11 @@ import com.dislinkt.postservice.dto.SearchedPostDto;
 import com.dislinkt.postservice.model.Comment;
 import com.dislinkt.postservice.model.Post;
 import com.dislinkt.postservice.service.PostService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/posts")
+@Slf4j
 public class PostController {
     private final PostService postService;
     private final WebClient.Builder webClientBuilder;
@@ -32,10 +35,12 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity createPost(Principal principal, @RequestBody PostDto postDto){
+    public ResponseEntity createPost(Principal principal, @RequestBody PostDto postDto, ServerHttpRequest request){
 
-        if(!principal.getName().equals(postDto.getUserId()))
+        if(!principal.getName().equals(postDto.getUserId())) {
+            log.warn("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "401 Unauthorized for HTTP POST \"/posts\"");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
 
         Post post = new Post(postDto.getUserId(), postDto.getContent(), postDto.getBase64Image(), new Date(), postDto.getPostType());
         postService.save(post);
@@ -77,16 +82,15 @@ public class PostController {
         });
 
         return postsDto;
-
-
     }
 
-
     @PostMapping(value = "{postID}/like")
-    public ResponseEntity likePost(Principal principal, @PathVariable() String postID, @RequestBody String userId){
+    public ResponseEntity likePost(Principal principal, @PathVariable() String postID, @RequestBody String userId, ServerHttpRequest request){
 
-        if(!principal.getName().equals(userId))
+        if(!principal.getName().equals(userId)) {
+            log.warn("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "401 Unauthorized for HTTP POST \"/posts/like\"");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
 
         if(postService.likePost(postID, userId) == -1)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -95,10 +99,12 @@ public class PostController {
     }
 
     @PostMapping(value = "{postID}/dislike")
-    public ResponseEntity dislikePost(Principal principal, @PathVariable() String postID, @RequestBody String userId){
+    public ResponseEntity dislikePost(Principal principal, @PathVariable() String postID, @RequestBody String userId, ServerHttpRequest request){
 
-        if(!principal.getName().equals(userId))
+        if(!principal.getName().equals(userId)) {
+            log.warn("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "401 Unauthorized for HTTP POST \"/posts/dislike\"");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
 
         if(postService.dislikePost(postID, userId) == -1)
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -107,10 +113,12 @@ public class PostController {
     }
 
     @PostMapping(value = "{postID}/comment")
-    public ResponseEntity comment(Principal principal, @PathVariable() String postID, @RequestBody Comment comment){
+    public ResponseEntity comment(Principal principal, @PathVariable() String postID, @RequestBody Comment comment, ServerHttpRequest request){
 
-        if(!principal.getName().equals(comment.getUserId()))
+        if(!principal.getName().equals(comment.getUserId())) {
+            log.warn("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "401 Unauthorized for HTTP POST \"/posts/comment\"");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
 
         postService.comment(postID, comment);
 

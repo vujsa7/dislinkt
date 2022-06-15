@@ -1,9 +1,9 @@
 <div class="login-wrapper d-flex align-items-center justify-content-center">
     <div class="login-form-wrapper d-flex flex-column">
-        <form class="d-flex flex-column align-items-center" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <form class="d-flex flex-column align-items-center" [formGroup]="loginForm">
             <div class="d-flex flex-column w-100 mb-3" [ngClass]="{'text-danger' : (loginForm.controls.username.touched && loginForm.controls.username.errors)}">
                 <label for="email" class="me-2">Email address</label>
-                <input id="email" type="text" name="email" formControlName="username" (keyup.enter)="onSubmit()">
+                <input id="email" type="text" name="email" formControlName="username">
                 <span class="error-message" *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.['required']">Email address cannot be empty.</span>
                 <span class="error-message" *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.['email']">You must enter valid email address.</span>
             </div>

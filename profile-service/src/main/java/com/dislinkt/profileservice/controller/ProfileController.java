@@ -6,9 +6,11 @@ import com.dislinkt.profileservice.model.Education;
 import com.dislinkt.profileservice.model.Position;
 import com.dislinkt.profileservice.model.Profile;
 import com.dislinkt.profileservice.service.ProfileService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/profiles")
+@Slf4j
 public class ProfileController {
     private final ProfileService profileService;
 
@@ -73,7 +76,7 @@ public class ProfileController {
     }
 
     @PatchMapping(value = "/skills")
-    public ResponseEntity changeSkills(@RequestBody List<String> skills, Principal principal){
+    public ResponseEntity changeSkills(@RequestBody List<String> skills, Principal principal, ServerHttpRequest request){
 
         Optional<Profile> profile = profileService.findById(principal.getName());
         if(profile.isPresent()){
@@ -84,6 +87,7 @@ public class ProfileController {
 
             profileService.saveInfo(profile.get());
 
+            log.info("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "200 Ok for HTTP PATCH \"/profiles/skills\"");
             return new ResponseEntity<>(profile, HttpStatus.OK);
         }
 
@@ -91,7 +95,7 @@ public class ProfileController {
     }
 
     @PatchMapping(value = "/interests")
-    public ResponseEntity changeInterests(@RequestBody List<String> interests, Principal principal){
+    public ResponseEntity changeInterests(@RequestBody List<String> interests, Principal principal, ServerHttpRequest request){
 
         Optional<Profile> profile = profileService.findById(principal.getName());
         if(profile.isPresent()){
@@ -104,12 +108,12 @@ public class ProfileController {
 
             return new ResponseEntity<>(profile, HttpStatus.OK);
         }
-
+        log.info("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "200 Ok for HTTP PATCH \"/profiles/interests\"");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PatchMapping(value = "/education")
-    public ResponseEntity updateEducation(@RequestBody List<Education> education, Principal principal){
+    public ResponseEntity updateEducation(@RequestBody List<Education> education, Principal principal, ServerHttpRequest request){
 
         Optional<Profile> profile = profileService.findById(principal.getName());
         if(profile.isEmpty()){
@@ -120,11 +124,13 @@ public class ProfileController {
             profile.get().setEducation(education);
             profileService.saveInfo(profile.get());
         }
-        return new ResponseEntity<>(profile, HttpStatus.NO_CONTENT);
+
+        log.info("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "200 Ok for HTTP PATCH \"/profiles/education\"");
+        return new ResponseEntity<>(profile, HttpStatus.OK);
     }
 
     @PatchMapping(value = "/experiences")
-    public ResponseEntity updateExperience(@RequestBody List<Position> experience, Principal principal){
+    public ResponseEntity updateExperience(@RequestBody List<Position> experience, Principal principal, ServerHttpRequest request){
 
         Optional<Profile> profile = profileService.findById(principal.getName());
         if(profile.isEmpty()){
@@ -135,12 +141,15 @@ public class ProfileController {
             profile.get().setExperience(experience);
             profileService.saveInfo(profile.get());
         }
+
+        log.info("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "200 Ok for HTTP PATCH \"/profiles/experiences\"");
         return new ResponseEntity<>(profile, HttpStatus.OK);
     }
 
     @PatchMapping(value = "/{id}")
-    public ResponseEntity updateProfileInfo(@PathVariable String id, @RequestBody ProfileBasicInfoDto profileDto, Principal principal){
+    public ResponseEntity updateProfileInfo(@PathVariable String id, @RequestBody ProfileBasicInfoDto profileDto, Principal principal, ServerHttpRequest request){
         if(!Objects.equals(principal.getName(), id)){
+            log.warn("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "401 Unauthorized for HTTP PATCH \"/profiles/" + id + "\"");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
@@ -160,6 +169,7 @@ public class ProfileController {
 
             profileService.update(updatedProfile, isNewUsername);
 
+            log.info("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "200 Ok for HTTP PATCH \"/profiles/" + id + "\"");
             return new ResponseEntity<>(HttpStatus.OK);
         }
 

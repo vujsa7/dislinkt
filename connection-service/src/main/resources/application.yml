@@ -24,3 +24,7 @@ spring:
           issuer-uri: "http://localhost:8080/realms/dislinkt"
   main:
     allow-bean-definition-overriding: true
+
+logging:
+  file:
+    path: logs

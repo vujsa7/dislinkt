@@ -15,9 +15,12 @@ import com.dislinkt.user.service.RoleService;
 import com.dislinkt.user.service.UserService;
 import com.dislinkt.util.TokenUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +29,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,6 +37,7 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthController {
 
     private final TokenUtils tokenUtils;
@@ -50,14 +55,21 @@ public class AuthController {
     private final AuthLoginCodeService authLoginCodeService;
 
     @PostMapping(value = "/sign-in")
-    public ResponseEntity<SignInResponse> createAuthenticationToken(@Valid @RequestBody SignInRequest request) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+    public ResponseEntity<SignInResponse> createAuthenticationToken(@Valid @RequestBody SignInRequest request, HttpServletRequest httpRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        User user = (User) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user.getUsername(), user.getRole().getName());
 
-        return ResponseEntity.ok(new SignInResponse(jwt));
+            User user = (User) authentication.getPrincipal();
+            String jwt = tokenUtils.generateToken(user.getUsername(), user.getRole().getName());
+
+            log.info("[" + httpRequest.getRemoteAddr() + "] " + httpRequest.getHeader("User-Agent") + " Successful login. User: " + request.getUsername());
+            return ResponseEntity.ok(new SignInResponse(jwt));
+        } catch (BadCredentialsException e) {
+            log.warn("[" + httpRequest.getRemoteAddr() + "] " + httpRequest.getHeader("User-Agent") + " Failed login. Bad credentials for user: " + request.getUsername());
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping(value = "/sign-in-otp")
@@ -74,7 +86,7 @@ public class AuthController {
     }
 
     @PostMapping(value = "/sign-in-otp-verify")
-    public ResponseEntity verifyOneTimePassword(@Valid @RequestBody OtpSignInRequest request) {
+    public ResponseEntity<?> verifyOneTimePassword(@Valid @RequestBody OtpSignInRequest request, HttpServletRequest httpRequest) {
 
         if(authLoginCodeService.verifyOtp(request.getOtp(), request.getUsername())){
             User user = userService.loadUser(request.getUsername());
@@ -85,8 +97,8 @@ public class AuthController {
             String jwt = tokenUtils.generateToken(user.getUsername(), user.getRole().getName());
             return ResponseEntity.ok(new SignInResponse(jwt));
         }
-        return new ResponseEntity("Invalid one time password!", HttpStatus.BAD_REQUEST);
-
+        log.warn("[" + httpRequest.getRemoteAddr() + "] " + "400 Bad request for HTTP POST \"/sign-in-otp-verify/ for user " + request.getUsername() + "\"");
+        return new ResponseEntity<>("Invalid one time password!", HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping(value = "/sign-up")
@@ -111,16 +123,18 @@ public class AuthController {
     }
 
     @PostMapping(value = "/forgot-password")
-    public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+    public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request, HttpServletRequest httpRequest) {
         userService.sendLinkForPasswordReset(request.getEmail());
 
+        log.info("[" + httpRequest.getRemoteAddr() + "] " + "200 Ok for HTTP POST \"/auth/forgot-password for user " + request.getEmail() + "\"");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "/reset-password")
-    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequest request, HttpServletRequest httpRequest) {
         userService.resetPassword(request.getToken(), passwordEncoder.encode(request.getPassword()));
 
+        log.info("[" + httpRequest.getRemoteAddr() + "] " + "200 Ok for HTTP POST \"/auth/reset-password\"");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -1,0 +1,104 @@
+2022-06-16 01:15:06.439  INFO 24068 --- [main] com.dislinkt.BackendApplication          : Starting BackendApplication using Java 18 on LenovoLegion with PID 24068 (D:\Fax\4 godina\2-XML i veb servisi\dislinkt\dislinkt\agent-app\backend\target\classes started by vujsa in D:\Fax\4 godina\2-XML i veb servisi\dislinkt\dislinkt\agent-app\backend)
+2022-06-16 01:15:06.441  INFO 24068 --- [main] com.dislinkt.BackendApplication          : No active profile set, falling back to default profiles: default
+2022-06-16 01:15:07.287  INFO 24068 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-16 01:15:07.359  INFO 24068 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 63 ms. Found 4 JPA repository interfaces.
+2022-06-16 01:15:07.787  INFO 24068 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@c35af2a' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-06-16 01:15:07.793  INFO 24068 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-06-16 01:15:08.147  INFO 24068 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2022-06-16 01:15:08.159  INFO 24068 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-06-16 01:15:08.159  INFO 24068 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+2022-06-16 01:15:08.227  INFO 24068 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-06-16 01:15:08.227  INFO 24068 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1733 ms
+2022-06-16 01:15:08.388  INFO 24068 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-16 01:15:08.445  INFO 24068 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2022-06-16 01:15:08.572  INFO 24068 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-16 01:15:08.667  INFO 24068 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2022-06-16 01:15:09.179  INFO 24068 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-06-16 01:15:09.352  INFO 24068 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-06-16 01:15:09.361  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:15:09.361  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "auth_login_code" does not exist, skipping
+2022-06-16 01:15:09.362  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:15:09.362  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "users" does not exist, skipping
+2022-06-16 01:15:09.363  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:15:09.363  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "verification_token" does not exist, skipping
+2022-06-16 01:15:09.364  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:15:09.365  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "auth_login_code" does not exist, skipping
+2022-06-16 01:15:09.366  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:15:09.366  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "role" does not exist, skipping
+2022-06-16 01:15:09.366  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:15:09.367  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "users" does not exist, skipping
+2022-06-16 01:15:09.367  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:15:09.367  WARN 24068 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "verification_token" does not exist, skipping
+2022-06-16 01:15:09.452  INFO 24068 --- [main] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'file:/D:/Fax/4%20godina/2-XML%20i%20veb%20servisi/dislinkt/dislinkt/agent-app/backend/target/classes/import.sql'
+2022-06-16 01:15:09.464  INFO 24068 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-16 01:15:09.473  INFO 24068 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-16 01:15:10.180  WARN 24068 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-16 01:15:10.927  INFO 24068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/api/auth/**', POST] with []
+2022-06-16 01:15:10.928  INFO 24068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/api/auth/**', PUT] with []
+2022-06-16 01:15:10.928  INFO 24068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/account-activation**', GET] with []
+2022-06-16 01:15:10.928  INFO 24068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/', GET] with []
+2022-06-16 01:15:10.928  INFO 24068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/webjars/**', GET] with []
+2022-06-16 01:15:10.929  INFO 24068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/*.html', GET] with []
+2022-06-16 01:15:10.929  INFO 24068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='favicon.ico', GET] with []
+2022-06-16 01:15:10.930  INFO 24068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/**/*.html', GET] with []
+2022-06-16 01:15:10.930  INFO 24068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/**/*.css', GET] with []
+2022-06-16 01:15:10.930  INFO 24068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/**/*.js', GET] with []
+2022-06-16 01:15:10.970  INFO 24068 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@510bd87a, org.springframework.security.web.context.SecurityContextPersistenceFilter@69fe8c75, org.springframework.security.web.header.HeaderWriterFilter@72406594, org.springframework.web.filter.CorsFilter@3d213a2b, org.springframework.security.web.authentication.logout.LogoutFilter@4880a9d, com.dislinkt.config.TokenAuthenticationFilter@27691ee8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@15c3585, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4c0ab04f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@78a34c47, org.springframework.security.web.session.SessionManagementFilter@78f35e39, org.springframework.security.web.access.ExceptionTranslationFilter@254d8ef6, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@32f45e15]
+2022-06-16 01:15:11.057  INFO 24068 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
+2022-06-16 01:15:11.067  INFO 24068 --- [main] com.dislinkt.BackendApplication          : Started BackendApplication in 5.079 seconds (JVM running for 5.488)
+2022-06-16 01:18:10.641  INFO 24068 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-16 01:18:10.641  INFO 24068 --- [SpringApplicationShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2022-06-16 01:18:10.699  INFO 24068 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-06-16 01:18:10.702  INFO 24068 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2022-06-16 01:18:13.101  INFO 29980 --- [main] com.dislinkt.BackendApplication          : Starting BackendApplication using Java 18 on LenovoLegion with PID 29980 (D:\Fax\4 godina\2-XML i veb servisi\dislinkt\dislinkt\agent-app\backend\target\classes started by vujsa in D:\Fax\4 godina\2-XML i veb servisi\dislinkt\dislinkt\agent-app\backend)
+2022-06-16 01:18:13.104  INFO 29980 --- [main] com.dislinkt.BackendApplication          : No active profile set, falling back to default profiles: default
+2022-06-16 01:18:13.898  INFO 29980 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-16 01:18:13.963  INFO 29980 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57 ms. Found 4 JPA repository interfaces.
+2022-06-16 01:18:14.380  INFO 29980 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@692e028d' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-06-16 01:18:14.385  INFO 29980 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-06-16 01:18:14.799  INFO 29980 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2022-06-16 01:18:14.808  INFO 29980 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-06-16 01:18:14.809  INFO 29980 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+2022-06-16 01:18:14.875  INFO 29980 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-06-16 01:18:14.875  INFO 29980 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1720 ms
+2022-06-16 01:18:15.079  INFO 29980 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-06-16 01:18:15.138  INFO 29980 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2022-06-16 01:18:15.279  INFO 29980 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-06-16 01:18:15.375  INFO 29980 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2022-06-16 01:18:15.874  INFO 29980 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-06-16 01:18:16.151  INFO 29980 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-06-16 01:18:16.168  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:18:16.169  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "auth_login_code" does not exist, skipping
+2022-06-16 01:18:16.169  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:18:16.170  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "users" does not exist, skipping
+2022-06-16 01:18:16.170  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:18:16.170  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "verification_token" does not exist, skipping
+2022-06-16 01:18:16.171  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:18:16.171  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "auth_login_code" does not exist, skipping
+2022-06-16 01:18:16.172  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:18:16.172  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "role" does not exist, skipping
+2022-06-16 01:18:16.173  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:18:16.173  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "users" does not exist, skipping
+2022-06-16 01:18:16.174  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-06-16 01:18:16.174  WARN 29980 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "verification_token" does not exist, skipping
+2022-06-16 01:18:16.282  INFO 29980 --- [main] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'file:/D:/Fax/4%20godina/2-XML%20i%20veb%20servisi/dislinkt/dislinkt/agent-app/backend/target/classes/import.sql'
+2022-06-16 01:18:16.294  INFO 29980 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-06-16 01:18:16.310  INFO 29980 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-16 01:18:16.888  WARN 29980 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-16 01:18:17.569  INFO 29980 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/api/auth/**', POST] with []
+2022-06-16 01:18:17.569  INFO 29980 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/api/auth/**', PUT] with []
+2022-06-16 01:18:17.570  INFO 29980 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/account-activation**', GET] with []
+2022-06-16 01:18:17.570  INFO 29980 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/', GET] with []
+2022-06-16 01:18:17.570  INFO 29980 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/webjars/**', GET] with []
+2022-06-16 01:18:17.570  INFO 29980 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/*.html', GET] with []
+2022-06-16 01:18:17.570  INFO 29980 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='favicon.ico', GET] with []
+2022-06-16 01:18:17.571  INFO 29980 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/**/*.html', GET] with []
+2022-06-16 01:18:17.571  INFO 29980 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/**/*.css', GET] with []
+2022-06-16 01:18:17.571  INFO 29980 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/**/*.js', GET] with []
+2022-06-16 01:18:17.613  INFO 29980 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@77648321, org.springframework.security.web.context.SecurityContextPersistenceFilter@468646ea, org.springframework.security.web.header.HeaderWriterFilter@2fe2fcc2, org.springframework.web.filter.CorsFilter@43201f84, org.springframework.security.web.authentication.logout.LogoutFilter@5400db7e, com.dislinkt.config.TokenAuthenticationFilter@2c51c756, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@20462820, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@46051269, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4ef277ef, org.springframework.security.web.session.SessionManagementFilter@15c3585, org.springframework.security.web.access.ExceptionTranslationFilter@76219fe, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@b5bddfe]
+2022-06-16 01:18:17.702  INFO 29980 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path ''
+2022-06-16 01:18:17.713  INFO 29980 --- [main] com.dislinkt.BackendApplication          : Started BackendApplication in 5.051 seconds (JVM running for 5.465)
+2022-06-16 01:19:24.177  INFO 29980 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-16 01:19:24.177  INFO 29980 --- [SpringApplicationShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2022-06-16 01:19:24.230  INFO 29980 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-06-16 01:19:24.232  INFO 29980 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

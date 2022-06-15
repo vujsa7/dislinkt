@@ -1,11 +1,11 @@
 server:
   port: 9090
   ssl:
-    enabled: false
-#    key-store: classpath:keystore.jks
-#    key-store-password: eepass
-#    key-alias: 441818144703353588282325311548504796747326522374565934327759283387128678594494114670301732762482
-#    key-store-type: JKS
+    enabled: true
+    key-store: classpath:keystore.jks
+    key-store-password: eepass
+    key-alias: 441818144703353588282325311548504796747326522374565934327759283387128678594494114670301732762482
+    key-store-type: JKS
 
 eureka:
   client:
@@ -25,13 +25,13 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowed-origins: "*"
+            allowed-origins: "http://localhost:4200"
             allowed-headers: "*"
             allowed-methods:
               - GET
               - PATCH
               - OPTIONS
-#            allow-credentials: true
+            allow-credentials: true
         add-to-simple-url-handler-mapping: true
       discovery:
         locator:

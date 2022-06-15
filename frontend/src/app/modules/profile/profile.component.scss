@@ -47,6 +47,46 @@
             @include background-svg($edit);
         }
 
+        .follow-btn{
+            border-radius: 7px;
+            height: 38px;
+            border: none;
+            padding: 3px 30px;
+            box-shadow: none;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s all ease-in-out;
+            margin-right: 10px;
+
+            background-color: white;
+            color: color(purple);
+
+            &:hover{
+                background-color: color(darkgrey);
+            }
+        }
+
+        .following-btn{
+            background-color: color(purple);
+            color: white;
+
+            &:hover{
+                background-color: color(lightpurple);
+            }
+        }
+
+            .checkmark-icon{
+                @include icon;
+                @include background-svg($checkmark);
+                margin-right: 5px;
+            }
+
+        .chat-icon{
+            @include icon;
+            @include background-svg($chat);
+        }
+
     .wrapper{
         padding: 0 190px 20px 190px;
     }
@@ -117,4 +157,9 @@
         .line{
             border: 0;
             border-left: 1px solid color(lightgrey);
+        }
+
+        .no-data{
+            padding: 20px 0;
+            color: color(darkgrey);
         }

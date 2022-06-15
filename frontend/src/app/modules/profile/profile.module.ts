@@ -10,6 +10,7 @@ import { UpdateSkillsInterestsDialogComponent } from './components/update-skills
 import { UpdateExperienceDialogComponent } from './components/update-experience-dialog/update-experience-dialog.component';
 import { ProfileService } from './services/profile.service';
 import { UpdateEducationDialogComponent } from './components/update-education-dialog/update-education-dialog.component';
+import { ConnectionsService } from './services/connections.service';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { UpdateEducationDialogComponent } from './components/update-education-di
     ProfileRoutingModule
   ],
   providers: [
-    ProfileService
+    ProfileService,
+    ConnectionsService
   ]
 })
 export class ProfileModule { }

@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'any'
@@ -18,4 +19,32 @@ export class AuthService {
     }
     return header;
   }
+
+  async isMyProfile(id: string) {
+    const userId = await this.getUserId();
+    if (userId == id)
+      return true;
+    else
+      return false;
+  }
+
+  async getUserId() {
+    const value = await this.keyCloackService.getToken();
+    let token = value;
+    if (token == null)
+      return null;
+    else {
+      let decodedToken = this.getDecodedAccessToken(token);
+      return decodedToken.sub;
+    }
+  }
+
+  private getDecodedAccessToken(token: string): any {
+    try {
+        return jwt_decode(token);
+    } catch (Error) {
+        return null;
+    }
+  }
+  
 }

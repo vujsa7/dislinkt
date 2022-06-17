@@ -2,6 +2,7 @@ package com.dislinkt.connectionservice.controller;
 
 import com.dislinkt.connectionservice.dto.ConnectionsDto;
 import com.dislinkt.connectionservice.dto.NewConnectionDto;
+import com.dislinkt.connectionservice.dto.NewConnectionStatusDto;
 import com.dislinkt.connectionservice.model.ProfileEntity;
 import com.dislinkt.connectionservice.service.ConnectionService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,15 +27,16 @@ public class ConnectionController {
     }
 
     @PostMapping
-    ResponseEntity<NewConnectionDto> postNewConnection(Principal principal, @RequestBody NewConnectionDto newConnectionDto, ServerHttpRequest request){
+    ResponseEntity modifyConnection(Principal principal, @RequestBody NewConnectionDto newConnectionDto, ServerHttpRequest request){
         if(principal.getName().equals(newConnectionDto.getId())){
-            connectionService.createNewConnection(newConnectionDto.getId(), newConnectionDto.getFollowerId());
+            boolean isFollowingAfterUpdate = connectionService.modifyConnection(newConnectionDto.getId(), newConnectionDto.getFollowerId());
+            return new ResponseEntity<NewConnectionStatusDto>(new NewConnectionStatusDto(isFollowingAfterUpdate), HttpStatus.CREATED);
         } else {
             log.warn("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "401 Unauthorized for HTTP POST \"/connections\"");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        return new ResponseEntity<NewConnectionDto>(newConnectionDto, HttpStatus.CREATED);
+
     }
 
     @GetMapping(value = "/{id}")

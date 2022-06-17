@@ -96,7 +96,8 @@ export class ProfileComponent implements OnInit {
   openUpdateSkillsDialog(): void {
     let dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      skills: this.profile.skills
+      skills: this.profile.skills,
+      dialogType: "skills"
     };
     let dialogRef = this.dialog.open(UpdateSkillsInterestsDialogComponent, dialogConfig);
     dialogRef.componentInstance.okay.subscribe(
@@ -112,7 +113,8 @@ export class ProfileComponent implements OnInit {
   openUpdateInterestsDialog(): void {
     let dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      interests: this.profile.interests
+      interests: this.profile.interests,
+      dialogType: "interests"
     };
     let dialogRef = this.dialog.open(UpdateSkillsInterestsDialogComponent, dialogConfig);
     dialogRef.componentInstance.okay.subscribe(
@@ -155,9 +157,9 @@ export class ProfileComponent implements OnInit {
 
   toggleFollow(){
     let follow = {id: this.loggedInId, followerId: this.profile.id}
-    this.connectionsService.follow(follow).subscribe(
+    this.connectionsService.modifyConnection(follow).subscribe(
       data => {
-        this.follows = true;
+        this.follows = data.following;
       }
     )
 

@@ -32,10 +32,7 @@ export class UpdateSkillsInterestsDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data: any, private profileService: ProfileService, private dialog: MatDialog) {
     this.skills = data.skills;
     this.interests = data.interests;
-    if (data.skills)
-      this.dialogType = "skills";
-    else
-      this.dialogType = "interests";
+    this.dialogType = data.dialogType;
   }
 
   ngOnInit(): void {
@@ -51,8 +48,8 @@ export class UpdateSkillsInterestsDialogComponent implements OnInit {
       for (let skill of this.skills) {
         this.getSkillsFormArray().push(new FormControl(skill, [Validators.required]));
       }
-      this.initialSkills = this.skillsForm.value;
     }
+    this.initialSkills = this.skillsForm.value;
   }
 
   initializeInterestsForm() {
@@ -63,8 +60,8 @@ export class UpdateSkillsInterestsDialogComponent implements OnInit {
       for (let interest of this.interests) {
         this.getInterestsFormArray().push(new FormControl(interest, [Validators.required]));
       }
-      this.initialInterests = this.interestsForm.value;
     }
+    this.initialInterests = this.interestsForm.value;
   }
 
   getSkillsFormArray(): FormArray {

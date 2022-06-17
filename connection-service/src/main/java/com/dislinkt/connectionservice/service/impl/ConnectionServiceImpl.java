@@ -20,8 +20,13 @@ public class ConnectionServiceImpl implements ConnectionService {
     }
 
     @Override
-    public void createNewConnection(String id, String followerId) {
-        connectionRepository.createNewConnection(id, followerId);
+    public boolean modifyConnection(String id, String followerId) {
+        boolean isFollowing = connectionRepository.isFollowing(id, followerId);
+        if(isFollowing)
+            connectionRepository.deleteConnection(id, followerId);
+        else
+            connectionRepository.createNewConnection(id, followerId);
+        return !isFollowing;
     }
 
     @Override

@@ -16,7 +16,7 @@ export class ConnectionsService {
     return this.http.get(this.baseUrl + id, { headers: this.authService.getHeader() })
   }
 
-  follow(followInfo: { id: string, followerId: string }): Observable<any> {
+  modifyConnection(followInfo: { id: string, followerId: string }): Observable<any> {
     return this.http.post(this.baseUrl, followInfo, { headers: this.authService.getHeader() });
   }
 }

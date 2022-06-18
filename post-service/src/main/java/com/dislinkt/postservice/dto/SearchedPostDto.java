@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class SearchedPostDto {
+    private String id;
     private String content;
     private String base64Image;
     private Integer likes;
@@ -18,4 +19,6 @@ public class SearchedPostDto {
     private List<Comment> comments;
     private Date postedAt;
     private PostType postType;
+    private List<String> usersWhoLiked;
+    private List<String> usersWhoDisliked;
 }

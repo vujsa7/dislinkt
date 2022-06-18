@@ -11,6 +11,7 @@ import { UpdateExperienceDialogComponent } from './components/update-experience-
 import { ProfileService } from './services/profile.service';
 import { UpdateEducationDialogComponent } from './components/update-education-dialog/update-education-dialog.component';
 import { ConnectionsService } from './services/connections.service';
+import { PostModule } from '../post/post.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ConnectionsService } from './services/connections.service';
   imports: [
     CommonModule,
     SharedModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    PostModule
   ],
   providers: [
     ProfileService,

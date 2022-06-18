@@ -5,6 +5,7 @@ import { FeedRoutingModule } from './feed-routing.module';
 import { FeedComponent } from './feed.component';
 import { FeedService } from './services/feed.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PostModule } from '../post/post.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     FeedRoutingModule,
-    SharedModule
+    SharedModule,
+    PostModule
   ],
   providers: [
     FeedService

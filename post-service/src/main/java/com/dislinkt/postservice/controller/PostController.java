@@ -1,6 +1,7 @@
 package com.dislinkt.postservice.controller;
 
 import com.dislinkt.postservice.dto.ConnectionsDto;
+import com.dislinkt.postservice.dto.LikesDislikesDto;
 import com.dislinkt.postservice.dto.PostDto;
 import com.dislinkt.postservice.dto.SearchedPostDto;
 import com.dislinkt.postservice.model.Comment;
@@ -48,8 +49,8 @@ public class PostController {
         List<Post> posts = postService.findUserPosts(userId);
 
         List<SearchedPostDto> dtos = posts.stream()
-                .map(post -> new SearchedPostDto(post.getContent(), post.getBase64Image(), post.getLikes(), post.getDislikes(),
-                        post.getComments(), post.getPostedAt(), post.getPostType()))
+                .map(post -> new SearchedPostDto(post.getId(), post.getContent(), post.getBase64Image(), post.getLikes(), post.getDislikes(),
+                        post.getComments(), post.getPostedAt(), post.getPostType(), post.getUsersWhoLiked(), post.getUsersWhoDisliked()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(dtos, HttpStatus.OK);
@@ -70,8 +71,8 @@ public class PostController {
         final Mono<List<SearchedPostDto>> postsDto = response.map(connectionsDto -> {
             List<Post> posts = postService.getFeed(connectionsDto.getIds());
             List<SearchedPostDto> dtos = posts.stream()
-                    .map(post -> new SearchedPostDto(post.getContent(), post.getBase64Image(), post.getLikes(), post.getDislikes(),
-                            post.getComments(), post.getPostedAt(), post.getPostType()))
+                    .map(post -> new SearchedPostDto(post.getId(), post.getContent(), post.getBase64Image(), post.getLikes(), post.getDislikes(),
+                            post.getComments(), post.getPostedAt(), post.getPostType(), post.getUsersWhoLiked(), post.getUsersWhoDisliked()))
                     .collect(Collectors.toList());
             return dtos;
         });
@@ -80,31 +81,39 @@ public class PostController {
     }
 
     @PostMapping(value = "{postID}/like")
-    public ResponseEntity likePost(Principal principal, @PathVariable() String postID, @RequestBody String userId, ServerHttpRequest request){
+    public ResponseEntity likePost(Principal principal, @PathVariable() String postID, ServerHttpRequest request){
 
-        if(!principal.getName().equals(userId)) {
+        if(!principal.getName().equals(principal.getName())) {
             log.warn("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "401 Unauthorized for HTTP POST \"/posts/like\"");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        if(postService.likePost(postID, userId) == -1)
+        if(postService.likePost(postID, principal.getName()) == -1)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        Post post = postService.getPost(postID);
+        if(post == null)
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity(new LikesDislikesDto(post.getLikes(), post.getDislikes(), post.getUsersWhoLiked(), post.getUsersWhoDisliked()), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "{postID}/dislike")
-    public ResponseEntity dislikePost(Principal principal, @PathVariable() String postID, @RequestBody String userId, ServerHttpRequest request){
+    public ResponseEntity dislikePost(Principal principal, @PathVariable() String postID, ServerHttpRequest request){
 
-        if(!principal.getName().equals(userId)) {
+        if(!principal.getName().equals(principal.getName())) {
             log.warn("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "401 Unauthorized for HTTP POST \"/posts/dislike\"");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        if(postService.dislikePost(postID, userId) == -1)
+        if(postService.dislikePost(postID, principal.getName()) == -1)
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        Post post = postService.getPost(postID);
+        if(post == null)
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity(new LikesDislikesDto(post.getLikes(), post.getDislikes(), post.getUsersWhoLiked(), post.getUsersWhoDisliked()), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "{postID}/comment")
@@ -117,7 +126,7 @@ public class PostController {
 
         postService.comment(postID, comment);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 }

@@ -7,12 +7,10 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './layout/header/header.component';
-import { ProfileModule } from '../modules/profile/profile.module';
 import { MaterialModule } from './material/material.module';
 import { SearchProfilesBoxComponent } from './components/search-profiles-box/search-profiles-box.component';
 import { InfoDialogComponent } from './components/info-dialog/info-dialog.component';
 import { EmploymentTypePipe } from './pipes/employment-type.pipe';
-import { StatusPostComponent } from './components/status-post/status-post.component';
 
 
 @NgModule({
@@ -23,8 +21,7 @@ import { StatusPostComponent } from './components/status-post/status-post.compon
     SearchProfilesBoxComponent,
     HeaderComponent,
     InfoDialogComponent,
-    EmploymentTypePipe,
-    StatusPostComponent
+    EmploymentTypePipe
   ],
   imports: [
     CommonModule, 
@@ -39,7 +36,6 @@ import { StatusPostComponent } from './components/status-post/status-post.compon
     SecondaryButtonComponent, 
     SearchComponent,
     HeaderComponent,
-    StatusPostComponent,
     InfoDialogComponent,
 
     ReactiveFormsModule,

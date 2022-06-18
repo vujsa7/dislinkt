@@ -7,13 +7,17 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'any'
 })
-export class FeedService {
+export class PostService {
 
   baseUrl: string = environment.baseUrl + 'post-service/posts/';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  getFeed(): Observable<any> {
-    return this.http.get(this.baseUrl + 'feed', { headers: this.authService.getHeader() })
+  likePost(postId: string): Observable<any>{
+    return this.http.post<any>(this.baseUrl + postId + '/like', { headers: this.authService.getHeader() })
+  }
+
+  dislikePost(postId: string): Observable<any>{
+    return this.http.post<any>(this.baseUrl + postId + '/dislike', { headers: this.authService.getHeader() })
   }
 }

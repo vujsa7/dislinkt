@@ -19,4 +19,19 @@
             {{post.comments.length}} {{post.comments.length == 1 ? 'comment' : 'comments'}}
         </span>
     </div>
+    <div class="grey-line"></div>
+    <div class="d-flex align-items-center">
+        <div (click)="likePost()" class="action-btn-wrapper">
+            <svg class="thumbs-up-icon" [ngClass]="{'active': didUserLike()}"></svg>
+            <span [ngClass]="didUserLike() ? 'purple-text' : 'black-text'">Like</span>
+        </div>
+        <div (click)="dislikePost()" class="action-btn-wrapper">
+            <svg class="thumbs-down-icon" [ngClass]="{'active': didUserDislike()}"></svg>
+            <span [ngClass]="didUserDislike() ? 'purple-text' : 'black-text'">Dislike</span>
+        </div>
+        <div (click)="toggleComment()" class="action-btn-wrapper">
+            <svg class="comment-icon"></svg>
+            <span class="black-text">Comment</span>
+        </div>
+    </div>
 </div>

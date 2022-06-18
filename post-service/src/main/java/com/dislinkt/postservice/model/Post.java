@@ -26,9 +26,7 @@ public class Post {
     private List<Comment> comments;
     private Date postedAt;
     private PostType postType;
-
     private List<String> usersWhoLiked;
-
     private List<String> usersWhoDisliked;
 
 

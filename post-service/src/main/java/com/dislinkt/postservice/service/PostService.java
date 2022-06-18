@@ -18,4 +18,5 @@ public interface PostService {
 
     void comment(String postID, Comment comment);
 
+    Post getPost(String postID);
 }

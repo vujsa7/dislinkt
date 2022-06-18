@@ -46,17 +46,18 @@ public class PostServiceImpl implements PostService {
 
         Post post = p.get();
 
-        if(post.getUsersWhoLiked().contains(userId))
-            return -1;
+        if(post.getUsersWhoLiked().contains(userId)){
+            post.setLikes(post.getLikes() - 1);
+            post.removeUserWhoLiked(userId);
+        } else {
+            post.setLikes(post.getLikes() + 1);
+            post.addUserWhoLiked(userId);
 
-        post.setLikes(post.getLikes() + 1);
-        post.addUserWhoLiked(userId);
-
-        if(post.getUsersWhoDisliked().contains(userId)){
-            post.removeUserWhoDisliked(userId);
-            post.setDislikes(post.getDislikes() - 1);
+            if(post.getUsersWhoDisliked().contains(userId)){
+                post.removeUserWhoDisliked(userId);
+                post.setDislikes(post.getDislikes() - 1);
+            }
         }
-
 
         postRepository.save(post);
         return 1;
@@ -71,26 +72,39 @@ public class PostServiceImpl implements PostService {
 
         Post post = p.get();
 
-        if(post.getUsersWhoDisliked().contains(userId))
-            return -1;
+        if(post.getUsersWhoDisliked().contains(userId)){
+            post.setDislikes(post.getDislikes() - 1);
+            post.removeUserWhoDisliked(userId);
+        } else {
+            post.setDislikes(post.getDislikes() + 1);
+            post.addUserWhoDisliked(userId);
 
-        post.setDislikes(post.getDislikes() + 1);
-        post.addUserWhoDisliked(userId);
-
-        if(post.getUsersWhoLiked().contains(userId)){
-            post.removeUserWhoLiked(userId);
-            post.setLikes(post.getLikes() - 1);
+            if(post.getUsersWhoLiked().contains(userId)){
+                post.removeUserWhoLiked(userId);
+                post.setLikes(post.getLikes() - 1);
+            }
         }
-
 
         postRepository.save(post);
         return 1;
     }
+
+
 
     @Override
     public void comment(String postID, Comment comment) {
         Post post = postRepository.findPostById(postID);
         post.addComment(comment);
         postRepository.save(post);
+    }
+
+    @Override
+    public Post getPost(String postID) {
+        Optional<Post> p = postRepository.findById(postID);
+
+        if(p.isEmpty())
+            return null;
+
+        return p.get();
     }
 }

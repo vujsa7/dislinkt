@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import { AuthService } from 'src/app/core/auth.service';
 import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
+import { environment } from 'src/environments/environment';
 import { UpdateEducationDialogComponent } from './components/update-education-dialog/update-education-dialog.component';
 import { UpdateExperienceDialogComponent } from './components/update-experience-dialog/update-experience-dialog.component';
 import { UpdateProfileDialogComponent } from './components/update-profile-dialog/update-profile-dialog.component';
@@ -23,23 +24,27 @@ export class ProfileComponent implements OnInit {
   connections!: Array<any>;
   follows!: boolean;
   loggedInId!: string;
+  newProfileImg: any;
+  profileImageUrl: string = 'https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60';
 
   constructor(private route: ActivatedRoute, private profileService: ProfileService, private dialog: MatDialog,
      private authService: AuthService, private connectionsService: ConnectionsService) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.route.paramMap.subscribe(params => {
+      
       this.profileService.getProfile(params.get('username')).subscribe(
         async data => {
           this.profile = data;
-          this.isMyProfile = await this.authService.isMyProfile(this.profile.id);
-          this.loggedInId = await this.authService.getUserId();
+          this.isMyProfile = this.authService.isMyProfile(this.profile.id);
+          this.loggedInId = this.authService.getUserId();
           this.connectionsService.getConnectionsForUser(this.loggedInId).subscribe(
             data => {
               this.connections = data.ids;
               this.checkIfLoggedInUserFollows(this.profile.id);
             }
           );
+          this.getProfileImage();
         }
       )
     });
@@ -162,6 +167,45 @@ export class ProfileComponent implements OnInit {
         this.follows = data.following;
       }
     )
+  }
 
+  getProfileImage(){
+    this.profileService.getProfileImage(this.profile.id).subscribe(data => {
+      this.profileImageUrl = data.url;
+    })
+  }
+
+  onFileChanged(event: any): void {
+    const file = event.target.files[0]
+    const mimeType = file.type;
+    if (mimeType.match(/image\/*/) == null) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = {
+        title: "Only images are supported",
+        message: "Please select an image to upload",
+        buttonText: "Okay"
+      };
+      this.dialog.open(InfoDialogComponent, dialogConfig);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (_event) => {
+      this.newProfileImg = reader.result;
+    }
+
+    const image = new FormData();
+    image.append('file', file);
+
+    console.log(image)
+    this.profileService.updateProfileImage(image).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error.message);
+      }
+    );
   }
 }

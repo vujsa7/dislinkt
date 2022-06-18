@@ -31,6 +31,7 @@ public class Profile {
     private List<String> skills;
     private List<String> interests;
     private ProfileType profileType;
+    private String image;
 
     public Profile(String id, String username, String firstName, String lastName, String email, String phoneNumber, Gender gender, Date dateOfBirth, String biography, ProfileType profileType) {
         this.id = id;

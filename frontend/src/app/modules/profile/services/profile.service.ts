@@ -59,4 +59,11 @@ export class ProfileService {
     return this.http.patch(this.baseUrl + '/education', education, { headers: this.authService.getHeader() });
   }
 
+  updateProfileImage(image: any) : Observable<string>  {
+    return this.http.put<any>(this.baseUrl + '/image', image, { headers: this.authService.getFormHeader()});
+  }
+
+  getProfileImage(id: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '/' + id + '/image', { headers: this.authService.getHeader() })
+  }
 }

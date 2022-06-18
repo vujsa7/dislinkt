@@ -13,6 +13,7 @@ public class SecurityConfig {
         return http.csrf()
                 .disable()
                 .authorizeExchange()
+                .pathMatchers("/storage/**").permitAll()
                 .pathMatchers("/profiles/**").permitAll()
                 .anyExchange().authenticated()
                 .and()

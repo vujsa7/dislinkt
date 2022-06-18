@@ -12,6 +12,7 @@ import { MaterialModule } from './material/material.module';
 import { SearchProfilesBoxComponent } from './components/search-profiles-box/search-profiles-box.component';
 import { InfoDialogComponent } from './components/info-dialog/info-dialog.component';
 import { EmploymentTypePipe } from './pipes/employment-type.pipe';
+import { StatusPostComponent } from './components/status-post/status-post.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { EmploymentTypePipe } from './pipes/employment-type.pipe';
     SearchProfilesBoxComponent,
     HeaderComponent,
     InfoDialogComponent,
-    EmploymentTypePipe
+    EmploymentTypePipe,
+    StatusPostComponent
   ],
   imports: [
     CommonModule, 
@@ -37,11 +39,14 @@ import { EmploymentTypePipe } from './pipes/employment-type.pipe';
     SecondaryButtonComponent, 
     SearchComponent,
     HeaderComponent,
+    StatusPostComponent,
+    InfoDialogComponent,
+
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    InfoDialogComponent,
     MaterialModule,
+
     EmploymentTypePipe
   ]
 })

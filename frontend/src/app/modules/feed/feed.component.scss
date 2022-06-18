@@ -1,2 +1,15 @@
 @import "src/styles/main.scss";
 
+.posts-wrapper{
+    padding-top: 80px;
+    width: 512px;
+
+    @include media("<tablet"){
+        width: 100%;
+        padding: 80px $grid-margin-width 10px;
+    }
+}
+
+.post{
+    margin-bottom: 10px;
+}

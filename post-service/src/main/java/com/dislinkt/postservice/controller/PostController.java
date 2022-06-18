@@ -35,14 +35,9 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity createPost(Principal principal, @RequestBody PostDto postDto, ServerHttpRequest request){
+    public ResponseEntity createPost(Principal principal, @RequestBody PostDto postDto){
 
-        if(!principal.getName().equals(postDto.getUserId())) {
-            log.warn("[" + request.getRemoteAddress().getAddress().getHostAddress() + "] " + "401 Unauthorized for HTTP POST \"/posts\"");
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-
-        Post post = new Post(postDto.getUserId(), postDto.getContent(), postDto.getBase64Image(), new Date(), postDto.getPostType());
+        Post post = new Post(principal.getName(), postDto.getContent(), postDto.getBase64Image(), new Date(), postDto.getPostType());
         postService.save(post);
 
         return new ResponseEntity<>(HttpStatus.CREATED);

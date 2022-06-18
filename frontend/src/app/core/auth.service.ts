@@ -8,10 +8,12 @@ import jwt_decode from 'jwt-decode';
 })
 export class AuthService {
 
-  constructor(private keyCloackService: KeycloakService) { }
+  constructor(private keyCloackService: KeycloakService) {
+
+  }
 
   getHeader(): HttpHeaders {
-    let token = this.keyCloackService.getToken();
+    let token = this.keyCloackService.getKeycloakInstance().token;
     let header = new HttpHeaders().set('Content-Type', 'application/json');
     if (token != null) {
       header = new HttpHeaders().set('Content-Type', 'application/json')
@@ -20,16 +22,25 @@ export class AuthService {
     return header;
   }
 
-  async isMyProfile(id: string) {
-    const userId = await this.getUserId();
+  getFormHeader(): HttpHeaders {
+      let token = this.keyCloackService.getKeycloakInstance().token;
+      let header = new HttpHeaders();
+      if (token != null) {
+          header = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      }
+      return header;
+  }
+
+  isMyProfile(id: string) {
+    const userId = this.getUserId();
     if (userId == id)
       return true;
     else
       return false;
   }
 
-  async getUserId() {
-    const value = await this.keyCloackService.getToken();
+  getUserId() {
+    const value = this.keyCloackService.getKeycloakInstance().token;
     let token = value;
     if (token == null)
       return null;

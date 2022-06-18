@@ -1,18 +1,25 @@
 package com.dislinkt.profileservice.controller;
 
+import com.dislinkt.profileservice.dto.ImageDto;
 import com.dislinkt.profileservice.dto.ProfileBasicInfoDto;
 import com.dislinkt.profileservice.dto.SearchedProfileDto;
+import com.dislinkt.profileservice.exception.ApiRequestException;
 import com.dislinkt.profileservice.model.Education;
 import com.dislinkt.profileservice.model.Position;
 import com.dislinkt.profileservice.model.Profile;
 import com.dislinkt.profileservice.service.ProfileService;
+import com.dislinkt.profileservice.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
+import java.nio.file.Path;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
@@ -24,10 +31,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProfileController {
     private final ProfileService profileService;
+    private final StorageService storageService;
 
     @Autowired
-    public ProfileController(ProfileService profileService) {
+    public ProfileController(ProfileService profileService, StorageService storageService) {
         this.profileService = profileService;
+        this.storageService = storageService;
     }
 
     @GetMapping(value = "/{id}")
@@ -174,6 +183,19 @@ public class ProfileController {
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping(value = "/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Mono<Path> uploadProfileImage(Principal principal, @RequestPart("file") Mono<FilePart> file){
+        return storageService.uploadProfileImage(principal.getName(), file);
+    }
+
+    @GetMapping(value = "/{id}/image")
+    public ResponseEntity getProfileImage(@PathVariable String id){
+        String url = storageService.getProfileImage(id);
+        if(url == null)
+            return new ResponseEntity(new ImageDto(""), HttpStatus.OK);
+        return new ResponseEntity(new ImageDto("https://localhost:9090/profile-service/storage/" + storageService.getProfileImage(id)), HttpStatus.OK);
     }
 
 }

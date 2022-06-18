@@ -4,7 +4,15 @@
     <div class="image-name-wrapper d-flex flex-column">
         <div class="d-flex w-100 align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img class="profile-img" src="https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60">
+                <div class="profile-img-wrapper">
+                    <img class="profile-img" [src]="newProfileImg==null ? profileImageUrl : newProfileImg">
+                    <!-- <div *ngIf="isMyProfile"> -->
+                        <input style="display: none" type="file" (change)="onFileChanged($event)" #profileInputImage>
+                        <button class="replace-img-button" (click)="profileInputImage.click()">
+                            <svg class="replace-icon"></svg>
+                        </button>
+                    <!-- </div> -->
+                </div>
                 <h1>{{profile.firstName}} {{profile.lastName}}</h1>
             </div>
             <div *ngIf="isMyProfile" (click)="openUpdateProfileDialog()" class="d-flex align-items-center justify-content-center round-circle">

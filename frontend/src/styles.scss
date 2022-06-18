@@ -142,6 +142,10 @@ a{
     border-radius: 7px;
 }
 
+.pointer{
+    cursor: pointer;
+}
+
 .c-toast-container{
     padding: 0 !important;
 }
@@ -167,6 +171,5 @@ a{
     border: none !important;
 }
     
-
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

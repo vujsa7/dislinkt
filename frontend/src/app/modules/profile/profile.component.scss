@@ -14,13 +14,42 @@
         padding: 0 $grid-margin-width;
     }
 
-        .profile-img{
-            border-radius: 50%;
-            height: 200px;
-            width: 200px;
-            margin-right: 30px;
-            object-fit: cover;
+        .profile-img-wrapper{
+            position: relative;
         }
+
+            .profile-img{
+                border-radius: 50%;
+                height: 200px;
+                width: 200px;
+                margin-right: 30px;
+                object-fit: cover;
+            }
+
+            .replace-img-button{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                position: absolute;
+                bottom: 10px;
+                right: 42px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: color(purple);
+                border: 0;
+                transition: 200ms ease-in-out all;
+    
+                &:hover{
+                    background-color: color(lightpurple);
+                }
+            }
+
+                .replace-icon{
+                    @include background-svg($camera);
+                    @include icon;
+                }
 
         h1{
             color: color(black) !important;

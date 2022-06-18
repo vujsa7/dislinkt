@@ -1,0 +1,26 @@
+@import "src/styles/main.scss";
+
+.user-info{
+    margin-bottom: 10px;
+}
+
+    h5{
+        color: color(black) !important;
+        font-weight: lighter !important;
+    }
+
+    .post-profile-img{
+        height: 40px;
+        width: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+.content{
+    margin-bottom: 10px;
+}
+
+.likes{
+    margin-right: 20px;
+}

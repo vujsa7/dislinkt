@@ -8,12 +8,13 @@ import { environment } from 'src/environments/environment';
   providedIn: 'any'
 })
 export class FeedService {
+ 
 
-  baseUrl: string = environment.baseUrl + 'post-service/posts/';
+  baseUrl: string = environment.baseUrl + 'post-service/posts';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   getFeed(): Observable<any> {
-    return this.http.get(this.baseUrl + 'feed', { headers: this.authService.getHeader() })
+    return this.http.get(this.baseUrl + '/feed', { headers: this.authService.getHeader() })
   }
 }

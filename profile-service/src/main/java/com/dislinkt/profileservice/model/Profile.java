@@ -64,4 +64,7 @@ public class Profile {
         this.profileType = profileType;
     }
 
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
 }

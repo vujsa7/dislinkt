@@ -13,7 +13,7 @@
             font-weight: lighter !important;
         }
 
-        .post-profile-img{
+        .post-profile-img, .comment-profile-img{
             height: 40px;
             width: 40px;
             object-fit: cover;
@@ -21,61 +21,84 @@
             margin-right: 10px;
         }
 
-    .content{
-        margin-bottom: 10px;
-    }
-
-    .likes{
-        margin-right: 20px;
-    }
-
-    .grey-line{
+    .post-image{
+        object-fit: contain;
         width: calc(100% + 40px);
-        border-bottom: 1px solid color(lightgrey);
-        margin: 10px -20px;
-    }
-
-    .action-btn-wrapper{
-        display: flex;
-        align-items: center;
-        margin: 0 15px;
+        margin: 10px -20px 0px -20px;
         cursor: pointer;
-        transition: all 0.2s ease-in-out;
-
-        &:first-child{
-            margin-left: 0;
-        }
-
-        &:hover{
-            filter: brightness(1.5);
-        }
     }
 
-        .thumbs-up-icon, .thumbs-down-icon, .comment-icon{
-            @include icon;
-            height: 18px;
-            width: 18px;
-            min-height: 18px;
-            min-width: 18px;
-            margin-right: 5px;
+    .interactions{
+        margin-top: 10px;
+    }
+
+        .likes{
+            margin-right: 20px;
         }
 
-        .thumbs-up-icon{
-            @include background-svg($thumbs-up);
+        .grey-line{
+            width: calc(100% + 40px);
+            border-bottom: 1px solid color(lightgrey);
+            margin: 10px -20px;
         }
 
-        .thumbs-down-icon{
-            @include background-svg($thumbs-down);
+        .action-btn-wrapper{
+            display: flex;
+            align-items: center;
+            margin: 0 15px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+
+            &:first-child{
+                margin-left: 0;
+            }
+
+            &:hover{
+                filter: brightness(1.5);
+            }
         }
 
-        .thumbs-up-icon.active{
-            @include background-svg($thumbs-up-active);
-        }
+            .thumbs-up-icon, .thumbs-down-icon, .comment-icon{
+                @include icon;
+                height: 18px;
+                width: 18px;
+                min-height: 18px;
+                min-width: 18px;
+                margin-right: 5px;
+            }
 
-        .thumbs-down-icon.active{
-            @include background-svg($thumbs-down-active);
-        }
+            .thumbs-up-icon{
+                @include background-svg($thumbs-up);
+            }
 
-        .comment-icon{
-            @include background-svg($comment);
+            .thumbs-down-icon{
+                @include background-svg($thumbs-down);
+            }
+
+            .thumbs-up-icon.active{
+                @include background-svg($thumbs-up-active);
+            }
+
+            .thumbs-down-icon.active{
+                @include background-svg($thumbs-down-active);
+            }
+
+            .comment-icon{
+                @include background-svg($comment);
+            }
+
+    .comment-btn{
+        margin-bottom: 20px;
+    }
+    
+    .bubble{
+        background-color: color(lightgrey);
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        padding: 10px 15px;
+    }
+
+        .fullname-comment{
+            margin-bottom: 5px;
         }

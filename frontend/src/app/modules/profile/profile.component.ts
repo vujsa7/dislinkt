@@ -20,35 +20,64 @@ import { ProfileService } from './services/profile.service';
 export class ProfileComponent implements OnInit {
 
   profile: any;
-  isMyProfile!: boolean;
+  isMyProfile: boolean = false;
   connections!: Array<any>;
   follows!: boolean;
   loggedInId!: string;
   newProfileImg: any;
-  profileImageUrl: string = 'https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60';
+  profileImageUrl: string = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png";
+  profileImageLoaded: boolean = false;
+  posts: any;
 
   constructor(private route: ActivatedRoute, private profileService: ProfileService, private dialog: MatDialog,
      private authService: AuthService, private connectionsService: ConnectionsService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      
       this.profileService.getProfile(params.get('username')).subscribe(
-        async data => {
+        data => {
           this.profile = data;
-          this.isMyProfile = this.authService.isMyProfile(this.profile.id);
-          this.loggedInId = this.authService.getUserId();
-          this.connectionsService.getConnectionsForUser(this.loggedInId).subscribe(
-            data => {
-              this.connections = data.ids;
-              this.checkIfLoggedInUserFollows(this.profile.id);
-            }
-          );
+          this.initializeProfilePage();
           this.getProfileImage();
+          this.getProfilePosts();
+        },
+        error => {
+          this.profileService.getProfileById(params.get('username')!).subscribe(
+            data => {
+              this.profile = data;
+              this.initializeProfilePage();
+              this.getProfileImage();
+              this.getProfilePosts();
+            }
+          )
         }
       )
     });
+  }
 
+  initializeProfilePage() {
+    if(this.isAuthenticated()){
+      this.isMyProfile = this.authService.isMyProfile(this.profile.id);
+      this.loggedInId = this.authService.getUserId();
+      this.connectionsService.getConnectionsForUser(this.loggedInId).subscribe(
+        data => {
+          this.connections = data.ids;
+          this.checkIfLoggedInUserFollows(this.profile.id);
+        }
+      );
+    }
+  }
+
+  isAuthenticated(){
+    return this.authService.isAuthenticated();
+  }
+
+  getProfilePosts() {
+    this.profileService.getPostsForProfile(this.profile.id).subscribe(
+      data => {
+        this.posts = data;
+      }
+    )
   }
 
   checkIfLoggedInUserFollows(id: string) {
@@ -170,8 +199,16 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfileImage(){
+    this.profileImageLoaded = false;
     this.profileService.getProfileImage(this.profile.id).subscribe(data => {
-      this.profileImageUrl = data.url;
+      if(data.url != ""){
+        this.profileImageUrl = data.url;
+      } else {
+        this.profileImageUrl = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png";
+      }
+      setTimeout(() => {
+        this.profileImageLoaded = true;
+      }, 0)
     })
   }
 
@@ -198,7 +235,6 @@ export class ProfileComponent implements OnInit {
     const image = new FormData();
     image.append('file', file);
 
-    console.log(image)
     this.profileService.updateProfileImage(image).subscribe(
       data => {
         console.log(data);
@@ -207,5 +243,9 @@ export class ProfileComponent implements OnInit {
         console.log(error.message);
       }
     );
+  }
+
+  sortedPosts(){
+    return _.sortBy(this.posts, [p => p.postedAt]).reverse();
   }
 }

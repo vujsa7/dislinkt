@@ -1,6 +1,7 @@
 package com.dislinkt.profileservice.controller;
 
 import com.dislinkt.profileservice.dto.ImageDto;
+import com.dislinkt.profileservice.dto.NameAndImageDto;
 import com.dislinkt.profileservice.dto.ProfileBasicInfoDto;
 import com.dislinkt.profileservice.dto.SearchedProfileDto;
 import com.dislinkt.profileservice.exception.ApiRequestException;
@@ -196,6 +197,18 @@ public class ProfileController {
         if(url == null)
             return new ResponseEntity(new ImageDto(""), HttpStatus.OK);
         return new ResponseEntity(new ImageDto("https://localhost:9090/profile-service/storage/" + storageService.getProfileImage(id)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/name-and-image/{id}")
+    public ResponseEntity getNameAndProfileImage(@PathVariable String id){
+        Optional<Profile> profile = profileService.findById(id);
+        if(profile.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        String url = storageService.getProfileImage(id);
+        if(url == null)
+            return new ResponseEntity(new NameAndImageDto(profile.get().getId(), profile.get().getFullName(), ""), HttpStatus.OK);
+        return new ResponseEntity(new NameAndImageDto(profile.get().getId(), profile.get().getFullName(), "https://localhost:9090/profile-service/storage/" + storageService.getProfileImage(id)), HttpStatus.OK);
     }
 
 }

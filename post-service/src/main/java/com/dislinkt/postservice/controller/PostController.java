@@ -6,6 +6,7 @@ import com.dislinkt.postservice.dto.PostDto;
 import com.dislinkt.postservice.dto.SearchedPostDto;
 import com.dislinkt.postservice.model.Comment;
 import com.dislinkt.postservice.model.Post;
+import com.dislinkt.postservice.model.PostType;
 import com.dislinkt.postservice.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,11 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity createPost(Principal principal, @RequestBody PostDto postDto){
-
-        Post post = new Post(principal.getName(), postDto.getContent(), postDto.getBase64Image(), new Date(), postDto.getPostType());
+        PostType postType = PostType.TEXT;
+        if(postDto.getBase64Image() != ""){
+            postType = PostType.IMAGE;
+        }
+        Post post = new Post(principal.getName(), postDto.getContent(), postDto.getBase64Image(), new Date(), postType);
         postService.save(post);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -49,7 +53,7 @@ public class PostController {
         List<Post> posts = postService.findUserPosts(userId);
 
         List<SearchedPostDto> dtos = posts.stream()
-                .map(post -> new SearchedPostDto(post.getId(), post.getContent(), post.getBase64Image(), post.getLikes(), post.getDislikes(),
+                .map(post -> new SearchedPostDto(post.getId(), post.getUserId(), post.getContent(), post.getBase64Image(), post.getLikes(), post.getDislikes(),
                         post.getComments(), post.getPostedAt(), post.getPostType(), post.getUsersWhoLiked(), post.getUsersWhoDisliked()))
                 .collect(Collectors.toList());
 
@@ -69,9 +73,10 @@ public class PostController {
                 .bodyToMono(ConnectionsDto.class);
 
         final Mono<List<SearchedPostDto>> postsDto = response.map(connectionsDto -> {
+            connectionsDto.addId(principal.getName());
             List<Post> posts = postService.getFeed(connectionsDto.getIds());
             List<SearchedPostDto> dtos = posts.stream()
-                    .map(post -> new SearchedPostDto(post.getId(), post.getContent(), post.getBase64Image(), post.getLikes(), post.getDislikes(),
+                    .map(post -> new SearchedPostDto(post.getId(), post.getUserId(), post.getContent(), post.getBase64Image(), post.getLikes(), post.getDislikes(),
                             post.getComments(), post.getPostedAt(), post.getPostType(), post.getUsersWhoLiked(), post.getUsersWhoDisliked()))
                     .collect(Collectors.toList());
             return dtos;

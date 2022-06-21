@@ -1,7 +1,6 @@
 @import "src/styles/main.scss";
 
-.posts-wrapper{
-    padding-top: 80px;
+.posts-wrapper, .upload-wrapper{
     width: 512px;
 
     @include media("<tablet"){
@@ -10,6 +9,14 @@
     }
 }
 
-.post{
-    margin-bottom: 10px;
+.upload-wrapper{
+    padding-top: 80px;
 }
+
+.posts-wrapper{
+    margin-top: 10px;
+}
+
+    .post{
+        margin-bottom: 10px;
+    }

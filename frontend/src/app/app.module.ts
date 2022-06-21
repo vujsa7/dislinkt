@@ -9,6 +9,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from 'src/environments/environment';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     SharedModule,
     RouterModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule, // NgXs Module in the root of our app
+    // Enabling localstorage plugin for NgXs
+    NgxsStoragePluginModule.forRoot({
+      key: ['userstate']
+    }),
+    NgxsModule.forRoot([], {
+      developmentMode: !environment.production
+    }),
+    // For logging out states, actions etc. in console
+    NgxsLoggerPluginModule.forRoot({
+      disabled: environment.production,
+    }),
   ],
   providers: [
     {

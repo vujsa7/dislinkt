@@ -1,37 +1,61 @@
 <div class="dislinkt-container d-flex flex-column">
-    <div class="user-info d-flex align-items-center">
-        <img class="post-profile-img" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="Profile image">
-        <h5>Melanija Racic</h5>
+    <div class="user-info d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <img [routerLink]="['/profiles/', post.userId]" class="post-profile-img pointer" [src]="image" alt="Profile image">
+            <h5 [routerLink]="['/profiles/', post.userId]" class="pointer" *ngIf="fullName">{{fullName}}</h5>
+        </div>
+       <span class="grey-text ssmall">{{post.postedAt | date: 'longDate'}}</span>
     </div>
-    <span class="grey-text content">
-        {{post.content}}
-    </span>
-    <div class="d-flex align-items-center justify-content-between">
+    <span class="grey-text content" [innerHTML]="post.content | linkify"></span>
+    <img class="post-image" *ngIf="post.base64Image && post.base64Image != ''" [src]="post.base64Image">
+    <div class="interactions d-flex align-items-center justify-content-between">
         <div class="d-flex">
-            <span class="likes lightpurple-text pointer">
-                {{post.likes}} likes
+            <span *ngIf="this.post.likes > 0" class="likes lightpurple-text">
+                {{post.likes}} {{post.likes == 1 ? 'like' : 'likes'}}
             </span>
-            <span class="lightpurple-text pointer">
-                {{post.dislikes}} dislikes
+            <span *ngIf="this.post.dislikes > 0" class="lightpurple-text">
+                {{post.dislikes}} {{post.dislikes == 1 ? 'dislike' : 'dislikes'}}
             </span>
         </div>
-        <span class="lightpurple-text pointer">
+        <span *ngIf="this.post.comments.length > 0" class="lightpurple-text pointer" (click)="openComments()">
             {{post.comments.length}} {{post.comments.length == 1 ? 'comment' : 'comments'}}
         </span>
     </div>
-    <div class="grey-line"></div>
-    <div class="d-flex align-items-center">
-        <div (click)="likePost()" class="action-btn-wrapper">
-            <svg class="thumbs-up-icon" [ngClass]="{'active': didUserLike()}"></svg>
-            <span [ngClass]="didUserLike() ? 'purple-text' : 'black-text'">Like</span>
+    <div *ngIf="isAuthenticated()">
+        <div class="grey-line"></div>
+        <div class="d-flex align-items-center">
+            <div (click)="likePost()" class="action-btn-wrapper">
+                <svg class="thumbs-up-icon" [ngClass]="{'active': didUserLike()}"></svg>
+                <span [ngClass]="didUserLike() ? 'purple-text' : 'black-text'">Like</span>
+            </div>
+            <div (click)="dislikePost()" class="action-btn-wrapper">
+                <svg class="thumbs-down-icon" [ngClass]="{'active': didUserDislike()}"></svg>
+                <span [ngClass]="didUserDislike() ? 'purple-text' : 'black-text'">Dislike</span>
+            </div>
+            <div (click)="toggleComment()" class="action-btn-wrapper">
+                <svg class="comment-icon"></svg>
+                <span class="black-text">Comment</span>
+            </div>
         </div>
-        <div (click)="dislikePost()" class="action-btn-wrapper">
-            <svg class="thumbs-down-icon" [ngClass]="{'active': didUserDislike()}"></svg>
-            <span [ngClass]="didUserDislike() ? 'purple-text' : 'black-text'">Dislike</span>
+    </div>
+    <div class="grey-line" *ngIf="isCommentSectionOpen"></div>
+    <div *ngIf="isCommentSectionOpen && isAuthenticated()" class="d-flex flex-column">
+        <div class="d-flex flex-column" *ngIf="isCommentingToggled">
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Comment</mat-label>
+                <textarea #comment [(ngModel)]="commentText" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+            <app-secondary-button [isBtnDisabled]="!canComment()" (click)="postComment()" class="comment-btn" text="Comment"></app-secondary-button>
         </div>
-        <div (click)="toggleComment()" class="action-btn-wrapper">
-            <svg class="comment-icon"></svg>
-            <span class="black-text">Comment</span>
+    </div>
+    <div *ngIf="isCommentSectionOpen && this.post.comments.length > 0">
+        <div class="d-flex align-items-start" *ngFor="let comment of post.comments">
+            <img class="comment-profile-img" *ngIf="comment.image" [src]="comment.image" alt="Profile image">
+            <div class="bubble d-flex flex-column">
+                <span class="black-text fullname-comment" *ngIf="comment.fullName">{{comment.fullName}}</span>
+                <span class="grey-text">{{comment.comment}}</span>
+            </div>
         </div>
     </div>
 </div>

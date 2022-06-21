@@ -9,5 +9,4 @@ import java.util.List;
 public class PostDto {
     private String content;
     private String base64Image;
-    private PostType postType;
 }

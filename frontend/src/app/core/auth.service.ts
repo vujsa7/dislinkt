@@ -7,6 +7,7 @@ import jwt_decode from 'jwt-decode';
   providedIn: 'any'
 })
 export class AuthService {
+  
 
   constructor(private keyCloackService: KeycloakService) {
 
@@ -48,6 +49,10 @@ export class AuthService {
       let decodedToken = this.getDecodedAccessToken(token);
       return decodedToken.sub;
     }
+  }
+
+  isAuthenticated(): boolean {
+    return this.keyCloackService.getKeycloakInstance().authenticated!;
   }
 
   private getDecodedAccessToken(token: string): any {

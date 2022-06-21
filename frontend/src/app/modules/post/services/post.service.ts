@@ -11,13 +11,23 @@ export class PostService {
 
   baseUrl: string = environment.baseUrl + 'post-service/posts/';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
-  likePost(postId: string): Observable<any>{
+  likePost(postId: string): Observable<any> {
     return this.http.post<any>(this.baseUrl + postId + '/like', { headers: this.authService.getHeader() })
   }
 
-  dislikePost(postId: string): Observable<any>{
+  dislikePost(postId: string): Observable<any> {
     return this.http.post<any>(this.baseUrl + postId + '/dislike', { headers: this.authService.getHeader() })
+  }
+
+  createPost(statusText: string, image: any): Observable<any> {
+    let post = { content: statusText, base64Image: image };
+    return this.http.post(this.baseUrl, post, { headers: this.authService.getHeader() })
+  }
+
+  postComment(postId: string, commentText: string): Observable<any> {
+    let comment = { userId: this.authService.getUserId(), comment: commentText }
+    return this.http.post(this.baseUrl + postId + '/comment', comment, { headers: this.authService.getHeader() })
   }
 }

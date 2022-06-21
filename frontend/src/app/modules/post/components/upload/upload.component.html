@@ -1,0 +1,16 @@
+<div *ngIf="isAuthenticated()" class="dislinkt-container">
+    <mat-form-field class="w-100" appearance="fill">
+        <mat-label>What do you want to talk about?</mat-label>
+        <textarea [(ngModel)]="statusText" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"></textarea>
+    </mat-form-field>
+    <img *ngIf="postImage" class="post-img" [src]="postImage==null ? '' : postImage">
+    <input style="display: none" type="file" (change)="onFileChanged($event)" #postInputImage>
+    <div class="d-flex justify-content-between">
+        <div class="pointer d-flex align-items-center" (click)="postInputImage.click()">
+            <svg class="image-icon"></svg>
+            <span class="fw-bold lightpurple-text">Add image</span>
+        </div>
+        <span class="fw-bold pointer" [ngClass]="!canCreatePost() ? 'lightgrey-text' : 'lightpurple-text'" (click)="createPost()">Create Post</span>
+    </div>
+</div>

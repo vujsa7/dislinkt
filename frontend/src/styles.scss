@@ -116,6 +116,10 @@ a{
     color: color(darkgrey) !important;
 }
 
+.lightgrey-text{
+    color: color(lightgrey) !important;
+}
+
 .blue-text{
     color: color(blue) !important;
 }
@@ -144,6 +148,10 @@ a{
 
 .pointer{
     cursor: pointer;
+}
+
+.ssmall{
+    font-size: 14px;
 }
 
 .c-toast-container{

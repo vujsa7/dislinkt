@@ -28,6 +28,8 @@ spring:
           issuer-uri: "http://localhost:8080/realms/dislinkt"
   main:
     allow-bean-definition-overriding: true
+  codec:
+    max-in-memory-size: 2MB
 
 logging:
   file:

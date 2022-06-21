@@ -2,13 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'any'
 })
 export class ProfileService {
   
-  baseUrl: string = 'https://localhost:9090/profile-service/profiles';
+  baseUrl: string = environment.baseUrl + 'profile-service/profiles';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -65,5 +66,9 @@ export class ProfileService {
 
   getProfileImage(id: string): Observable<any> {
     return this.http.get<any>(this.baseUrl + '/' + id + '/image', { headers: this.authService.getHeader() })
+  }
+
+  getPostsForProfile(id: string): Observable<any> {
+    return this.http.get<any>(environment.baseUrl + 'post-service/posts/' + id);
   }
 }

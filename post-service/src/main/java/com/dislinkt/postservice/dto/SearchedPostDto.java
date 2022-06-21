@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SearchedPostDto {
     private String id;
+    private String userId;
     private String content;
     private String base64Image;
     private Integer likes;

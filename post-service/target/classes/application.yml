@@ -26,6 +26,9 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: "http://localhost:8080/realms/dislinkt"
+  codec:
+    max-in-memory-size: 2MB
+
   main:
     allow-bean-definition-overriding: true
 

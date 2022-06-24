@@ -27,6 +27,16 @@ export class FeedComponent implements OnInit {
           console.log(error.message)
         }
       )
+    } else {
+      this.feedService.getPublicFeed().subscribe(
+        data => {
+          this.posts = data;
+        },
+        error => {
+          console.log(error.message)
+        }
+      )
+
     }
   }
 

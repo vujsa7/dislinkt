@@ -1,13 +1,11 @@
 package com.dislinkt.profileservice.controller;
 
-import com.dislinkt.profileservice.dto.ImageDto;
-import com.dislinkt.profileservice.dto.NameAndImageDto;
-import com.dislinkt.profileservice.dto.ProfileBasicInfoDto;
-import com.dislinkt.profileservice.dto.SearchedProfileDto;
+import com.dislinkt.profileservice.dto.*;
 import com.dislinkt.profileservice.exception.ApiRequestException;
 import com.dislinkt.profileservice.model.Education;
 import com.dislinkt.profileservice.model.Position;
 import com.dislinkt.profileservice.model.Profile;
+import com.dislinkt.profileservice.model.ProfileType;
 import com.dislinkt.profileservice.service.ProfileService;
 import com.dislinkt.profileservice.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
@@ -200,7 +198,7 @@ public class ProfileController {
     }
 
     @GetMapping(value = "/name-and-image/{id}")
-    public ResponseEntity getNameAndProfileImage(@PathVariable String id){
+    public ResponseEntity getNameAndProfileImage(@PathVariable String id, Principal principal){
         Optional<Profile> profile = profileService.findById(id);
         if(profile.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -209,6 +207,15 @@ public class ProfileController {
         if(url == null)
             return new ResponseEntity(new NameAndImageDto(profile.get().getId(), profile.get().getFullName(), ""), HttpStatus.OK);
         return new ResponseEntity(new NameAndImageDto(profile.get().getId(), profile.get().getFullName(), "https://localhost:9090/profile-service/storage/" + storageService.getProfileImage(id)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/privacy/{id}")
+    public ResponseEntity getProfilePrivacy(@PathVariable String id){
+        Optional<Profile> profile = profileService.findById(id);
+        if(profile.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(new ProfilePrivacyDto(profile.get().getProfileType().equals(ProfileType.PRIVATE)), HttpStatus.OK);
     }
 
 }

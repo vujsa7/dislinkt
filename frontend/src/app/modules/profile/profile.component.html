@@ -21,10 +21,11 @@
                     <svg class="edit-icon"></svg>
                 </div>
                 <div *ngIf="!isMyProfile && isAuthenticated()" class="d-flex align-items-center">
-                    <button (click)="toggleFollow()" [ngClass]="{'following-btn' : follows==true}" class="follow-btn d-flex align-items-center">
-                        <svg *ngIf="follows" class="checkmark-icon"></svg>
-                        <span *ngIf="follows">Following</span>
-                        <span *ngIf="!follows">Follow</span>
+                    <button (click)="toggleFollow()" [ngClass]="{'following-btn' : connectionStatus=='FOLLOWING'}" class="follow-btn d-flex align-items-center">
+                        <svg *ngIf="connectionStatus=='FOLLOWING'" class="checkmark-icon"></svg>
+                        <span *ngIf="connectionStatus=='FOLLOWING'">Following</span>
+                        <span *ngIf="connectionStatus=='NO_FOLLOW'">Follow</span>
+                        <span *ngIf="connectionStatus=='REQUESTED'">Requested</span>
                     </button>
                     <div class="d-flex align-items-center justify-content-center round-circle">
                         <svg class="chat-icon"></svg>

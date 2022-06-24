@@ -35,3 +35,12 @@ spring:
 logging:
   file:
     path: logs
+
+grpc:
+  client:
+    connection-service:
+      address: static://localhost:9099
+      negotiationType: plaintext
+    profile-service:
+      address: static://localhost:9100
+      negotiationType: plaintext

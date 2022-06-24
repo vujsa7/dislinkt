@@ -4,22 +4,25 @@ import com.dislinkt.postservice.dao.PostRepository;
 import com.dislinkt.postservice.model.Comment;
 import com.dislinkt.postservice.model.Post;
 import com.dislinkt.postservice.service.PostService;
+import com.dislinkt.postservice.service.grpc.ConnectionClientService;
+import com.dislinkt.postservice.service.grpc.ProfileClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
+    private final ConnectionClientService connectionClientService;
+    private final ProfileClientService profileClientService;
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, ConnectionClientService connectionClientService, ProfileClientService profileClientService) {
         this.postRepository = postRepository;
+        this.connectionClientService = connectionClientService;
+        this.profileClientService = profileClientService;
     }
 
     @Override
@@ -33,8 +36,16 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getFeed(List<String> connectionsIds) {
+    public List<Post> getFeed(String id) throws InterruptedException {
+        List<String> connectionsIds = connectionClientService.getConnectionsByUserId(id);
+        connectionsIds.add(id);
         return postRepository.findAllPostsByUserIds(connectionsIds);
+    }
+
+    @Override
+    public List<Post> getPublicFeed() throws InterruptedException {
+        List<String> publicProfileIds = profileClientService.getPublicProfiles();
+        return postRepository.findAllPostsByUserIds(publicProfileIds);
     }
 
     @Override

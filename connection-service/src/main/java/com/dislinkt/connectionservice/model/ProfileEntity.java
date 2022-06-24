@@ -22,6 +22,9 @@ public class ProfileEntity {
     @Id
     private String id;
 
+    @Property
+    private Boolean isPrivate;
+
     @Relationship(type = "FOLLOWS", direction = OUTGOING)
     private Set<ProfileEntity> profiles = new HashSet<>();
 

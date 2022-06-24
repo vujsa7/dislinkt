@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'any'
 })
 export class FeedService {
- 
 
   baseUrl: string = environment.baseUrl + 'post-service/posts';
 
@@ -16,5 +15,9 @@ export class FeedService {
 
   getFeed(): Observable<any> {
     return this.http.get(this.baseUrl + '/feed', { headers: this.authService.getHeader() })
+  }
+
+  getPublicFeed() {
+    return this.http.get(this.baseUrl + '/public-feed')
   }
 }

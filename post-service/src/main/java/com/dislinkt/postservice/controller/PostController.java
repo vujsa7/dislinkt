@@ -1,6 +1,5 @@
 package com.dislinkt.postservice.controller;
 
-import com.dislinkt.postservice.dto.ConnectionsDto;
 import com.dislinkt.postservice.dto.LikesDislikesDto;
 import com.dislinkt.postservice.dto.PostDto;
 import com.dislinkt.postservice.dto.SearchedPostDto;
@@ -8,12 +7,13 @@ import com.dislinkt.postservice.model.Comment;
 import com.dislinkt.postservice.model.Post;
 import com.dislinkt.postservice.model.PostType;
 import com.dislinkt.postservice.service.PostService;
+import com.dislinkt.postservice.service.grpc.ConnectionClientService;
+import com.dislinkt.postservice.service.grpc.ProfileClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -28,12 +28,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class PostController {
     private final PostService postService;
-    private final WebClient.Builder webClientBuilder;
+    private final ProfileClientService profileClientService;
 
     @Autowired
-    public PostController(PostService postService, WebClient.Builder webClientBuilder) {
+    public PostController(PostService postService, ProfileClientService profileClientService) {
         this.postService = postService;
-        this.webClientBuilder = webClientBuilder;
+        this.profileClientService = profileClientService;
     }
 
     @PostMapping
@@ -60,29 +60,32 @@ public class PostController {
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
-
     @GetMapping(value = "/feed")
-    public Mono<List<SearchedPostDto>> getFeed(Principal principal, JwtAuthenticationToken jwt){
-        // CALL CONNECTION SERVICE AND FETCH ALL PROFILE ID
-        // OR CALL API GATEWAY
-        Mono<ConnectionsDto> response = webClientBuilder.build()
-                .get()
-                .uri("http://connection-service/connections/" + principal.getName())
-                .headers(h -> h.setBearerAuth(jwt.getToken().getTokenValue()))
-                .retrieve()
-                .bodyToMono(ConnectionsDto.class);
-
-        final Mono<List<SearchedPostDto>> postsDto = response.map(connectionsDto -> {
-            connectionsDto.addId(principal.getName());
-            List<Post> posts = postService.getFeed(connectionsDto.getIds());
+    public ResponseEntity getFeed(Principal principal){
+        try {
+            List<Post> posts = postService.getFeed(principal.getName());
             List<SearchedPostDto> dtos = posts.stream()
                     .map(post -> new SearchedPostDto(post.getId(), post.getUserId(), post.getContent(), post.getBase64Image(), post.getLikes(), post.getDislikes(),
                             post.getComments(), post.getPostedAt(), post.getPostType(), post.getUsersWhoLiked(), post.getUsersWhoDisliked()))
                     .collect(Collectors.toList());
-            return dtos;
-        });
+            return new ResponseEntity(dtos, HttpStatus.OK);
+        } catch (InterruptedException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-        return postsDto;
+    @GetMapping(value = "/public-feed")
+    public ResponseEntity getPublicFeed(){
+        try {
+            List<Post> posts = postService.getPublicFeed();
+            List<SearchedPostDto> dtos = posts.stream()
+                    .map(post -> new SearchedPostDto(post.getId(), post.getUserId(), post.getContent(), post.getBase64Image(), post.getLikes(), post.getDislikes(),
+                            post.getComments(), post.getPostedAt(), post.getPostType(), post.getUsersWhoLiked(), post.getUsersWhoDisliked()))
+                    .collect(Collectors.toList());
+            return new ResponseEntity(dtos, HttpStatus.OK);
+        } catch (InterruptedException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping(value = "{postID}/like")

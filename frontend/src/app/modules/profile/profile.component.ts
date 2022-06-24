@@ -22,17 +22,25 @@ export class ProfileComponent implements OnInit {
   profile: any;
   isMyProfile: boolean = false;
   connections!: Array<any>;
-  follows!: boolean;
-  loggedInId!: string;
+  requests!: Array<any>;
+  connectionStatus!: string;
   newProfileImg: any;
   profileImageUrl: string = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png";
   profileImageLoaded: boolean = false;
   posts: any;
 
+
   constructor(private route: ActivatedRoute, private profileService: ProfileService, private dialog: MatDialog,
      private authService: AuthService, private connectionsService: ConnectionsService) { }
 
   ngOnInit() {
+    this.connectionsService.getConnectionsAndRequestsForUser().subscribe(
+      data => {
+        this.connections = data.connections;
+        this.requests = data.requests;
+        this.setConnectionStatus();
+      }
+    );
     this.route.paramMap.subscribe(params => {
       this.profileService.getProfile(params.get('username')).subscribe(
         data => {
@@ -58,13 +66,7 @@ export class ProfileComponent implements OnInit {
   initializeProfilePage() {
     if(this.isAuthenticated()){
       this.isMyProfile = this.authService.isMyProfile(this.profile.id);
-      this.loggedInId = this.authService.getUserId();
-      this.connectionsService.getConnectionsForUser(this.loggedInId).subscribe(
-        data => {
-          this.connections = data.ids;
-          this.checkIfLoggedInUserFollows(this.profile.id);
-        }
-      );
+      this.setConnectionStatus();
     }
   }
 
@@ -80,11 +82,13 @@ export class ProfileComponent implements OnInit {
     )
   }
 
-  checkIfLoggedInUserFollows(id: string) {
-    if (_.includes(this.connections, id))
-      this.follows = true;
-    else 
-      this.follows = false;
+  setConnectionStatus() {
+    if (_.includes(this.connections, this.profile.id))
+      this.connectionStatus = "FOLLOWING";
+    else if(_.includes(this.requests, this.profile.id))
+      this.connectionStatus = "REQUESTED";
+    else
+      this.connectionStatus = "NO_FOLLOW";
   }
 
 
@@ -190,10 +194,11 @@ export class ProfileComponent implements OnInit {
   }
 
   toggleFollow(){
-    let follow = {id: this.loggedInId, followerId: this.profile.id}
+    let isPrivate = this.profile.profileType=="PRIVATE"? true: false;
+    let follow = { followerId: this.profile.id, isFollowerPrivate:  isPrivate}
     this.connectionsService.modifyConnection(follow).subscribe(
       data => {
-        this.follows = data.following;
+        this.connectionStatus = data.connectionStatus;
       }
     )
   }

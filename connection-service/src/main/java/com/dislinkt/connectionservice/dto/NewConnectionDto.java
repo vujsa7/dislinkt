@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class NewConnectionDto {
-    private String id;
     private String followerId;
+    private Boolean isFollowerPrivate;
 }

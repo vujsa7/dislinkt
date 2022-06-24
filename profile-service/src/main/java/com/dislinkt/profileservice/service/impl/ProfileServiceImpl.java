@@ -7,11 +7,11 @@ import com.dislinkt.profileservice.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -78,8 +78,8 @@ public class ProfileServiceImpl implements ProfileService {
 
     }
 
-    //test
-    public List<Profile> getAllProfiles(){
-        return profileRepository.findAll();
+    @Override
+    public List<String> getPublicProfileIds(){
+        return profileRepository.findPublicProfiles("").stream().map(profile -> profile.getId()).collect(Collectors.toList());
     }
 }

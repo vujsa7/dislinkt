@@ -1,10 +1,12 @@
 package com.dislinkt.profileservice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class SearchedProfileDto {
     private String id;
     private String username;

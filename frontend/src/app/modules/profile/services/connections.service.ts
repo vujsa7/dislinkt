@@ -12,11 +12,11 @@ export class ConnectionsService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getConnectionsForUser(id: any): Observable<any> {
-    return this.http.get(this.baseUrl + id, { headers: this.authService.getHeader() })
+  getConnectionsAndRequestsForUser(): Observable<any> {
+    return this.http.get(this.baseUrl + this.authService.getUserId(), { headers: this.authService.getHeader() })
   }
 
-  modifyConnection(followInfo: { id: string, followerId: string }): Observable<any> {
+  modifyConnection(followInfo: { followerId: string, isFollowerPrivate: boolean }): Observable<any> {
     return this.http.post(this.baseUrl, followInfo, { headers: this.authService.getHeader() });
   }
 }

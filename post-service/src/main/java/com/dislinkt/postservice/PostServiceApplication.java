@@ -1,9 +1,5 @@
 package com.dislinkt.postservice;
 
-import com.dislinkt.postservice.dao.PostRepository;
-import com.dislinkt.postservice.model.Post;
-import com.dislinkt.postservice.model.PostType;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;

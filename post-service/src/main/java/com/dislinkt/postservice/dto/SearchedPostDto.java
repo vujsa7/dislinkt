@@ -2,14 +2,16 @@ package com.dislinkt.postservice.dto;
 
 import com.dislinkt.postservice.model.Comment;
 import com.dislinkt.postservice.model.PostType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class SearchedPostDto {
     private String id;
     private String userId;

@@ -1,10 +1,7 @@
 package com.dislinkt.profileservice.service;
 
 import com.dislinkt.profileservice.model.Profile;
-
 import org.springframework.data.domain.Page;
-
-import org.springframework.http.ResponseEntity;
 
 
 import java.util.List;
@@ -18,6 +15,5 @@ public interface ProfileService {
     void save(Profile profile);
     void saveInfo(Profile profile);
     void update(Profile profile, boolean isNewUsername);
-    //test
-    List<Profile> getAllProfiles();
+    List<String> getPublicProfileIds();
 }

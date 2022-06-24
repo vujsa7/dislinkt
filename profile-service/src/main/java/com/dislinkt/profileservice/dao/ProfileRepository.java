@@ -14,6 +14,8 @@ public interface ProfileRepository extends MongoRepository<Profile, String> {
     List<Profile> findProfiles(String query);
     @Query("{profileType: 'PUBLIC', $or: [{'username': {'$regex':'?0','$options':'i'}}, {'firstName': {'$regex':'?0','$options':'i'}}, {'lastName': {'$regex':'?0','$options':'i'}}]}")
     List<Profile> findPublicProfiles(String query);
+    @Query("{profileType: 'PUBLIC'}")
+    List<Profile> findAllPublicProfiles();
     @Query("{$or: [{'username': {'$regex':'?0','$options':'i'}}, {'firstName': {'$regex':'?0','$options':'i'}}, {'lastName': {'$regex':'?0','$options':'i'}}]}")
     Page<Profile> findProfiles(String query, Pageable pageable);
     @Query("{profileType: 'PUBLIC', $or: [{'username': {'$regex':'?0','$options':'i'}}, {'firstName': {'$regex':'?0','$options':'i'}}, {'lastName': {'$regex':'?0','$options':'i'}}]}")

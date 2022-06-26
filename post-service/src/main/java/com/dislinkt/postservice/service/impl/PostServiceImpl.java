@@ -37,7 +37,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getFeed(String id) throws InterruptedException {
-        List<String> connectionsIds = connectionClientService.getConnectionsByUserId(id);
+        List<String> connectionsIds = connectionClientService.getFollowingByUserId(id);
         connectionsIds.add(id);
         return postRepository.findAllPostsByUserIds(connectionsIds);
     }

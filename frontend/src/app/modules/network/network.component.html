@@ -1,0 +1,53 @@
+<div>
+    <app-spinner-fullscreen *ngIf="!completed"></app-spinner-fullscreen>
+    <div class="body-grey"></div>
+    <div class="page-wrapper d-flex flex-column align-items-center justify-content-center">
+        <div class="dislinkt-container" *ngIf="completed && isPrivate && requests && requests.length > 0">
+            <h5 class="lightpurple-text">Follow requests</h5>
+            <div class="profile-wrapper d-flex align-items-center justify-content-between" *ngFor="let profile of requests">
+                <div class="d-flex align-items-center">
+                    <img [routerLink]="['/profiles/', profile.id]" class="profile-img pointer" [src]="profile.image" alt="Profile image">
+                    <span [routerLink]="['/profiles/', profile.id]" class="pointer" *ngIf="profile.fullName">{{profile.fullName}}</span>
+                </div>
+                <div class="d-flex">
+                    <app-primary-button class="me-2" text="Accept" (click)="acceptRequest(profile.id)"></app-primary-button>
+                    <app-secondary-button text="Delete" (click)="deleteRequest(profile.id)"></app-secondary-button>
+                </div>
+            </div>
+        </div>
+        <div class="dislinkt-container" *ngIf="completed && following">
+            <h5 class="lightpurple-text" *ngIf="following.length > 0">Following</h5>
+            <div class="profile-wrapper d-flex align-items-center justify-content-between" *ngFor="let profile of following">
+                <div class="d-flex align-items-center">
+                    <img [routerLink]="['/profiles/', profile.id]" class="profile-img pointer" [src]="profile.image" alt="Profile image">
+                    <span [routerLink]="['/profiles/', profile.id]" class="pointer" *ngIf="profile.fullName">{{profile.fullName}}</span>
+                </div>
+                <app-secondary-button class="me-2" text="Unfollow" (click)="unfollowProfile(profile.id)"></app-secondary-button>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-center" *ngIf="following.length == 0">
+                <img class="no-friends-img" src="assets/no-friends.png">
+                <h5 class="better-together lightpurple-text mt-3">Better together</h5>
+                <span class="text-message grey-text mb-3">You are not following anyone, pick a person from the feed and click follow!</span>
+                <app-primary-button text="Add friends" routerLink="/feed"></app-primary-button>
+            </div>
+        </div>
+        <div class="dislinkt-container" *ngIf="completed && followers">
+            <h5 class="lightpurple-text" *ngIf="followers.length > 0">Folowers</h5>
+            <div class="profile-wrapper d-flex align-items-center justify-content-between" *ngFor="let profile of followers">
+                <div class="d-flex align-items-center">
+                    <img [routerLink]="['/profiles/', profile.id]" class="profile-img pointer" [src]="profile.image" alt="Profile image">
+                    <span [routerLink]="['/profiles/', profile.id]" class="pointer" *ngIf="profile.fullName">{{profile.fullName}}</span>
+                    <!-- <span *ngIf="isNotFollowing(profile.id)" class="lightpurple-text pointer ms-2">&middot; Follow</span> -->
+                </div>
+                <app-secondary-button text="Remove" (click)="removeFollower(profile.id)"></app-secondary-button>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-center" *ngIf="followers.length == 0">
+                <img class="no-friends-img" src="assets/no-followers.png">
+                <h5 class="better-together lightpurple-text mt-3">No followers</h5>
+                <span class="text-message grey-text mb-3">Start posting and let people discover you! Add more people so they can follow you back.</span>
+                <app-primary-button text="Add friends" routerLink="/feed"></app-primary-button>
+            </div>
+        </div>
+        
+    </div>
+</div>

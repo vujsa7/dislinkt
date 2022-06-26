@@ -12,7 +12,8 @@ message Empty {}
 
 service ProfileService{
   // Server streaming - asynchronous
-  rpc getConnections(Profile) returns (stream Profile){}
-  // Server streaming - asynchronous
+  rpc getFollowing(Profile) returns (stream Profile){}
+  rpc getFollowers(Profile) returns (stream Profile){}
   rpc getPublicProfiles(Empty) returns (stream Profile){}
+  rpc getFollowerRequests(Profile) returns (stream Profile){}
 }

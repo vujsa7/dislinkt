@@ -1,0 +1,42 @@
+@import 'src/styles/main.scss';
+
+.dislinkt-container{
+    width: 512px;
+    margin-top: 10px;
+}
+
+    h5{
+        margin-bottom: 20px !important;
+    }
+
+    .profile-wrapper{
+        padding: 20px;
+        width: calc(100% + 40px);
+        border-top: 1px solid color(lightgrey);
+        margin: 0 -20px;
+
+        &:first-of-type{
+            border-top: none !important;
+        }
+    }
+
+        .profile-img {
+            height: 40px;
+            width: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+    .no-friends-img{
+        width: 300px;
+        object-fit: contain;
+    }
+
+    .better-together{
+        margin-bottom: 15px !important;
+    }
+
+    .text-message{
+        text-align: center;
+    }

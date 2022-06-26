@@ -1,4 +1,4 @@
-package com.dislinkt.profileservice.dto;
+package com.dislinkt.connectionservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProfilePrivacyDto {
-    private Boolean isPrivate;
+public class ConnectionStatusDto {
+    private String connectionStatus;
 }

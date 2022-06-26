@@ -20,8 +20,8 @@ public class ConnectionServerService extends ProfileServiceGrpc.ProfileServiceIm
     }
 
     @Override
-    public void getConnections(Profile request, StreamObserver<Profile> responseObserver) {
-        List<String> profileIds = this.connectionRepository.findConnectionsById(request.getId());
+    public void getFollowing(Profile request, StreamObserver<Profile> responseObserver) {
+        List<String> profileIds = this.connectionRepository.findFollowingById(request.getId());
         List<Profile> profiles = new ArrayList();
         for (String profileId: profileIds) {
             profiles.add(Profile.newBuilder().setId(profileId).build());
@@ -30,4 +30,25 @@ public class ConnectionServerService extends ProfileServiceGrpc.ProfileServiceIm
         responseObserver.onCompleted();
     }
 
+    @Override
+    public void getFollowerRequests(Profile request, StreamObserver<Profile> responseObserver) {
+        List<String> profileIds = this.connectionRepository.findFollowerRequestsById(request.getId());
+        List<Profile> profiles = new ArrayList();
+        for (String profileId: profileIds) {
+            profiles.add(Profile.newBuilder().setId(profileId).build());
+        }
+        profiles.forEach(responseObserver::onNext);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getFollowers(Profile request, StreamObserver<Profile> responseObserver) {
+        List<String> profileIds = this.connectionRepository.findFollowersById(request.getId());
+        List<Profile> profiles = new ArrayList();
+        for (String profileId: profileIds) {
+            profiles.add(Profile.newBuilder().setId(profileId).build());
+        }
+        profiles.forEach(responseObserver::onNext);
+        responseObserver.onCompleted();
+    }
 }

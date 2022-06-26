@@ -1,15 +1,17 @@
 package com.dislinkt.connectionservice.dto;
 
-import com.dislinkt.connectionservice.model.ConnectionStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class NewConnectionStatusDto {
-    private String connectionStatus;
+public class FollowingsDto {
+    private List<String> following;
+    private List<String> requests;
 }

@@ -16,4 +16,7 @@ public interface ProfileService {
     void saveInfo(Profile profile);
     void update(Profile profile, boolean isNewUsername);
     List<String> getPublicProfileIds();
+    List<Profile> getFollowerRequestsProfiles(String id) throws InterruptedException;
+    List<Profile> getFollowingProfiles(String id) throws InterruptedException;
+    List<Profile> getFollowersProfiles(String name) throws InterruptedException;
 }

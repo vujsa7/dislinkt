@@ -38,3 +38,7 @@ logging:
 grpc:
   server:
     port: 9100
+  client:
+    connection-service:
+      address: static://localhost:9099
+      negotiationType: plaintext

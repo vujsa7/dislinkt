@@ -41,14 +41,19 @@
                 <span class="lightpurple-text container-label">Bio</span>
                 <span class="grey-text">{{profile.biography}}</span>
             </div>
-            <div class="posts">
+            <div class="posts d-flex flex-column">
                 <div *ngIf="isMyProfile" style="margin-bottom: 10px">
                     <post-upload></post-upload>
                 </div>
-                <div *ngIf="posts.length != 0">
+                <div *ngIf="posts && posts.length != 0">
                     <div class="post" *ngFor="let post of sortedPosts()">
                         <post-status [post]="post"></post-status>
                     </div>
+                </div>
+                <div *ngIf="!arePostsAvailabile()" class="lock dislinkt-container d-flex flex-column align-items-center justify-content-start">
+                    <svg class="lock-icon"></svg>
+                    <h5 class="grey-text">This account is private</h5>
+                    <span class="ssmall grey-text">Follow this account to see their posts and activity</span>
                 </div>
             </div>
             <div class="proffesional-info d-flex flex-column">

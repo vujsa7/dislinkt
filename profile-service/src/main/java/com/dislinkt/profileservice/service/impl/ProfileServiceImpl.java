@@ -4,11 +4,13 @@ import com.dislinkt.profileservice.dao.ProfileRepository;
 import com.dislinkt.profileservice.exception.UsernameAlreadyExistsException;
 import com.dislinkt.profileservice.model.Profile;
 import com.dislinkt.profileservice.service.ProfileService;
+import com.dislinkt.profileservice.service.grpc.ConnectionClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,10 +18,12 @@ import java.util.stream.Collectors;
 @Service
 public class ProfileServiceImpl implements ProfileService {
     private final ProfileRepository profileRepository;
+    private final ConnectionClientService connectionClientService;
 
     @Autowired
-    public ProfileServiceImpl(ProfileRepository profileRepository) {
+    public ProfileServiceImpl(ProfileRepository profileRepository, ConnectionClientService connectionClientService) {
         this.profileRepository = profileRepository;
+        this.connectionClientService = connectionClientService;
     }
 
     @Override
@@ -82,4 +86,30 @@ public class ProfileServiceImpl implements ProfileService {
     public List<String> getPublicProfileIds(){
         return profileRepository.findPublicProfiles("").stream().map(profile -> profile.getId()).collect(Collectors.toList());
     }
+
+    @Override
+    public List<Profile> getFollowerRequestsProfiles(String userId) throws InterruptedException {
+        List<String> followRequests = connectionClientService.getFollowerRequests(userId);
+        if(followRequests.isEmpty())
+            return new ArrayList<>();
+        return followRequests.stream().map(p -> profileRepository.findById(p).get()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Profile> getFollowingProfiles(String userId) throws InterruptedException {
+        List<String> connections = connectionClientService.getFollowing(userId);
+        if(connections.isEmpty())
+            return new ArrayList<>();
+        return connections.stream().map(p -> profileRepository.findById(p).get()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Profile> getFollowersProfiles(String id) throws InterruptedException {
+        List<String> connections = connectionClientService.getFollowers(id);
+        if(connections.isEmpty())
+            return new ArrayList<>();
+        return connections.stream().map(p -> profileRepository.findById(p).get()).collect(Collectors.toList());
+    }
+
+
 }

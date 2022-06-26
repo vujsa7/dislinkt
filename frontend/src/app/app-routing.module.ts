@@ -5,6 +5,7 @@ const routes: Routes = [
   { path: 'onboarding', loadChildren: () => import('./modules/onboarding/onboarding.module').then(m => m.OnboardingModule) },
   { path: 'feed', loadChildren: () => import('./modules/feed/feed.module').then(m => m.FeedModule) },
   { path: 'profiles',  loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule) },
+  { path: 'network',  loadChildren: () => import('./modules/network/network.module').then(m => m.NetworkModule) },
   { path: '**', redirectTo: 'feed' }
 ];
 

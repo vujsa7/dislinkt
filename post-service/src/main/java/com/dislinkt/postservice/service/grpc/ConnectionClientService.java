@@ -18,11 +18,11 @@ public class ConnectionClientService {
     @GrpcClient("connection-service")
     ProfileServiceGrpc.ProfileServiceStub asynchronousClient;
 
-    public List<String> getConnectionsByUserId(String userId) throws InterruptedException {
+    public List<String> getFollowingByUserId(String userId) throws InterruptedException {
         final CountDownLatch countDownLatch = new CountDownLatch(1);
         Profile profileRequest = Profile.newBuilder().setId(userId).build();
         final List<String> response = new ArrayList<>();
-        asynchronousClient.getConnections(profileRequest, new StreamObserver<Profile>() {
+        asynchronousClient.getFollowing(profileRequest, new StreamObserver<Profile>() {
             @Override
             public void onNext(Profile profile) {
                 response.add(profile.getId());

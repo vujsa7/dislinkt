@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import * as _ from 'lodash';
 import { AuthService } from 'src/app/core/auth.service';
 import { InfoDialogComponent } from 'src/app/shared/components/info-dialog/info-dialog.component';
@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
 
   profile: any;
   isMyProfile: boolean = false;
-  connections!: Array<any>;
+  following!: Array<any>;
   requests!: Array<any>;
   connectionStatus!: string;
   newProfileImg: any;
@@ -34,33 +34,42 @@ export class ProfileComponent implements OnInit {
      private authService: AuthService, private connectionsService: ConnectionsService) { }
 
   ngOnInit() {
-    this.connectionsService.getConnectionsAndRequestsForUser().subscribe(
+    if(this.isAuthenticated())
+      this.fetchAuthenticatedConnections();
+    this.route.paramMap.subscribe(params => {
+      this.fetchProfileInfo(params);
+    });
+  }
+
+  private fetchProfileInfo(params: ParamMap) {
+    this.profileService.getProfile(params.get('username')).subscribe(
       data => {
-        this.connections = data.connections;
+        this.profile = data;
+        this.initializeProfilePage();
+        this.getProfileImage();
+        this.getProfilePosts();
+      },
+      error => {
+        this.profileService.getProfileById(params.get('username')!).subscribe(
+          data => {
+            this.profile = data;
+            this.initializeProfilePage();
+            this.getProfileImage();
+            this.getProfilePosts();
+          }
+        );
+      }
+    );
+  }
+
+  private fetchAuthenticatedConnections() {
+    this.connectionsService.getFollowingsForUser().subscribe(
+      data => {
+        this.following = data.following;
         this.requests = data.requests;
         this.setConnectionStatus();
       }
     );
-    this.route.paramMap.subscribe(params => {
-      this.profileService.getProfile(params.get('username')).subscribe(
-        data => {
-          this.profile = data;
-          this.initializeProfilePage();
-          this.getProfileImage();
-          this.getProfilePosts();
-        },
-        error => {
-          this.profileService.getProfileById(params.get('username')!).subscribe(
-            data => {
-              this.profile = data;
-              this.initializeProfilePage();
-              this.getProfileImage();
-              this.getProfilePosts();
-            }
-          )
-        }
-      )
-    });
   }
 
   initializeProfilePage() {
@@ -75,15 +84,18 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfilePosts() {
-    this.profileService.getPostsForProfile(this.profile.id).subscribe(
-      data => {
-        this.posts = data;
-      }
-    )
+    this.posts = [];
+    if(this.arePostsAvailabile()){
+      this.profileService.getPostsForProfile(this.profile.id).subscribe(
+        data => {
+          this.posts = data;
+        }
+      )
+    }
   }
 
   setConnectionStatus() {
-    if (_.includes(this.connections, this.profile.id))
+    if (_.includes(this.following, this.profile.id))
       this.connectionStatus = "FOLLOWING";
     else if(_.includes(this.requests, this.profile.id))
       this.connectionStatus = "REQUESTED";
@@ -252,5 +264,16 @@ export class ProfileComponent implements OnInit {
 
   sortedPosts(){
     return _.sortBy(this.posts, [p => p.postedAt]).reverse();
+  }
+
+  arePostsAvailabile(){
+    if(this.isMyProfile)
+      return true;
+    if(this.profile.profileType=="PUBLIC")
+      return true;
+    else if(this.isAuthenticated() && this.connectionStatus=="FOLLOWING")
+      return true;
+    else
+      return false;
   }
 }

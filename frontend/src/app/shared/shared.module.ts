@@ -13,6 +13,7 @@ import { InfoDialogComponent } from './components/info-dialog/info-dialog.compon
 import { EmploymentTypePipe } from './pipes/employment-type.pipe';
 import { SpinnerFullscreenComponent } from './layout/spinner-fullscreen/spinner-fullscreen.component';
 import { LinkifyPipe } from './pipes/linkify.pipe';
+import { CoreModule } from 'keycloak-angular';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { LinkifyPipe } from './pipes/linkify.pipe';
   ],
   imports: [
     CommonModule, 
-    RouterModule, 
+    RouterModule,
     ReactiveFormsModule,
     FormsModule,
     NgbModule,

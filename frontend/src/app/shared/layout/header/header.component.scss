@@ -38,8 +38,23 @@
         }
     }
 
-        .nav-item{
+        .nav-item-wrapper{
             margin-right: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            &:last-child{
+                margin-right: 0;
+            }
+        }
+
+        .mr-40{
+            margin-right: 40px;
+        }
+
+        .nav-item{
             color: color(lightpurple);
             cursor: pointer;
         }
@@ -98,3 +113,23 @@
                 color: color(lightblue);
                 cursor: pointer;
             }
+
+    .exit-icon{
+        @include background-svg($exit);
+        @include icon;
+    }
+
+    .home-icon{
+        @include background-svg($home);
+        @include icon;
+    }
+
+    .avatar-icon{
+        @include background-svg($avatar);
+        @include icon;
+    }
+
+    .follow-requests-icon{
+        @include background-svg($follow-requests);
+        @include icon;
+    }

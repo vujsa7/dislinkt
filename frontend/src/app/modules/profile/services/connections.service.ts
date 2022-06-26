@@ -12,8 +12,8 @@ export class ConnectionsService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getConnectionsAndRequestsForUser(): Observable<any> {
-    return this.http.get(this.baseUrl + this.authService.getUserId(), { headers: this.authService.getHeader() })
+  getFollowingsForUser(): Observable<any> {
+    return this.http.get(this.baseUrl + 'followings', { headers: this.authService.getHeader() })
   }
 
   modifyConnection(followInfo: { followerId: string, isFollowerPrivate: boolean }): Observable<any> {

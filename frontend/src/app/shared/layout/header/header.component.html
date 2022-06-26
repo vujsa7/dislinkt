@@ -7,10 +7,25 @@
         <pr-search-profiles-box class="search-wrapper" style="align-self: baseline;"></pr-search-profiles-box>
     </div>
     <div class="nav-items d-flex flex-row align-items-center">
-        <span *ngIf="!authenticated" class="nav-item" (click)="redirectToLoginPage()">Sign in</span>
+        <span *ngIf="!authenticated" class="nav-item mr-40" (click)="redirectToLoginPage()">Sign in</span>
         <app-primary-button *ngIf="!authenticated" (click)="redirectToRegisterPage()" [text]="'Sign up'">
         </app-primary-button>
-        <span *ngIf="authenticated" class="nav-item" (click)="logout()">Logout</span>
+        <div class="nav-item-wrapper" *ngIf="authenticated" routerLink="/feed">
+            <svg class="home-icon"></svg>
+            <span class="nav-item ssmall">Feed</span>
+        </div>
+        <div class="nav-item-wrapper" *ngIf="authenticated" [routerLink]="['/profiles', userId]">
+            <svg class="avatar-icon"></svg>
+            <span class="nav-item ssmall">Profile</span>
+        </div>
+        <div class="nav-item-wrapper" *ngIf="authenticated" routerLink="/network">
+            <svg class="follow-requests-icon"></svg>
+            <span class="nav-item ssmall">Network</span>
+        </div>
+        <div class="nav-item-wrapper" *ngIf="authenticated" (click)="logout()">
+            <svg class="exit-icon"></svg>
+            <span class="nav-item ssmall">Logout</span>
+        </div>
     </div>
     <svg class="navbar-menu" (click)="toggleDropdownMenu()"></svg>
 </nav>

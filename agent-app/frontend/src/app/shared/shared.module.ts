@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material/material.module';
 import { InfoDialogComponent } from './components/info-dialog/info-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CompaniesComponent } from './companies/companies.component';
 
 
 
 @NgModule({
   declarations: [
-    InfoDialogComponent
+    InfoDialogComponent,
+    CompaniesComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     InfoDialogComponent,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CompaniesComponent
   ]
 
 })

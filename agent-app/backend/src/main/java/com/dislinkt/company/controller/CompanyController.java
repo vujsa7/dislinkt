@@ -1,5 +1,6 @@
 package com.dislinkt.company.controller;
 
+import com.dislinkt.company.dto.CompaniesResponse;
 import com.dislinkt.company.dto.RegistrationRequest;
 import com.dislinkt.company.dto.RegistrationRequestsResponse;
 import com.dislinkt.company.model.CompanyRegistrationRequest;
@@ -52,5 +53,21 @@ public class CompanyController {
     public ResponseEntity<Void> approveRequest(@PathVariable UUID id) {
         companyRegistrationRequestService.approveRequest(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/companies")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<CompaniesResponse> getAll() {
+        return new ResponseEntity<>(CompaniesResponse.builder()
+                .companies(companyService.getAll())
+                .build(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/my-companies")
+    @PreAuthorize("hasRole('ROLE_COMPANY_OWNER')")
+    public ResponseEntity<CompaniesResponse> getMyCompanies(Principal principal) {
+        return new ResponseEntity<>(CompaniesResponse.builder()
+                .companies(companyService.getAll(principal.getName()))
+                .build(), HttpStatus.OK);
     }
 }

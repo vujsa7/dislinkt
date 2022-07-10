@@ -28,4 +28,8 @@ export class CompanyService {
   getAllCompanies(): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'companies', { headers: this.authService.getHeader() });
   }
+
+  getMyCompanies(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'my-companies', { headers: this.authService.getHeader() });
+  }
 }

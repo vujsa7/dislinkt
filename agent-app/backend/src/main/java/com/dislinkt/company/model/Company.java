@@ -1,15 +1,15 @@
 package com.dislinkt.company.model;
 
 import com.dislinkt.user.model.User;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @ToString
 public class Company {

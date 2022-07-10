@@ -19,6 +19,7 @@ import { CoreModule } from './core/core.module';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CompanyRegistrationComponent } from './pages/user/company-registration/company-registration.component';
 import { RegistrationRequestsComponent } from './pages/admin/registration-requests/registration-requests.component';
+import { CompanyOwnerComponent } from './pages/company-owner/company-owner.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { RegistrationRequestsComponent } from './pages/admin/registration-reques
     OtpDialogComponent,
     AdminComponent,
     UserComponent,
+    CompanyOwnerComponent,
     HomeComponent,
     NotFoundComponent,
     CompanyRegistrationComponent,

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,4 +20,8 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
+    @Transactional(readOnly = true, rollbackFor = Throwable.class)
+    public List<Company> getAll(String ownerEmail) {
+        return companyRepository.findAllByOwnerEmail(ownerEmail);
+    }
 }

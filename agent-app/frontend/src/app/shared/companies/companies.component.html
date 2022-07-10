@@ -1,0 +1,26 @@
+<div class="d-flex flex-column">
+    <div class="d-flex flex-row justify-content-between mb-4 app-container" *ngFor="let company of companies">
+        <div class="d-flex flex-column w-20">
+            <span class="purple-text">Company name:</span>
+            <span>{{ company.name }}</span>
+            <br>
+            <span class="purple-text">Website:</span>
+            <a>{{ company.website }}</a>
+        </div>
+        <div class="d-flex flex-column w-20">
+            <span class="purple-text">Phone number:</span>
+            <span>{{ company.phoneNumber }}</span>
+            <br>
+            <span class="purple-text">Address:</span>
+            <span>{{ company.address }}</span>
+        </div>
+        <div class="d-flex flex-column w-25">
+            <span class="purple-text">Description:</span>
+            <span>{{ company.description }}</span>
+        </div>
+        <div class="d-flex align-items-end">
+            <button mat-raised-button color="primary" *ngIf="role == 'ROLE_COMPANY_OWNER'">Edit</button>
+            <button mat-raised-button color="primary" *ngIf="role == 'ROLE_USER'">Comment</button>
+        </div>
+    </div>
+</div>

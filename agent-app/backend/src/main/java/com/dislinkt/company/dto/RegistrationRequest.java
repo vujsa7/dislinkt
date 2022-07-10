@@ -23,6 +23,5 @@ public class RegistrationRequest {
     @NotBlank
     private String companyDescription;
 
-    @NotBlank
     private String companyWebsite;
 }

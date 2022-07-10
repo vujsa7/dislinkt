@@ -2,7 +2,7 @@ package com.dislinkt.verification.token.service;
 
 import com.dislinkt.exception.VerificationTokenInvalidException;
 import com.dislinkt.user.model.User;
-import com.dislinkt.verification.token.dao.VerificationTokenRepository;
+import com.dislinkt.verification.token.repository.VerificationTokenRepository;
 import com.dislinkt.verification.token.model.VerificationToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

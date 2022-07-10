@@ -119,6 +119,10 @@ a{
     color: color(green) !important;
 }
 
+.purple-text{
+    color: #673ab7;
+}
+
 .white-text{
     color: white;
 }
@@ -142,6 +146,16 @@ a{
 
 .text-align-center{
     text-align: center;
+}
+
+.error-message{
+    font-size: 14px !important;
+}
+
+.app-container{
+    border-radius: 7px;
+    padding: 30px;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.06);
 }
 
 .login-wrapper{

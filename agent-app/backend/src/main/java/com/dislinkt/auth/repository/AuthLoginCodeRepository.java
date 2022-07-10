@@ -1,4 +1,4 @@
-package com.dislinkt.auth.dao;
+package com.dislinkt.auth.repository;
 
 import com.dislinkt.auth.model.AuthLoginCode;
 import org.springframework.data.jpa.repository.JpaRepository;

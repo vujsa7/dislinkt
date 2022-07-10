@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value).subscribe(
         data => {
           this.authService.setToken(data.accessToken);
-          this.router.navigate(['/home']);
+          let role = this.authService.getTokenRole();
+          this.navigate(role);
         },
         error => {
           if (error.status == 401)
@@ -63,6 +64,18 @@ export class LoginComponent implements OnInit {
         }
       );
 
+    }
+  }
+
+  navigate(role: string) {
+    if (role == 'ROLE_USER') {
+      this.router.navigate(['/user']);
+    }
+    if (role == 'ROLE_ADMIN') {
+      this.router.navigate(['/admin']);
+    }
+    if (role == 'ROLE_COMPANY_OWNER') {
+      this.router.navigate(['/company-owner']);
     }
   }
 

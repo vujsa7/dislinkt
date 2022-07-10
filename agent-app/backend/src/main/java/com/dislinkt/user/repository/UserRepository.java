@@ -1,4 +1,4 @@
-package com.dislinkt.user.dao;
+package com.dislinkt.user.repository;
 
 import com.dislinkt.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,6 @@
 package com.dislinkt.user.service;
 
-import com.dislinkt.user.dao.RoleRepository;
+import com.dislinkt.user.repository.RoleRepository;
 import com.dislinkt.user.model.Role;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

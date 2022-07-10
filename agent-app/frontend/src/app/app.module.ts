@@ -17,6 +17,8 @@ import { UserComponent } from './pages/user/user.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CoreModule } from './core/core.module';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { CompanyRegistrationComponent } from './pages/user/company-registration/company-registration.component';
+import { RegistrationRequestsComponent } from './pages/admin/registration-requests/registration-requests.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     AdminComponent,
     UserComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    CompanyRegistrationComponent,
+    RegistrationRequestsComponent
   ],
   imports: [
     BrowserModule,

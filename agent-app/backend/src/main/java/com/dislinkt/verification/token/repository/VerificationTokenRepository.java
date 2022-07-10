@@ -1,4 +1,4 @@
-package com.dislinkt.verification.token.dao;
+package com.dislinkt.verification.token.repository;
 
 import com.dislinkt.verification.token.model.VerificationToken;
 import org.springframework.data.jpa.repository.JpaRepository;

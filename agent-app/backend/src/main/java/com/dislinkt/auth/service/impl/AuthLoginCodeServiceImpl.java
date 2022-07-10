@@ -1,9 +1,9 @@
 package com.dislinkt.auth.service.impl;
 
-import com.dislinkt.auth.dao.AuthLoginCodeRepository;
+import com.dislinkt.auth.repository.AuthLoginCodeRepository;
 import com.dislinkt.auth.model.AuthLoginCode;
 import com.dislinkt.auth.service.AuthLoginCodeService;
-import com.dislinkt.user.dao.UserRepository;
+import com.dislinkt.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

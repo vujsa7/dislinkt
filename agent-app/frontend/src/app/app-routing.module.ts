@@ -13,6 +13,7 @@ import { AdminGuard } from './core/guards/admin.guard';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CompanyOwnerGuard } from './core/guards/company-owner.guard';
 import { UserGuard } from './core/guards/user.guard';
+import { CompanyRegistrationComponent } from './pages/user/company-registration/company-registration.component';
 
 const routes: Routes = [
   { path: '404', component: NotFoundComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'user', canActivate: [AuthenticationGuard, UserGuard], component: UserComponent },
+  { path: 'company-registration', canActivate: [AuthenticationGuard, UserGuard], component: CompanyRegistrationComponent },
   { path: 'admin', canActivate: [AuthenticationGuard, AdminGuard], component: AdminComponent },
   { path: 'company-owner', canActivate: [AuthenticationGuard, CompanyOwnerGuard], component: CompanyOwnerComponent },
   { path: 'home', canActivate: [AuthenticationGuard], component: HomeComponent },

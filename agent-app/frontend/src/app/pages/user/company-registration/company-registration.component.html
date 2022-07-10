@@ -1,0 +1,32 @@
+<div class="d-flex flex-column justify-content-center page-wrapper">
+    <form [formGroup]="registerCompanyForm">
+        <div class="d-flex flex-column w-100 mb-3 mat-label" [ngClass]="{'red-text' : (registerCompanyForm.controls.companyName.touched && registerCompanyForm.controls.companyName.errors)}">
+            <mat-label for="companyName" class="me-2">Company name</mat-label>
+            <input id="companyName" type="text" name="companyName" formControlName="companyName" matInput>
+            <span class="error-message" *ngIf="registerCompanyForm.controls.companyName.touched && registerCompanyForm.controls.companyName.errors?.['required']">Company name cannot be empty.</span>
+        </div>
+        <div class="d-flex flex-column w-100 mb-3">
+            <mat-label for="companyWebsite" class="me-2">Website</mat-label>
+            <input id="companyWebsite" type="text" name="companyWebsite" formControlName="companyWebsite" matInput>
+        </div>
+        <div class="d-flex flex-column w-100 mb-3" [ngClass]="{'red-text' : (registerCompanyForm.controls.companyPhoneNumber.touched && registerCompanyForm.controls.companyPhoneNumber.errors)}">
+            <mat-label for="companyPhoneNumber" class="me-2">Phone number</mat-label>
+            <input id="companyPhoneNumber" type="text" name="companyPhoneNumber" formControlName="companyPhoneNumber" matInput>
+            <span class="error-message" *ngIf="registerCompanyForm.controls.companyPhoneNumber.touched && registerCompanyForm.controls.companyPhoneNumber.errors?.['required']">Phone number cannot be empty.</span>
+        </div>
+        <div class="d-flex flex-column w-100 mb-3" [ngClass]="{'red-text' : (registerCompanyForm.controls.companyAddress.touched && registerCompanyForm.controls.companyAddress.errors)}">
+            <mat-label for="companyAddress" class="me-2">Address</mat-label>
+            <input id="companyAddress" type="text" name="companyAddress" formControlName="companyAddress" matInput>
+            <span class="error-message" *ngIf="registerCompanyForm.controls.companyAddress.touched && registerCompanyForm.controls.companyAddress.errors?.['required']">Address cannot be empty.</span>
+        </div>
+        <div class="d-flex flex-column w-100 mb-3" [ngClass]="{'red-text' : (registerCompanyForm.controls.companyDescription.touched && registerCompanyForm.controls.companyDescription.errors)}">
+            <mat-label for="companyDescription" class="me-2">Description</mat-label>
+            <textarea id="companyDescription" type="text" name="companyDescription" formControlName="companyDescription" matInput></textarea>
+            <span class="error-message" *ngIf="registerCompanyForm.controls.companyDescription.touched && registerCompanyForm.controls.companyDescription.errors?.['required']">Description cannot be empty.</span>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button mat-raised-button [routerLink]="['/user']" class="me-3">Back to home page</button>
+            <button mat-raised-button color="primary" [disabled]="!registerCompanyForm.valid" (click)="onSubmit()">Send request</button>
+        </div>
+    </form>
+</div>

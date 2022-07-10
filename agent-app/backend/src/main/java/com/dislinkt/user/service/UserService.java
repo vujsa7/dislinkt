@@ -4,7 +4,7 @@ import com.dislinkt.email.model.Email;
 import com.dislinkt.email.service.EmailService;
 import com.dislinkt.exception.UserNotFoundException;
 import com.dislinkt.exception.UsernameAlreadyExistsException;
-import com.dislinkt.user.dao.UserRepository;
+import com.dislinkt.user.repository.UserRepository;
 import com.dislinkt.user.model.User;
 import com.dislinkt.verification.token.model.VerificationToken;
 import com.dislinkt.verification.token.service.VerificationTokenService;

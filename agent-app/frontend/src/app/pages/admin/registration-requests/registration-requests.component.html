@@ -1,0 +1,25 @@
+<div class="d-flex flex-column">
+    <div class="d-flex flex-row justify-content-between mb-4 app-container" *ngFor="let request of requests">
+        <div class="d-flex flex-column w-20">
+            <span class="purple-text">Company name:</span>
+            <span>{{ request.name }}</span>
+            <br>
+            <span class="purple-text">Website:</span>
+            <a>{{ request.website }}</a>
+        </div>
+        <div class="d-flex flex-column w-20">
+            <span class="purple-text">Phone number:</span>
+            <span>{{ request.phoneNumber }}</span>
+            <br>
+            <span class="purple-text">Address:</span>
+            <span>{{ request.address }}</span>
+        </div>
+        <div class="d-flex flex-column w-25">
+            <span class="purple-text">Description:</span>
+            <span>{{ request.description }}</span>
+        </div>
+        <div class="d-flex align-items-end">
+            <button mat-raised-button color="primary" (click)="approve(request.id)">Approve</button>
+        </div>
+    </div>
+</div>

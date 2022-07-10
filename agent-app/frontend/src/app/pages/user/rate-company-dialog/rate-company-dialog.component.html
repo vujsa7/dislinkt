@@ -1,0 +1,24 @@
+<div class="d-flex flex-column justify-content-center">
+    <form [formGroup]="rateCompanyForm">
+        <div class="d-flex flex-column w-100 mb-3">
+            <mat-label for="points" class="me-2">Points</mat-label>
+            <input id="points" type="number" name="points" formControlName="points" matInput>
+        </div>
+        <div class="d-flex flex-column w-100 mb-3">
+            <mat-label for="salary" class="me-2">Salary</mat-label>
+            <input id="salary" type="number" name="salary" formControlName="salary" matInput>
+        </div>
+        <div class="d-flex flex-column w-100 mb-3">
+            <mat-label for="comment" class="me-2">Comment</mat-label>
+            <textarea id="comment" type="text" name="comment" formControlName="comment" matInput></textarea>
+        </div>
+        <div class="d-flex flex-column w-100 mb-3">
+            <mat-label for="selectionProcess" class="me-2">Selection process</mat-label>
+            <textarea id="selectionProcess" type="text" name="selectionProcess" formControlName="selectionProcess" matInput></textarea>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button mat-raised-button class="me-3" (click)="close()">Close</button>
+            <button mat-raised-button color="primary" (click)="onSubmit()">Rate</button>
+        </div>
+    </form>
+</div>

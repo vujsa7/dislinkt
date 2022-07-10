@@ -1,9 +1,9 @@
 package com.dislinkt.company.controller;
 
-import com.dislinkt.company.dto.CompaniesResponse;
-import com.dislinkt.company.dto.RegistrationRequest;
-import com.dislinkt.company.dto.RegistrationRequestsResponse;
+import com.dislinkt.company.dto.*;
+import com.dislinkt.company.model.CompanyRating;
 import com.dislinkt.company.model.CompanyRegistrationRequest;
+import com.dislinkt.company.service.CompanyRatingService;
 import com.dislinkt.company.service.CompanyRegistrationRequestService;
 import com.dislinkt.company.service.CompanyService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +24,7 @@ public class CompanyController {
 
     private final CompanyService companyService;
     private final CompanyRegistrationRequestService companyRegistrationRequestService;
+    private final CompanyRatingService companyRatingService;
 
     @PostMapping("/company-registration-requests")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -68,6 +69,27 @@ public class CompanyController {
     public ResponseEntity<CompaniesResponse> getMyCompanies(Principal principal) {
         return new ResponseEntity<>(CompaniesResponse.builder()
                 .companies(companyService.getAll(principal.getName()))
+                .build(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/companies/{id}/ratings")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<Void> rate(@PathVariable UUID id, @RequestBody CompanyRatingRequest request) {
+        companyRatingService.saveRating(CompanyRating.builder()
+                .comment(request.getComment())
+                .points(request.getPoints())
+                .salary(request.getSalary())
+                .selectionProcess(request.getSelectionProcess())
+                .company(companyService.getById(id))
+                .build());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/companies/{id}/ratings")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<CompanyRatingsResponse> getRatings(@PathVariable UUID id) {
+        return new ResponseEntity<>(CompanyRatingsResponse.builder()
+                .ratings(companyRatingService.getAll(id))
                 .build(), HttpStatus.OK);
     }
 }

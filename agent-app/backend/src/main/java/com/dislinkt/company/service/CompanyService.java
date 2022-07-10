@@ -2,6 +2,7 @@ package com.dislinkt.company.service;
 
 import com.dislinkt.company.model.Company;
 import com.dislinkt.company.repository.CompanyRepository;
+import com.dislinkt.exception.CompanyNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,5 +24,10 @@ public class CompanyService {
     @Transactional(readOnly = true, rollbackFor = Throwable.class)
     public List<Company> getAll(String ownerEmail) {
         return companyRepository.findAllByOwnerEmail(ownerEmail);
+    }
+
+    @Transactional(readOnly = true, rollbackFor = Throwable.class)
+    public Company getById(UUID id) {
+        return companyRepository.findById(id).orElseThrow(CompanyNotFoundException::new);
     }
 }

@@ -20,6 +20,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CompanyRegistrationComponent } from './pages/user/company-registration/company-registration.component';
 import { RegistrationRequestsComponent } from './pages/admin/registration-requests/registration-requests.component';
 import { CompanyOwnerComponent } from './pages/company-owner/company-owner.component';
+import { RatingsComponent } from './pages/user/ratings/ratings.component';
+import { RateCompanyDialogComponent } from './pages/user/rate-company-dialog/rate-company-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { CompanyOwnerComponent } from './pages/company-owner/company-owner.compo
     HomeComponent,
     NotFoundComponent,
     CompanyRegistrationComponent,
-    RegistrationRequestsComponent
+    RegistrationRequestsComponent,
+    RatingsComponent,
+    RateCompanyDialogComponent
   ],
   imports: [
     BrowserModule,

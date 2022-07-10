@@ -20,7 +20,7 @@
         </div>
         <div class="d-flex align-items-end">
             <button mat-raised-button color="primary" *ngIf="role == 'ROLE_COMPANY_OWNER'">Edit</button>
-            <button mat-raised-button color="primary" *ngIf="role == 'ROLE_USER'">Comment</button>
+            <button mat-raised-button color="primary" *ngIf="role == 'ROLE_USER'" (click)="showRatings(company.id)">Ratings</button>
         </div>
     </div>
 </div>

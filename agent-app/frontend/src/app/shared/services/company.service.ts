@@ -32,4 +32,12 @@ export class CompanyService {
   getMyCompanies(): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'my-companies', { headers: this.authService.getHeader() });
   }
+
+  postRating(rating: any, companyId: string): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'companies/' + companyId + '/ratings', rating, { headers: this.authService.getHeader() });
+  }
+
+  getAllRatings(companyId: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'companies/' + companyId + '/ratings', { headers: this.authService.getHeader() });
+  }
 }

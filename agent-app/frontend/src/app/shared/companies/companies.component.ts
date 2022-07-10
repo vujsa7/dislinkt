@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/authentication/auth.service';
 import { CompanyService } from '../services/company.service';
 
@@ -12,7 +13,7 @@ export class CompaniesComponent implements OnInit {
   role: string = '';
   companies: any;
 
-  constructor(private authService: AuthService, private companyService: CompanyService) { }
+  constructor(private authService: AuthService, private companyService: CompanyService, private router: Router) { }
 
   ngOnInit(): void {
     this.role = this.authService.getTokenRole();
@@ -29,6 +30,10 @@ export class CompaniesComponent implements OnInit {
           this.companies = data.companies;
       })
     }
+  }
+
+  showRatings(companyId: string) {
+    this.router.navigate(['ratings', companyId]);
   }
 
 }
